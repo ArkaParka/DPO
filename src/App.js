@@ -1,5 +1,5 @@
 import './App.css';
-import AuthorizationButton from "./components/AuthorizationButton";
+import AuthorizationButton from "./components/AuthorizationButton/AuthorizationButton";
 
 function App() {
   return (
