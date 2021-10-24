@@ -2,11 +2,6 @@
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;
@@ -14,7 +9,7 @@
 }
 
 .App-header {
-  background-color: #282c34;
+  background-color: #EAF1FE;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -24,10 +19,6 @@
   color: white;
 }
 
-.App-link {
-  color: #61dafb;
-}
-
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
@@ -35,4 +26,63 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+.authorization-button {
+  border: none;
+  border-radius: 10px;
+  background-color: white;
+  width: 248px;
+  height: 61px;
+  color: #465FDD;
+
+  display: flex;
+  align-items: center;
+  box-shadow: 0 21px 22px -13px rgba(62, 84, 216, .22);
+  padding: 1rem 1.5rem;
+  justify-content: center;
+  line-height: 1.5;
+}
+
+.authorization-button:hover {
+  /*animation: App-logo-spin 1 .5s linear;*/
+}
+
+.authorization-button-icon {
+  background-color: #3e54d878;
+  width: 15.4px;
+  height: 15.4px;
+  margin-right: .5rem;
+  display: flex;
+  align-items: center;
+}
+
+.authorization-btn-links a {
+  border-bottom: 1px solid transparent;
+  color: #3e54d8;
+  font-size: 18px;
+  text-decoration: none;
+  -webkit-transition: .3s ease-in-out;
+  transition: .3s ease-in-out;
+}
+
+.authorization-btn-links a:hover {
+  border-color: #3e54d8;
+}
+
+.authorization-btn-links a:not(:last-child) {
+  margin-right: 1rem;
+  position: relative;
+}
+
+.authorization-btn-links a:not(:last-child):after {
+  background-color: #3e54d8;
+  content: "";
+  height: 70%;
+  position: absolute;
+  right: -.5rem;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+  transform: translateY(-50%);
+  width: 2px;
 }
