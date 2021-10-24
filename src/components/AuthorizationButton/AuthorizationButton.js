@@ -36,7 +36,7 @@ function AuthorizationButton(props) {
 
     const openModal = (e) => {
         let newData = {};
-        if (e.target.id == 'modal_reg') {
+        if (e.target.id === 'modal_reg') {
             newData.fields = [
                 {value: 'Имя', name: 'firstName'},
                 {value: 'Фамилия', name: 'lastName'},
