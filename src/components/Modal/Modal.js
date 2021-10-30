@@ -1,7 +1,7 @@
 import './Modal.scss';
 import ModalContentGroup from "./ModalContentGroup/ModalContentGroup";
-import React, {useState} from "react";
-
+import React, {useState, useEffect} from "react";
+import cl from 'classnames';
 
 function Modal(props) {
     const title = props.data.title;
@@ -13,128 +13,128 @@ function Modal(props) {
         lastName: "",
         username: "",
         password: "",
+        password_confirmation: "",
+        email: "",
         emailConfirmed: false,
     });
-    const [password2, changePassword2] = useState();
+    const [password_has_error, isPasswordHasError] = useState(true);
+    const [isError, setIsError] = useState(false);
 
-    const onChangeName = (event) => {
-        changeUserState({...user, firstName: event.target.value});
-    }
+    const onFieldChange = (event) => {
+        switch(event.target.name){
+            case 'firstName':
+                changeUserState({...user, firstName: event.target.value});
+                break;
+            case 'lastName':
+                changeUserState({...user, lastName: event.target.value});
+                break;
+            case 'username':
+                changeUserState({...user, username: event.target.value});
+                break;
+            case 'email':
+                changeUserState({...user, email: event.target.value});
+                break;
+            case 'password':
+                changeUserState({...user, password: event.target.value});
+                break;
+            case 'password_confirmation':
+                changeUserState({...user, password_confirmation: event.target.value});
+                break;
+        }
 
-    const onChangeLastName = (event) => {
-        changeUserState({...user, lastName: event.target.value});
-    }
-
-    const onChangeUsername = (event) => {
-        changeUserState({...user, username: event.target.value});
-    }
-
-    const onChangeEmail = (event) => {
-        changeUserState({...user, email: event.target.value});
-    }
-
-    const onChangePassword = (event) => {
-        changeUserState({...user, password: event.target.value});
-    }
-
-    const onChangePassword2 = (event) => {
-        changePassword2(event.target.value);
     }
 
     const handleCloseModal = () => {
-        props.onSubmit({isOpen: false, userData: null, isRegistration: isRegistration});
+        props.onSubmit({isOpen: false, userData: null, isRegistration: null});
     }
 
-    const handleSubmitForm = () => {
-        props.onSubmit({isOpen: false, userData: user, isRegistration: isRegistration});
+    const handleSubmitForm = (e) => {
+        e.preventDefault();
+        let emptyFieldOnReg = Object.keys(user).find(field => (user[field]).toString().trim() === "");
+        let emptyFieldOnAuth = (user.username === '' || user.password === '');
+
+        if (isRegistration) {
+            if (!emptyFieldOnReg && !password_has_error) {
+                setIsError(false);
+                props.onSubmit({isOpen: false, userData: user, isRegistration: isRegistration});
+                setTimeout(showMessage, 1000);
+            }
+            else {
+                setIsError(true);
+            }
+        }
+        else if (!emptyFieldOnAuth) {
+            props.onSubmit({isOpen: false, userData: user, isRegistration: isRegistration});
+        }
+        else {
+            setIsError(true);
+        }
+    }
+
+    const showMessage = () => {
+        alert(`На ${user.email} мы отправили письмо с подтверждением.`);
     }
 
     const confirmPassword = () => {
-        // user.password;
+        if(!user.password || user.password.length < 6 || user.password !== user.password_confirmation) {
+            isPasswordHasError(true);
+        }
+        else {
+            isPasswordHasError(false);
+        }
     }
+
+    const handleOpenAuthModal = () => {
+        props.onOpenAuthModal({isOpen: true, event: 'modal_auth'});
+    }
+
+    useEffect(() => {
+        confirmPassword();
+    }, [user.password, user.password_confirmation]);
 
     return (
         <div className="modal">
-            <div className="modal-overlay" onClick={handleCloseModal}></div>
-            <div className="modal-container">
-                <div className="modal modal-header">
+            <div className={cl('modal-overlay')} onClick={handleCloseModal}></div>
+            <div
+                className={cl( 'modal-container')}
+            >
+                <div className={cl('modal modal-header')}>
                     <h2>{title}</h2>
                 </div>
                 <form
-                    className="modal-content"
-                    method="post"
-                    action="https://ocelot.local.dev/api/Users/register"
+                    className={cl( 'modal-content', { error: isError})}
                     id="registerForm"
                     onSubmit={handleSubmitForm}
                 >
                     {
-                        isRegistration && (
-                            <>
-                                <ModalContentGroup
-                                    label={fields.firstName.label}
-                                    input={fields.firstName.input}
-                                    value={user.firstName}
-                                    onInputChange={onChangeName}
-                                    message={fields.firstName.message}
-                                />
-
-                                <ModalContentGroup
-                                    label={fields.lastName.label}
-                                    input={fields.lastName.input}
-                                    value={user.lastName}
-                                    onInputChange={onChangeLastName}
-                                    message={fields.lastName.message}
-                                />
-
-                                <ModalContentGroup
-                                    label={fields.email.label}
-                                    input={fields.email.input}
-                                    value={user.email}
-                                    onInputChange={onChangeEmail}
-                                    message={fields.email.message}
-                                />
-                            </>
-                        )
-                    }
-
-                    <ModalContentGroup
-                        label={fields.username.label}
-                        input={fields.username.input}
-                        value={user.username}
-                        onInputChange={onChangeUsername}
-                        message={fields.username.message}
-                    />
-
-                    <ModalContentGroup
-                        label={fields.password.label}
-                        input={fields.password.input}
-                        value={user.password}
-                        onInputChange={onChangePassword}
-                        message={fields.password.message}
-                    />
-
-                    {
-                        isRegistration && (
+                        fields.map(field =>
                             <ModalContentGroup
-                                label={fields.password2.label}
-                                input={fields.password2.input}
-                                value={password2}
-                                onInputChange={onChangePassword2}
-                                message={fields.password2.message}
+                                label={field.label}
+                                input={field.input}
+                                value={user[field.input.name]}
+                                onInputChange={onFieldChange}
+                                message={field.message}
                             />
                         )
                     }
 
-
                     <ModalContentGroup isError={true} />
 
-                    <div className="modal-content-btn">
-                        <button className="btn btn_blue">{btnText}</button>
+                    <div className={cl('modal-content-btn')}>
+                        <button className={cl('btn btn_blue')}>{btnText}</button>
                     </div>
                     {
                         isRegistration && (
-                            <div className="modal-content-link">
-                                <span>Уже есть аккаунт? <strong data-changemodal="modal_auth">Авторизироваться</strong></span>
+                            <div className={cl('modal-content-link')}>
+                                <span>
+                                    Уже есть аккаунт?
+                                    <strong
+                                        data-changemodal="modal_auth"
+                                        onClick={handleOpenAuthModal}
+                                    >
+                                        Авторизироваться
+                                    </strong>
+                                </span>
                             </div>
                         )
                     }

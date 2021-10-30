@@ -11,8 +11,6 @@ function App() {
         setIsLogged(isAuthorize);
     }
 
-    onLogin();
-
   return (
     <div className="App">
       { !isLogged && <UnauthorizedUserHomePage onAuthorize={handleAuthorizationUser} /> }

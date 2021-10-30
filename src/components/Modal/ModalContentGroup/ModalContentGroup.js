@@ -1,20 +1,21 @@
 import './ModalContentGroup.scss';
+import cl from "classnames";
 
 function ModalContentGroup(props) {
     const {label, input, message, isError, value} = props;
 
     return (
-        <div className="modal-content-group error">
+        <div className={cl('modal-content-group error')}>
             {
-                isError ? <div className="modal-content-group-error"><p>Ошибка</p></div> :
+                isError ? <div className={cl('modal-content-group-error')}><p>Ошибка</p></div> :
                 (
                     <>
-                        <div className="modal-content-group-label">
+                        <div className={cl('modal-content-group-label')}>
                             <h4>{label.title}</h4>
                             <span>{label.message}</span>
                         </div>
 
-                        <div className="modal-content-group-input">
+                        <div className={cl('modal-content-group-input')}>
                             <input
                                 value={value}
                                 onChange={props.onInputChange}
@@ -25,7 +26,7 @@ function ModalContentGroup(props) {
                             />
                         </div>
 
-                        <div className="modal-content-group-message">
+                        <div className={cl('modal-content-group-message')}>
                             <span>{message}</span>
                         </div>
                     </>

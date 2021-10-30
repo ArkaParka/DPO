@@ -3,6 +3,7 @@ import Modal from "../Modal/Modal";
 import React, {useState} from "react";
 import {authModalData, regModalData} from "../../App.const";
 import {onLogin, onRegister} from "../../App.utils";
+import cl from "classnames";
 
 function UnauthorizedUserHomePage(props) {
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -21,6 +22,7 @@ function UnauthorizedUserHomePage(props) {
     }
 
     const handleModalSubmit = ({isOpen, userData, isRegistration}) => {
+        console.log('userData', userData);
         setIsModalOpen(isOpen);
         if (isRegistration && userData) {
             onRegister(userData)
@@ -39,11 +41,11 @@ function UnauthorizedUserHomePage(props) {
     }
 
     return (
-        <div className='home-page'>
-            <header className='section-header'>
+        <div className={cl('home-page')}>
+            <header className={cl('section-header')}>
                 <AuthorizationButton onAuthorization={handleAuthorization} />
             </header>
-            { isModalOpen && <Modal onSubmit={handleModalSubmit} data={modalData} /> }
+            { isModalOpen && <Modal onOpenAuthModal={handleAuthorization} onSubmit={handleModalSubmit} data={modalData} /> }
         </div>
     )
 }

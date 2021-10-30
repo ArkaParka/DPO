@@ -22,27 +22,29 @@ const config = {
 export const onLogin = async () => {
     // await mgr.signinRedirect();
     // console.log('mgr', mgr);
+    return true;
 };
 
 
 export const onRegister = async (userData) => {
-    const access_token = 'Bearer ';
-
-    try {
-        const response = await fetch('https://ocelot.local.dev/api/Users/register', {
-            method: 'POST',
-            headers: {
-                'Accept': 'application/json',
-                'Authorization': access_token,
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                user: userData
-            })
-        });
-        const data = await response.json();
-        console.log('data', data);
-    } catch (err) {
-        throw new Error('Регистрация пользователя не произошла.', err)
-    }
+    // const access_token = 'Bearer ';
+    //
+    // try {
+    //     const response = await fetch('https://ocelot.local.dev/api/Users/register', {
+    //         method: 'POST',
+    //         headers: {
+    //             'Accept': 'application/json',
+    //             'Authorization': access_token,
+    //             'Content-Type': 'application/json',
+    //         },
+    //         body: JSON.stringify({
+    //             user: userData
+    //         })
+    //     });
+    //     const data = await response.json();
+    //     console.log('data', data);
+    // } catch (err) {
+    //     throw new Error('Регистрация пользователя не произошла.', err)
+    // }
+    return true;
 };
