@@ -18,8 +18,7 @@ function App() {
     <div className="App">
       <header className="App-header">
           <AuthorizationButton />
-          {/*{ isModalOpen && <Modal data={data} /> }*/}
-          <Modal data={data} />
+          { isModalOpen && <Modal data={data} /> }
       </header>
     </div>
   );
