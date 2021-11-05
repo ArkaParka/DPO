@@ -1,5 +1,6 @@
 import './AuthorizationButton.scss';
 import cl from "classnames";
+import {BsFillPersonFill} from "react-icons/all";
 
 
 function AuthorizationButton(props) {
@@ -10,9 +11,7 @@ function AuthorizationButton(props) {
     return (
     <button className={cl('authorization-button')}>
         <div className={cl('authorization-button-icon')}>
-            <svg>
-                {/*<use xlink:href="/landing/img/main.svg#icon-user"></use>*/}
-            </svg>
+            <BsFillPersonFill />
         </div>
         <div className={cl('authorization-btn-links')}>
             <a href="#" id="modal_auth" onClick={openModal}>Вход</a>

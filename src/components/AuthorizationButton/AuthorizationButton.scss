@@ -20,12 +20,14 @@
 }
 
 .authorization-button-icon {
-  background-color: #3e54d878;
-  width: 15.4px;
-  height: 15.4px;
   margin-right: .5rem;
   display: flex;
   align-items: center;
+}
+
+.authorization-button-icon svg{
+  height: auto;
+  width: 1.5em;
 }
 
 .authorization-btn-links a {

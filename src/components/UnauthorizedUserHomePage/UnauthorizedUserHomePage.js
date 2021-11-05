@@ -4,6 +4,14 @@ import React, {useState} from "react";
 import {authModalData, regModalData} from "../../App.const";
 import {onLogin, onRegister} from "../../App.utils";
 import cl from "classnames";
+import Home from './Home/Home';
+import Courses from './Courses/Courses';
+import {
+    BrowserRouter as Router,
+    Switch,
+    Route,
+    Link
+} from "react-router-dom";
 
 function UnauthorizedUserHomePage(props) {
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -26,14 +34,18 @@ function UnauthorizedUserHomePage(props) {
         setIsModalOpen(isOpen);
         if (isRegistration && userData) {
             onRegister(userData)
-                .catch(() => { console.log('ERROR'); })
+                .catch(() => {
+                    console.log('ERROR');
+                })
                 .then(() => {
                     props.onAuthorize(true);
                 });
         }
         if (!isRegistration && userData) {
             onLogin(userData)
-                .catch(() => { console.log('ERROR'); })
+                .catch(() => {
+                    console.log('ERROR');
+                })
                 .then(() => {
                     props.onAuthorize(true);
                 });
@@ -42,10 +54,26 @@ function UnauthorizedUserHomePage(props) {
 
     return (
         <div className={cl('home-page')}>
-            <header className={cl('section-header')}>
-                <AuthorizationButton onAuthorization={handleAuthorization} />
-            </header>
-            { isModalOpen && <Modal onOpenAuthModal={handleAuthorization} onSubmit={handleModalSubmit} data={modalData} /> }
+            <Router>
+                <div>
+                    <header className={cl('section-header')}>
+                        <Link className={cl('item')} to='/'>Home</Link>
+                        <Link className={cl('item')} to='/courses'>Courses</Link>
+                        <AuthorizationButton onAuthorization={handleAuthorization}/>
+                    </header>
+                    {isModalOpen &&
+                    <Modal onOpenAuthModal={handleAuthorization} onSubmit={handleModalSubmit} data={modalData}/>}
+
+                    <Switch>
+                        <Route path="/courses">
+                            <Courses/>
+                        </Route>
+                        <Route path="/">
+                            <Home/>
+                        </Route>
+                    </Switch>
+                </div>
+            </Router>
         </div>
     )
 }
