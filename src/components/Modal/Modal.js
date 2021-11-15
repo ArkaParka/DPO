@@ -107,8 +107,9 @@ function Modal(props) {
                     onSubmit={handleSubmitForm}
                 >
                     {
-                        fields.map(field =>
+                        fields.map((field, i) =>
                             <ModalContentGroup
+                                key={i}
                                 label={field.label}
                                 input={field.input}
                                 value={user[field.input.name]}

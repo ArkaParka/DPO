@@ -1,12 +1,17 @@
+export const randomInteger = (max) => {
+    let rand = -0.5 + Math.random() * max;
+    return Math.round(rand);
+}
+
 // import * as Oidc from '../node_modules/oidc-client';
-const config = {
-    authority: "https://identity-server.local.dev",
-    client_id: "react-client",
-    redirect_uri: "https://web.local.dev/callback.html",
-    response_type: "code",
-    scope:"any_api",
-    post_logout_redirect_uri: "https://web.local.dev/index.html"
-};
+// const config = {
+//     authority: "https://identity-server.local.dev",
+//     client_id: "react-client",
+//     redirect_uri: "https://web.local.dev/callback.html",
+//     response_type: "code",
+//     scope:"any_api",
+//     post_logout_redirect_uri: "https://web.local.dev/index.html"
+// };
 
 // const mgr = new Oidc.UserManager(config);
 
@@ -19,10 +24,43 @@ const config = {
 //     }
 // });
 
-export const onLogin = async () => {
-    // await mgr.signinRedirect();
-    // console.log('mgr', mgr);
-    return true;
+function getQueryVariable(variable) {
+    const query = window.location.search.substring(1);
+    const vars = query.split('&');
+    for (let i = 0; i < vars.length; i++) {
+        let pair = vars[i].split('=');
+        if (decodeURIComponent(pair[0]) == variable) {
+            return decodeURIComponent(pair[1]);
+        }
+    }
+}
+
+export const onLogin = async (userData) => {
+    const returnUrl = getQueryVariable('ReturnUrl');
+    const username = userData.username;
+    const password = userData.password;
+
+    // call the API
+    const response = await fetch('https://identity-server.local.dev/Account/Login',
+        {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            credentials: 'include',
+            body: JSON.stringify({
+                username,
+                password,
+                returnUrl
+            })
+        });
+
+    const data = await response.json();
+
+    console.log('data on logIn', data);
+    if (data && data.isOk) {
+        //  window.location = data.redirectUrl;
+    }
 };
 
 

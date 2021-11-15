@@ -1,21 +1,27 @@
-import './App.css';
+import './App.scss';
 
-import React, {useState} from "react";
-import UnauthorizedUserHomePage from "./components/UnauthorizedUserHomePage/UnauthorizedUserHomePage";
-import {onLogin} from "./App.utils";
+import React, {useState, useEffect} from "react";
+import { Route } from 'react-router';
+import Home from "./components/Home/Home";
+import {useAuth} from "./context/AuthContext";
+import {Layout} from "./components/Layout/Layout";
 
 function App() {
-    const [isLogged, setIsLogged] = useState(false);
+    const { isAuthenticated, login, logout } = useAuth();
 
-    const handleAuthorizationUser = (isAuthorize) => {
-        setIsLogged(isAuthorize);
-    }
+    useEffect(() => {
+        console.log('isAuthenticated', isAuthenticated);
+    });
 
-  return (
-    <div className="App">
-      { !isLogged && <UnauthorizedUserHomePage onAuthorize={handleAuthorizationUser} /> }
-    </div>
-  );
+    return (
+        <Layout>
+            <Route exact path='/' component={Home} />
+            {/*<Route path='/fetch-data' component={isAuthenticated ? () => { return <FetchData /> } : () => { login(); return null; }}/>*/}
+            {/*<Route path='/user' component={isAuthenticated ? () => { return <User /> } : () => { login(); return null; }} />*/}
+            <Route path='/login' component={() => { login(); return null }} />
+            <Route path='/logout' component={() => { logout(); return null }}></Route>
+        </Layout>
+    );
 }
 
 export default App;

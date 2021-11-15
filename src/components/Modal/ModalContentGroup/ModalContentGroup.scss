@@ -21,16 +21,16 @@
       }
     }
 
-    .input_text {
-      background-color: #fcfdff;
-      border: 1px solid #d3e3ff;
-      border-radius: .5rem;
-      outline: none;
-      padding: .8rem 1.3rem;
-      transition: .3s ease-in-out;
-      width: 100%;
-      font-size: inherit;
-    }
+    //.input {
+    //  background-color: #fcfdff;
+    //  border: 1px solid #d3e3ff;
+    //  border-radius: .5rem;
+    //  outline: none;
+    //  padding: .8rem 1.3rem;
+    //  transition: .3s ease-in-out;
+    //  width: 100%;
+    //  font-size: inherit;
+    //}
 
     &-message {
       display: none;
@@ -53,7 +53,7 @@
 
       &-group.error {
         .modal-content-group {
-          &-input .input_text {
+          &-input .input {
             border-color: #ed6373;
           }
 

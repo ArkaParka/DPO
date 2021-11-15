@@ -22,7 +22,7 @@ function ModalContentGroup(props) {
                                 name={input.name}
                                 type={input.type}
                                 placeholder={input.placeholder}
-                                className="input_text"
+                                className="input"
                             />
                         </div>
 

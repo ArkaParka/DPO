@@ -5,12 +5,13 @@ import {BsFillPersonFill} from "react-icons/all";
 
 function AuthorizationButton(props) {
     const openModal = (e) => {
+        e.preventDefault();
         props.onAuthorization({isOpen: true, event: e.target.id})
     };
 
     return (
-    <button className={cl('authorization-button')}>
-        <div className={cl('authorization-button-icon')}>
+    <button className={cl('authorization-btn')}>
+        <div className={cl('authorization-btn-icon')}>
             <BsFillPersonFill />
         </div>
         <div className={cl('authorization-btn-links')}>

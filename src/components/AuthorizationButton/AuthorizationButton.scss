@@ -1,5 +1,4 @@
-.authorization-button {
-  margin: 2em 4em 0 0;
+.authorization-btn {
   border: none;
   border-radius: 10px;
   background-color: white;
@@ -15,17 +14,17 @@
   line-height: 1.5;
 }
 
-.authorization-button:hover {
+.authorization-btn:hover {
   /*animation: App-logo-spin 1 .5s linear;*/
 }
 
-.authorization-button-icon {
+.authorization-btn-icon {
   margin-right: .5rem;
   display: flex;
   align-items: center;
 }
 
-.authorization-button-icon svg{
+.authorization-btn-icon svg{
   height: auto;
   width: 1.5em;
 }
