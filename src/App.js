@@ -1,10 +1,11 @@
 import './App.scss';
 
-import React, {useState, useEffect} from "react";
+import React, { useEffect } from "react";
 import { Route } from 'react-router';
 import Home from "./components/Home/Home";
-import {useAuth} from "./context/AuthContext";
-import {Layout} from "./components/Layout/Layout";
+import { useAuth } from "./context/AuthContext";
+import { Layout } from "./components/Layout/Layout";
+import Courses from "./components/Courses/Courses";
 
 function App() {
     const { isAuthenticated, login, logout } = useAuth();
@@ -16,7 +17,7 @@ function App() {
     return (
         <Layout>
             <Route exact path='/' component={Home} />
-            {/*<Route path='/fetch-data' component={isAuthenticated ? () => { return <FetchData /> } : () => { login(); return null; }}/>*/}
+            <Route exact path='/courses' component={Courses} />
             {/*<Route path='/user' component={isAuthenticated ? () => { return <User /> } : () => { login(); return null; }} />*/}
             <Route path='/login' component={() => { login(); return null }} />
             <Route path='/logout' component={() => { logout(); return null }}></Route>

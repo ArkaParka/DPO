@@ -3,27 +3,6 @@ export const randomInteger = (max) => {
     return Math.round(rand);
 }
 
-// import * as Oidc from '../node_modules/oidc-client';
-// const config = {
-//     authority: "https://identity-server.local.dev",
-//     client_id: "react-client",
-//     redirect_uri: "https://web.local.dev/callback.html",
-//     response_type: "code",
-//     scope:"any_api",
-//     post_logout_redirect_uri: "https://web.local.dev/index.html"
-// };
-
-// const mgr = new Oidc.UserManager(config);
-
-// mgr.getUser().then(function (user) {
-//     if (user) {
-//         console.log("User logged in", user.profile);
-//     }
-//     else {
-//         console.log("User not logged in");
-//     }
-// });
-
 function getQueryVariable(variable) {
     const query = window.location.search.substring(1);
     const vars = query.split('&');
@@ -40,7 +19,6 @@ export const onLogin = async (userData) => {
     const username = userData.username;
     const password = userData.password;
 
-    // call the API
     const response = await fetch('https://identity-server.local.dev/Account/Login',
         {
             method: 'POST',

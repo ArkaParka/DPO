@@ -6,13 +6,13 @@ import CardText from "./CardText/CardText";
 import CardBtn from "./CardBtn/CardBtn";
 
 function CoursesCard(props) {
-    const {colour, cours} = props;
+    const {colour, course} = props;
 
     return (
         <div className={cl('card', colour)}>
-            <CardStats coursStats={cours.stats} />
-            <CardTitle coursName={cours.name} />
-            <CardText coursText={cours.text} />
+            <CardStats courseStats={course.stats} />
+            <CardTitle courseName={course.name} />
+            <CardText courseText={course.text} />
             <CardBtn />
         </div>
     );

@@ -1,12 +1,12 @@
 import cl from "classnames";
 
 function CardText(props) {
-    const {coursText} = props;
+    const {courseText} = props;
 
     return (
         <div className={cl('card-text')}>
             <p>
-                {coursText}
+                {courseText}
                 {/*Глубокая аналитика вашего портфеля<br/>*/}
                 {/*- любое количество стратегий и портфелей<br/>*/}
                 {/*- акции, etf, облигации, криптовалюта более 70 000 инструментов<br/>*/}

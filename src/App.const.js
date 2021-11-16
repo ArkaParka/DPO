@@ -65,28 +65,28 @@ export const defaultUser = {
 
 export const colours = ['blue', 'green', 'red', 'yellow'];
 
-export const coursName = 'Название курса';
-export const longCoursName = 'Очень очень очень и очень длинное название курса';
+export const courseName = 'Название курса';
+export const longCourseName = 'Очень очень очень и очень длинное название курса';
 export const statHourValue = '16ч';
 export const statCountValue = 4;
-export const coursText = '\nГлубокая аналитика вашего портфеля\n- любое количество стратегий и портфелей\n- акции, etf, облигации, криптовалюта более 70 000 инструментов\n- идеально для долгосрочных инвесторов\n\n*Автоматическое продление бесплатного тарифа каждые 365 дней\nГлубокая аналитика вашего портфеля\n- любое количество стратегий и портфелей\n- акции, etf, облигации, криптовалюта более 70 000 инструментов\n- идеально для долгосрочных инвесторов\n\n*Автоматическое продление бесплатного тарифа каждые 365 дней';
+export const courseText = '\nГлубокая аналитика вашего портфеля\n- любое количество стратегий и портфелей\n- акции, etf, облигации, криптовалюта более 70 000 инструментов\n- идеально для долгосрочных инвесторов\n\n*Автоматическое продление бесплатного тарифа каждые 365 дней\nГлубокая аналитика вашего портфеля\n- любое количество стратегий и портфелей\n- акции, etf, облигации, криптовалюта более 70 000 инструментов\n- идеально для долгосрочных инвесторов\n\n*Автоматическое продление бесплатного тарифа каждые 365 дней';
 
-export const cours_1 = {
-    name: coursName,
+export const course_1 = {
+    name: courseName,
     stats: {
         hour: statHourValue,
         count: statCountValue,
     },
-    text: coursText,
+    text: courseText,
 }
 
-export const cours_2 = {
-    name: longCoursName,
+export const course_2 = {
+    name: longCourseName,
     stats: {
         hour: statHourValue,
         count: statCountValue,
     },
-    text: coursText,
+    text: courseText,
 }
 
-export const courses = [cours_1, cours_1, cours_2, cours_2, cours_1, cours_1, cours_1];
+export const courses = [course_1, course_1, course_2, course_2, course_1, course_1, course_1];

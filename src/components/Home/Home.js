@@ -1,121 +1,12 @@
-import AuthorizationButton from "../AuthorizationButton/AuthorizationButton";
-import Modal from "../Modal/Modal";
-import React, {useState} from "react";
-import {authModalData, regModalData} from "../../App.const";
-import {onLogin, onRegister} from "../../App.utils";
+import React from "react";
 import cl from "classnames";
-import Statistics from '../Statistics/Statistics';
-import Courses from '../Courses/Courses';
-import {
-    BrowserRouter as Router,
-    Switch,
-    Route,
-    Link
-} from "react-router-dom";
-import {FaRegFontAwesomeLogoFull} from "react-icons/all";
 
 function Home(props) {
-    const [isModalOpen, setIsModalOpen] = useState(false);
-    const [modalData, setModalData] = useState(regModalData);
-    const [activeHomeClass, setActiveHomeClass] = useState(true);
-    const [activeCoursesClass, setActiveCoursesClass] = useState(false);
-
-    const handleAuthorization = ({isOpen, event}) => {
-        setIsModalOpen(isOpen);
-        switch (event) {
-            case 'modal_reg':
-                setModalData(regModalData);
-                break;
-            case 'modal_auth':
-                setModalData(authModalData);
-                let href = window.location.href + '/auth/login';
-                window.history.pushState(null, null, href);
-                break;
-        }
-    }
-
-    const handleModalSubmit = ({isOpen, userData, isRegistration}) => {
-        console.log('userData', userData);
-        setIsModalOpen(isOpen);
-        if (isRegistration && userData) {
-            onRegister(userData)
-                .catch(() => {
-                    console.log('ERROR');
-                })
-                .then(() => {
-                    console.log('you are logged in');
-                });
-        }
-        if (!isRegistration && userData) {
-            onLogin(userData)
-                .catch((e) => {
-                    console.log('ERROR', e);
-                })
-                .then(() => {
-                    console.log('you are logged in');
-                });
-        }
-    }
-
-    const handleMenuItemClick = (e) => {
-        switch (e.target.id){
-            case 'home':
-                setActiveHomeClass(true);
-                setActiveCoursesClass(false);
-                break;
-            case 'courses':
-                setActiveCoursesClass(true);
-                setActiveHomeClass(false);
-                break;
-
-        }
-    }
-
-    return (
+        return (
         <div className={cl('home-page')}>
-            <Router>
-                <div>
-                    <header className={cl('section-outer', 'section-header')}>
-                        <div className={cl('section-inner', 'header')}>
-                            <div className={cl('header-logo')}>
-                                <a className={cl('logo')} href='/'>
-                                    <FaRegFontAwesomeLogoFull />
-                                </a>
-                            </div>
-                            <div className={cl('header-controls')}>
-                                <nav className={cl('header-controls-links')}>
-                                    <ul className={cl('menu')}>
-                                        <li className={cl('menu-item', {active: activeHomeClass})}>
-                                            <Link id='home' className={cl('item')} to='/' onClick={handleMenuItemClick}>Главная</Link>
-                                        </li>
-                                        <li className={cl('menu-item', {active: activeCoursesClass})}>
-                                            <Link id='courses' className={cl('item')} to='/courses' onClick={handleMenuItemClick}>Курсы</Link>
-                                        </li>
-                                    </ul>
-                                </nav>
-                            </div>
-                            <div className={cl('header-operation')}>
-                                <AuthorizationButton onAuthorization={handleAuthorization}/>
-                            </div>
-                        </div>
-                    </header>
-                    <section className={cl('section-outer')}>
-                        {isModalOpen &&
-                        <Modal onOpenAuthModal={handleAuthorization} onSubmit={handleModalSubmit} data={modalData}/>}
-
-                        <div className={cl('body-content')}>
-                            <Switch>
-                                <Route path="/courses">
-                                    <Courses/>
-                                </Route>
-                                <Route path="/">
-                                    <Statistics/>
-                                </Route>
-                            </Switch>
-                        </div>
-                    </section>
-                </div>
-            </Router>
+            <section className={cl('section-outer')}>
+                <h1>HOME</h1>
+            </section>
         </div>
     )
 }
