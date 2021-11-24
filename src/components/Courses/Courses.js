@@ -1,11 +1,14 @@
 import React from 'react';
 import cl from "classnames";
 import './Courses.scss';
-import CoursesCard from "./CoursesCard/CoursesCard";
-import {colours, courses } from "../../App.const";
-import {randomInteger} from "../../App.utils";
+import {colours, courses, coursesFilters} from "../../App.const";
+import {useAuth} from "../../context/AuthContext";
+import Filters from "../Filters/Filters";
+import CoursesCards from "./CoursesCards/CoursesCards";
 
 function Courses() {
+    const { isAuthenticated } = useAuth();
+
     return (
         <div className={cl('courses')}>
             <div className={cl('courses-search')}>
@@ -14,15 +17,9 @@ function Courses() {
                     Искать
                 </button>
             </div>
-            <div className={cl('courses-cards')}>
-                {
-                    courses
-                        .map((course, i) => {
-                            let item = randomInteger(4);
-                                return <CoursesCard course={course} colour={colours[item]} key={i} />;
-                            }
-                        )
-                }
+            <div className={cl('courses-content')}>
+                { isAuthenticated && <Filters filters={coursesFilters}/> }
+                <CoursesCards />
             </div>
         </div>
     );

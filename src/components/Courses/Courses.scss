@@ -1,6 +1,13 @@
 .courses {
   height: 100%;
 
+  &-content {
+    grid-gap: 1.5rem;
+    grid-template-columns: 1fr 4fr;
+    padding-bottom: 4rem;
+    display: grid;
+  }
+
   &-header {
     color: #24252e;
     font-size: 2em;

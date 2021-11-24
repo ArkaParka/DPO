@@ -90,3 +90,14 @@ export const course_2 = {
 }
 
 export const courses = [course_1, course_1, course_2, course_2, course_1, course_1, course_1];
+
+export const coursesFilters = [
+    {
+        title: 'Специальность',
+        data: ['Программная инженерия', 'Информатика и вычислительная техника', 'Экономика'],
+    },
+    {
+        title: 'Курс',
+        data: [1, 2, 3, 4, 5, 6],
+    },
+];

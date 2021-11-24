@@ -5,7 +5,7 @@ export const useAuth = () => useContext(AuthContext);
 export const AuthProvider = ({
     children
 }) => {
-    const [isAuthenticated, setIsAuthenticated] = useState();
+    const [isAuthenticated, setIsAuthenticated] = useState(true);
     const [user, setUser] = useState();
     const [isLoading, setIsLoading] = useState(false);
 
