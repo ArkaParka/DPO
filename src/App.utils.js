@@ -21,6 +21,7 @@ export const onLogin = async (userData) => {
 
     const response = await fetch('https://identity-server.local.dev/Account/Login',
         {
+            mode: 'no-cors',
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -35,9 +36,8 @@ export const onLogin = async (userData) => {
 
     const data = await response.json();
 
-    console.log('data on logIn', data);
     if (data && data.isOk) {
-        //  window.location = data.redirectUrl;
+         window.location = data.redirectUrl;
     }
 };
 

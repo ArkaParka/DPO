@@ -1,7 +1,7 @@
 import React from 'react';
 import cl from "classnames";
 import './Courses.scss';
-import {colours, courses, coursesFilters} from "../../App.const";
+import { coursesFilters} from "../../App.const";
 import {useAuth} from "../../context/AuthContext";
 import Filters from "../Filters/Filters";
 import CoursesCards from "./CoursesCards/CoursesCards";
@@ -17,7 +17,7 @@ function Courses() {
                     Искать
                 </button>
             </div>
-            <div className={cl('courses-content')}>
+            <div className={cl('courses-content', {'one-column': !isAuthenticated})}>
                 { isAuthenticated && <Filters filters={coursesFilters}/> }
                 <CoursesCards />
             </div>

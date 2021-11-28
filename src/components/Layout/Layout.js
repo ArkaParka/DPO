@@ -30,18 +30,12 @@ export const Layout = (props) => {
             onRegister(userData)
                 .catch((e) => {
                     console.log('ERROR', e);
-                })
-                .then(() => {
-                    console.log('you are logged in');
                 });
         }
         if (!isRegistration && userData) {
             onLogin(userData)
                 .catch((e) => {
                     console.log('ERROR', e);
-                })
-                .then(() => {
-                    console.log('you are logged in');
                 });
         }
     }
