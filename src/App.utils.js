@@ -1,4 +1,5 @@
 import {useState} from "react";
+import {courses as coursesList} from "./App.const";
 
 export const randomInteger = (max) => {
     let rand = -0.5 + Math.random() * max;
@@ -73,13 +74,18 @@ export const CheckFilters = (filters, newFilter) => {
         .concat(newFilter);
 };
 
-export const SortFilters = (filters) => {
-    let name, course;
+export const SortByFilters = (courses, filters) => {
+    let name, year;
     filters.forEach(f => {
         switch (f.name) {
             case 'Специальность': name = f.value; break;
-            case 'Курс': course = f.value; break;
+            case 'Курс': year = f.value; break;
         }
     });
-    return {name, course};
+
+    return courses.filter(course => {
+            return ((name && course.name) ? course.name === name : true) &&
+                ((year && course.year) ? course.year == year : true);
+        }
+    );
 };

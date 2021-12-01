@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import cl from "classnames";
 import './Filters.scss';
 import Filter from "./Filter/Filter";

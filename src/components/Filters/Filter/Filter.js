@@ -2,7 +2,6 @@ import React, {useState, useEffect} from 'react';
 import cl from "classnames";
 import './Filter.scss';
 import FilterSelect from "../FilterSelect/FilterSelect";
-import {FiltersNotInclude} from "../../../App.utils";
 
 function Filter({ title, options, onAddFilter }) {
     const [filter, setFilter] = useState();
