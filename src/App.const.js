@@ -65,8 +65,8 @@ export const defaultUser = {
 
 export const colours = ['blue', 'green', 'red', 'yellow'];
 
-export const courseName = 'Название курса';
-export const longCourseName = 'Очень очень очень и очень длинное название курса';
+export const courseName = 'Экономика';
+export const longCourseName = 'Информатика и вычислительная техника';
 export const statHourValue = '16ч';
 export const statCountValue = 4;
 export const courseText = '\nГлубокая аналитика вашего портфеля\n- любое количество стратегий и портфелей\n- акции, etf, облигации, криптовалюта более 70 000 инструментов\n- идеально для долгосрочных инвесторов\n\n*Автоматическое продление бесплатного тарифа каждые 365 дней\nГлубокая аналитика вашего портфеля\n- любое количество стратегий и портфелей\n- акции, etf, облигации, криптовалюта более 70 000 инструментов\n- идеально для долгосрочных инвесторов\n\n*Автоматическое продление бесплатного тарифа каждые 365 дней';
@@ -94,10 +94,12 @@ export const courses = [course_1, course_1, course_2, course_2, course_1, course
 export const coursesFilters = [
     {
         title: 'Специальность',
-        data: ['Программная инженерия', 'Информатика и вычислительная техника', 'Экономика'],
+        options: ['Программная инженерия', 'Информатика и вычислительная техника', 'Экономика'],
+        selected: '',
     },
     {
         title: 'Курс',
-        data: [1, 2, 3, 4, 5, 6],
+        options: [1, 2, 3, 4, 5, 6],
+        selected: '',
     },
 ];

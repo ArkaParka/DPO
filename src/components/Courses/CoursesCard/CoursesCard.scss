@@ -10,6 +10,7 @@
   position: relative;
   transition: .3s ease-in-out;
   text-align: start;
+  max-height: 500px;
 
   &:hover {
     box-shadow: 0 18px 16px -13px rgba(62, 84, 216, .22);

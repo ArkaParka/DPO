@@ -1,10 +1,18 @@
 import React from 'react';
 import cl from "classnames";
-import {colours, courses} from "../../../App.const";
-import {randomInteger} from "../../../App.utils";
+import {colours, courses as coursesList} from "../../../App.const";
+import {randomInteger, SortFilters} from "../../../App.utils";
 import CoursesCard from "../CoursesCard/CoursesCard";
 
-function CoursesCards() {
+function CoursesCards({filters}) {
+    let { name, course } = SortFilters(filters);
+    filters.forEach(f => {
+        switch (f.name) {
+            case 'Специальность': name = f.value; break;
+            case 'Курс': course = f.value; break;
+        }
+    });
+    let courses = coursesList.filter(course => name ? course.name === name : true);
     return (
         <div className={cl('courses-cards')}>
             {

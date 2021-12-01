@@ -1,3 +1,5 @@
+import {useState} from "react";
+
 export const randomInteger = (max) => {
     let rand = -0.5 + Math.random() * max;
     return Math.round(rand);
@@ -63,4 +65,21 @@ export const onRegister = async (userData) => {
     //     throw new Error('Регистрация пользователя не произошла.', err)
     // }
     return true;
+};
+
+export const CheckFilters = (filters, newFilter) => {
+    return filters
+        .filter(filter => filter.name !== newFilter.name)
+        .concat(newFilter);
+};
+
+export const SortFilters = (filters) => {
+    let name, course;
+    filters.forEach(f => {
+        switch (f.name) {
+            case 'Специальность': name = f.value; break;
+            case 'Курс': course = f.value; break;
+        }
+    });
+    return {name, course};
 };

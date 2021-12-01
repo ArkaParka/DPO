@@ -1,13 +1,19 @@
-import React from 'react';
+import React, { useState } from 'react';
 import cl from "classnames";
 import './Courses.scss';
-import { coursesFilters} from "../../App.const";
-import {useAuth} from "../../context/AuthContext";
+import { useAuth } from "../../context/AuthContext";
 import Filters from "../Filters/Filters";
 import CoursesCards from "./CoursesCards/CoursesCards";
+import {CheckFilters} from "../../App.utils";
 
 function Courses() {
     const { isAuthenticated } = useAuth();
+    const [filters, setFilters] = useState([]);
+
+    function handleFilterAdd(newFilter) {
+        let newFilters = CheckFilters(filters, newFilter);
+        setFilters(newFilters);
+    }
 
     return (
         <div className={cl('courses')}>
@@ -18,8 +24,8 @@ function Courses() {
                 </button>
             </div>
             <div className={cl('courses-content', {'one-column': !isAuthenticated})}>
-                { isAuthenticated && <Filters filters={coursesFilters}/> }
-                <CoursesCards />
+                { isAuthenticated && <Filters filters={filters} onAddFilter={handleFilterAdd}/> }
+                <CoursesCards filters={filters} />
             </div>
         </div>
     );
