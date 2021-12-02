@@ -11,4 +11,17 @@
   .input {
     font-size: 20px;
   }
+
+  &-btn {
+    .btn{
+      background-color: #3e54d8;
+      font-size: 0.9em;
+      padding: 1.3rem;
+      margin-top: 1em;
+    }
+
+    .btn:hover {
+      background-color: #2c41bc;
+    }
+  }
 }

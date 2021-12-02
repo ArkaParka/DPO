@@ -4,7 +4,7 @@ import './Filters.scss';
 import Filter from "./Filter/Filter";
 import { coursesFilters as filtersConfig } from "../../App.const";
 
-function Filters({ onAddFilter, filters }) {
+function Filters({ onAddFilter, filters, onClearFilters }) {
     return (
         <div className={cl('filters')}>
             {
@@ -12,6 +12,9 @@ function Filters({ onAddFilter, filters }) {
                     return <Filter selectedFilters={filters} onAddFilter={onAddFilter} key={i} title={filter.title} options={filter.options} />;
                 })
             }
+            <div className={cl('filters-btn')}>
+                <button className={cl('btn')} onClick={() => onClearFilters()}>Сбросить фильтры</button>
+            </div>
         </div>
     );
 }

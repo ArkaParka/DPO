@@ -109,3 +109,12 @@ body {
   width: 100%;
   font-size: inherit;
 }
+
+.btn {
+  color: #fff;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  border: 1px solid transparent;
+  font-weight: 600;
+  transition: 0.3s ease-in-out;
+}

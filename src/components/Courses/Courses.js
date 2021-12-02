@@ -15,6 +15,10 @@ function Courses() {
         setFilters(newFilters);
     }
 
+    function handleFiltersClear() {
+        setFilters([]);
+    }
+
     return (
         <div className={cl('courses')}>
             <div className={cl('courses-search')}>
@@ -23,8 +27,8 @@ function Courses() {
                     Искать
                 </button>
             </div>
-            <div className={cl('courses-content', {'one-column': !isAuthenticated})}>
-                { isAuthenticated && <Filters filters={filters} onAddFilter={handleFilterAdd}/> }
+            <div className={cl('courses-content')}>
+                <Filters onClearFilters={handleFiltersClear}  filters={filters} onAddFilter={handleFilterAdd}/>
                 <CoursesCards filters={filters} />
             </div>
         </div>
