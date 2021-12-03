@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Container } from 'reactstrap';
 import { NavMenu } from '../NavMenu/NavMenu';
 import cl from "classnames";
@@ -6,7 +6,9 @@ import {authModalData, regModalData} from "../../App.const";
 import {onLogin, onRegister} from "../../App.utils";
 import Modal from "../Modal/Modal";
 
-export const Layout = (props) => {
+export const { Provider, Consumer } = React.createContext({ openModal: null });
+
+export const Layout = ({children}) => {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [modalData, setModalData] = useState(regModalData);
 
@@ -46,9 +48,12 @@ export const Layout = (props) => {
             <Container className={cl('body-content')}>
                 <div>
                     { isModalOpen && <Modal onOpenAuthModal={handleAuthorization} onSubmit={handleModalSubmit} data={modalData}/> }
-                    { props.children }
+                    <Provider value={{openModal: handleAuthorization}}>
+                        { children }
+                    </Provider>
                 </div>
             </Container>
         </div>
     );
 }
+

@@ -3,10 +3,10 @@ import cl from "classnames";
 import {BsFillPersonFill} from "react-icons/all";
 
 
-function AuthorizationButton(props) {
+function AuthorizationButton({onAuthorization}) {
     const openModal = (e) => {
         e.preventDefault();
-        props.onAuthorization({isOpen: true, event: e.target.id})
+        onAuthorization({isOpen: true, event: e.target.id})
     };
 
     return (

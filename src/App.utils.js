@@ -84,8 +84,9 @@ export const SortByFilters = (courses, filters) => {
     });
 
     return courses.filter(course => {
-            return ((name && course.name) ? course.name === name : true) &&
-                ((year && course.year) ? course.year == year : true);
+            return (
+                ((name && course.name) ? (course.name === name || course.name.toLowerCase().includes(name.toLowerCase())) : true) &&
+                ((year && course.year) ? course.year == year : true));
         }
     );
 };

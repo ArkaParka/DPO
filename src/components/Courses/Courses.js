@@ -11,6 +11,13 @@ function Courses() {
     const [filters, setFilters] = useState([]);
 
     function handleFilterAdd(newFilter) {
+        if (newFilter.target) {
+            newFilter = {
+                name: 'Специальность',
+                value: newFilter.target.value,
+            };
+        }
+
         let newFilters = CheckFilters(filters, newFilter);
         setFilters(newFilters);
     }
@@ -22,7 +29,7 @@ function Courses() {
     return (
         <div className={cl('courses')}>
             <div className={cl('courses-search')}>
-                <input className="input" placeholder='Искать курс...'/>
+                <input className="input" onChange={handleFilterAdd}  placeholder='Искать курс...'/>
                 <button className="btn" type="button">
                     Искать
                 </button>

@@ -4,9 +4,8 @@ import { useAuth } from "../../context/AuthContext";
 import cl from "classnames";
 import {FaRegFontAwesomeLogoFull} from "react-icons/all";
 import AuthorizationButton from "../AuthorizationButton/AuthorizationButton";
-// import './NavMenu.css';
 
-export const NavMenu = (props) => {
+export const NavMenu = ({onOpenAuthModal}) => {
     const { isAuthenticated } = useAuth();
 
     return (
@@ -30,7 +29,7 @@ export const NavMenu = (props) => {
                     </nav>
                 </div>
                 <div className={cl('header-operation')}>
-                    { !isAuthenticated && <AuthorizationButton  onAuthorization={props.onOpenAuthModal}/> }
+                    { !isAuthenticated && <AuthorizationButton  onAuthorization={onOpenAuthModal}/> }
                 </div>
             </div>
         </header>
