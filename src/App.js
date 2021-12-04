@@ -19,7 +19,7 @@ function App() {
         <Layout>
             <Route exact path='/' component={Home} />
             <Route exact path='/courses' component={Courses} />
-            <Route exact path='/course' component={Course} />
+            <Route exact path='/courses/course' component={Course} />
             {/*<Route path='/user' component={isAuthenticated ? () => { return <User /> } : () => { login(); return null; }} />*/}
             <Route path='/login' component={() => { login(); return null }} />
             <Route path='/logout' component={() => { logout(); return null }}></Route>

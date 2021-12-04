@@ -13,7 +13,7 @@ function CoursesCard({colour, course}) {
             id='course'
             className={cl('card', colour)}
             to={{
-                pathname: '/course',
+                pathname: 'courses/course',
                 data: course,
             }}
         >
