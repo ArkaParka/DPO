@@ -4,15 +4,24 @@ import CardStats from "./CardStats/CardStats";
 import CardTitle from "./CardTitle/CardTitle";
 import CardText from "./CardText/CardText";
 import CardBtn from "./CardBtn/CardBtn";
+import {Link} from "react-router-dom";
+import React from "react";
 
-function CoursesCard({colour, course, onOpenAuthModal}) {
+function CoursesCard({colour, course}) {
     return (
-        <div className={cl('card', colour)}>
-            <CardStats courseStats={course.stats} />
-            <CardTitle courseName={course.name} />
-            <CardText courseText={course.text} />
-            <CardBtn />
-        </div>
+        <Link
+            id='course'
+            className={cl('card', colour)}
+            to={{
+                pathname: '/course',
+                data: course,
+            }}
+        >
+            <CardStats courseStats={course.stats}/>
+            <CardTitle courseName={course.name}/>
+            <CardText courseText={course.text}/>
+            <CardBtn/>
+        </Link>
     );
 }
 

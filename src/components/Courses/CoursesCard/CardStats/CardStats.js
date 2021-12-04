@@ -3,8 +3,7 @@ import cl from "classnames";
 import Stat from "./Stat/Stat";
 import {IoMdTime, IoPeopleOutline} from "react-icons/all";
 
-function CardStats(props) {
-    const {courseStats} = props;
+function CardStats({courseStats}) {
     const timeIcon = <IoMdTime />;
     const peopleIcon = <IoPeopleOutline />;
 

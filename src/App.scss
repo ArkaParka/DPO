@@ -53,13 +53,14 @@ body {
 }
 
 .menu {
-  background-color: #6495ed0d;
-  border-bottom: 8px solid #6495ed4f;
   display: flex;
-  padding: 0.2em 2em;
-  border-radius: 2em;
 
   &-item {
+    background-color: #6495ed0d;
+    border-bottom: 8px solid #6495ed4f;
+    padding: 0.2em 2em;
+    border-radius: 2em;
+
     font-size: .95em;
   }
 
@@ -104,7 +105,6 @@ body {
 .body-content {
   height: 100vh;
   max-width: 1420px;
-  //padding: 40px 80px;
   margin: 0 auto;
 }
 
@@ -126,4 +126,8 @@ body {
   border: 1px solid transparent;
   font-weight: 600;
   transition: 0.3s ease-in-out;
+}
+
+.section-outer {
+  display: flex;
 }

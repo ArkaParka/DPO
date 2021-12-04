@@ -6,6 +6,7 @@ import Home from "./components/Home/Home";
 import { useAuth } from "./context/AuthContext";
 import { Layout } from "./components/Layout/Layout";
 import Courses from "./components/Courses/Courses";
+import Course from "./components/Course/Course";
 
 function App() {
     const { isAuthenticated, login, logout } = useAuth();
@@ -18,6 +19,7 @@ function App() {
         <Layout>
             <Route exact path='/' component={Home} />
             <Route exact path='/courses' component={Courses} />
+            <Route exact path='/course' component={Course} />
             {/*<Route path='/user' component={isAuthenticated ? () => { return <User /> } : () => { login(); return null; }} />*/}
             <Route path='/login' component={() => { login(); return null }} />
             <Route path='/logout' component={() => { logout(); return null }}></Route>
