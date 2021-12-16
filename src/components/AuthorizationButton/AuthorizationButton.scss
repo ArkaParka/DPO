@@ -2,9 +2,9 @@
   border: none;
   border-radius: 10px;
   background-color: white;
-  width: 248px;
+  width: 260px;
   height: 61px;
-  color: #465FDD;
+  color: #000;
 
   display: flex;
   align-items: center;
@@ -12,49 +12,45 @@
   padding: 1rem 1.5rem;
   justify-content: center;
   line-height: 1.5;
-}
 
-.authorization-btn:hover {
-  /*animation: App-logo-spin 1 .5s linear;*/
-}
+  &-icon {
+    margin-right: .5rem;
+    display: flex;
+    align-items: center;
 
-.authorization-btn-icon {
-  margin-right: .5rem;
-  display: flex;
-  align-items: center;
-}
+    svg{
+      height: auto;
+      width: 1.5em;
+    }
+  }
 
-.authorization-btn-icon svg{
-  height: auto;
-  width: 1.5em;
-}
+  &-links a {
+    border-bottom: 1px solid transparent;
+    color: #000;
+    font-weight: 500;
+    font-size: 18px;
+    text-decoration: none;
+    transition: .3s ease-in-out;
 
-.authorization-btn-links a {
-  border-bottom: 1px solid transparent;
-  color: #3e54d8;
-  font-size: 18px;
-  text-decoration: none;
-  -webkit-transition: .3s ease-in-out;
-  transition: .3s ease-in-out;
-}
+    &:hover {
+      border-color:  #737373;
+    }
 
-.authorization-btn-links a:hover {
-  border-color: #3e54d8;
-}
+    &:not(:last-child) {
+      margin-right: 1rem;
+      position: relative;
 
-.authorization-btn-links a:not(:last-child) {
-  margin-right: 1rem;
-  position: relative;
-}
-
-.authorization-btn-links a:not(:last-child):after {
-  background-color: #3e54d8;
-  content: "";
-  height: 70%;
-  position: absolute;
-  right: -.5rem;
-  top: 50%;
-  -webkit-transform: translateY(-50%);
-  transform: translateY(-50%);
-  width: 2px;
+      &:after {
+        background-color:  #000;
+        content: "";
+        height: 70%;
+        position: absolute;
+        right: -.5rem;
+        top: 50%;
+        -webkit-transform: translateY(-50%);
+        transform: translateY(-50%);
+        width: 2px;
+      }
+    }
+  }
 }

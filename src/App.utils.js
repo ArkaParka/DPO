@@ -24,7 +24,6 @@ export const onLogin = async (userData) => {
 
     const response = await fetch('https://identity-server.local.dev/Account/Login',
         {
-            mode: 'no-cors',
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -37,10 +36,13 @@ export const onLogin = async (userData) => {
             })
         });
 
-    const data = await response.json();
+    console.log('response', response);
+    const data = await response;
+        // .json();
 
-    if (data && data.isOk) {
-         window.location = data.redirectUrl;
+    if (data && data.ok) {
+        console.log('OK');
+         window.location = 'https://web.local.dev/';
     }
 };
 
@@ -68,25 +70,53 @@ export const onRegister = async (userData) => {
     return true;
 };
 
-export const CheckFilters = (filters, newFilter) => {
+export const AddNewFilter = (filters, newFilter) => {
     return filters
         .filter(filter => filter.name !== newFilter.name)
         .concat(newFilter);
 };
 
 export const SortByFilters = (courses, filters) => {
-    let name, year;
+    let name;
     filters.forEach(f => {
         switch (f.name) {
             case 'Специальность': name = f.value; break;
-            case 'Курс': year = f.value; break;
         }
     });
 
     return courses.filter(course => {
             return (
                 ((name && course.name) ? (course.name === name || course.name.toLowerCase().includes(name.toLowerCase())) : true) &&
-                ((year && course.year) ? course.year == year : true));
+                true);
         }
     );
 };
+
+export const setSelectedOption = (options, callback) => {
+    if (options.data) {
+        localStorage.setItem('courseName', options.data.name);
+        localStorage.setItem('courseText', options.data.text);
+        localStorage.setItem('courseStatsHour', options.data.stats.hour);
+        localStorage.setItem('courseStatsCount', options.data.stats.count);
+
+        callback({
+            name: options.data.name,
+            stats: {
+                hour: options.data.stats.hour,
+                count: options.data.stats.count,
+            },
+            text: options.data.text,
+        });
+    }
+    else if ( localStorage.getItem('courseName')) {
+        callback({
+            name: localStorage.getItem('courseName'),
+            stats: {
+                hour: localStorage.getItem('courseStatsHour'),
+                count: localStorage.getItem('courseStatsCount'),
+            },
+            text: localStorage.getItem('courseText'),
+        });
+    }
+
+}

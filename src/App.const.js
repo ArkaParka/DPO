@@ -74,7 +74,6 @@ export const courseText = '\nГлубокая аналитика вашего п
 
 export const course_1 = {
     name: courseName2,
-    year: 3,
     stats: {
         hour: statHourValue,
         count: statCountValue,
@@ -84,7 +83,6 @@ export const course_1 = {
 
 export const course_2 = {
     name: longCourseName,
-    year: 2,
     stats: {
         hour: statHourValue,
         count: statCountValue,
@@ -94,7 +92,6 @@ export const course_2 = {
 
 export const course_3 = {
     name: courseName,
-    year: 1,
     stats: {
         hour: statHourValue,
         count: statCountValue,
@@ -108,9 +105,5 @@ export const coursesFilters = [
     {
         title: 'Специальность',
         options: ['Программная инженерия', 'Информатика и вычислительная техника', 'Экономика'],
-    },
-    {
-        title: 'Курс',
-        options: [1, 2, 3, 4, 5, 6],
     },
 ];

@@ -7,11 +7,11 @@ import CardBtn from "./CardBtn/CardBtn";
 import {Link} from "react-router-dom";
 import React from "react";
 
-function CoursesCard({colour, course}) {
+function CoursesCard({course}) {
     return (
         <Link
             id='course'
-            className={cl('card', colour)}
+            className={cl('card', 'green')}
             to={{
                 pathname: 'courses/course',
                 data: course,

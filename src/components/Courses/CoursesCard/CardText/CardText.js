@@ -1,4 +1,5 @@
 import cl from "classnames";
+import './CardText.scss';
 
 function CardText(props) {
     const {courseText} = props;

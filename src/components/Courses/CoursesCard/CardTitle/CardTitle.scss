@@ -1,0 +1,11 @@
+.card-title h3 {
+  color: #222;
+  font-size: 1.77rem;
+  margin-right: 0.3rem;
+
+  -webkit-line-clamp: 2;
+
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}

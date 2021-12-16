@@ -1,0 +1,14 @@
+.card-btn {
+  margin-top: auto;
+
+  .green {
+    box-shadow: 0px 21px 22px -13px rgba(62, 84, 216, .51);
+    font-size: 1rem;
+    padding: 1.5rem 3rem;
+  }
+
+  .green:hover {
+    background-color: #4cc319;
+    transform: scale(.95);
+  }
+}

@@ -4,8 +4,9 @@ import { useAuth } from "../../context/AuthContext";
 import cl from "classnames";
 import {FaRegFontAwesomeLogoFull} from "react-icons/all";
 import AuthorizationButton from "../AuthorizationButton/AuthorizationButton";
+import './Header.scss';
 
-export const NavMenu = ({onOpenAuthModal}) => {
+export const Header = ({onOpenAuthModal}) => {
     const { isAuthenticated } = useAuth();
 
     return (

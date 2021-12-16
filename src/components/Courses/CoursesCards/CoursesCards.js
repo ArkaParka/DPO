@@ -3,6 +3,7 @@ import cl from "classnames";
 import {colours, courses as coursesList} from "../../../App.const";
 import {randomInteger, SortByFilters} from "../../../App.utils";
 import CoursesCard from "../CoursesCard/CoursesCard";
+import './CoursesCards.scss';
 
 function CoursesCards({filters}) {
     let courses = SortByFilters(coursesList, filters);

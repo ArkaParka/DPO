@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Container } from 'reactstrap';
-import { NavMenu } from '../NavMenu/NavMenu';
+import { Header } from '../Header/Header';
 import cl from "classnames";
-import {authModalData, regModalData} from "../../App.const";
-import {onLogin, onRegister} from "../../App.utils";
+import { authModalData, regModalData } from "../../App.const";
+import { onLogin, onRegister } from "../../App.utils";
 import Modal from "../Modal/Modal";
+import './Layout.scss';
 
 export const { Provider, Consumer } = React.createContext({ openModal: null });
 
@@ -43,17 +44,17 @@ export const Layout = ({children}) => {
     }
 
     return (
-        <div>
-            <NavMenu onOpenAuthModal={handleAuthorization} />
+        <>
+            <Header onOpenAuthModal={handleAuthorization} />
             <Container className={cl('body-content')}>
-                <div>
+                <>
                     { isModalOpen && <Modal onOpenAuthModal={handleAuthorization} onSubmit={handleModalSubmit} data={modalData}/> }
                     <Provider value={{openModal: handleAuthorization}}>
                         { children }
                     </Provider>
-                </div>
+                </>
             </Container>
-        </div>
+        </>
     );
 }
 

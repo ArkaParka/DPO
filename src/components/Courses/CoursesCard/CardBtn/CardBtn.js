@@ -1,5 +1,6 @@
 import cl from "classnames";
 import { Consumer } from '../../../Layout/Layout.js'
+import './CardBtn.scss';
 
 function CardBtn() {
     const onOpenModal = (value) => {
@@ -13,7 +14,7 @@ function CardBtn() {
                     value =>
                         <button
                             onClick={() => {onOpenModal(value)}}
-                            className="btn btn_courses active"
+                            className={cl('btn', 'green')}
                         >
                             Записаться
                         </button>}

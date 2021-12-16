@@ -1,0 +1,13 @@
+.card-text {
+  margin: 2.2rem 0;
+  color: #24252e;
+  font-size: .9rem;
+  line-height: 1.6;
+
+  p {
+    -webkit-line-clamp: 7;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+}

@@ -1,7 +1,8 @@
 import './Stat/Stat.scss';
 import cl from "classnames";
 import Stat from "./Stat/Stat";
-import {IoMdTime, IoPeopleOutline} from "react-icons/all";
+import { IoMdTime, IoPeopleOutline } from "react-icons/all";
+import './CardStats.scss';
 
 function CardStats({courseStats}) {
     const timeIcon = <IoMdTime />;

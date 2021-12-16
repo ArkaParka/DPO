@@ -1,5 +1,6 @@
 import React from "react";
 import cl from "classnames";
+import './Home.scss';
 
 function Home(props) {
         return (

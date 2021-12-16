@@ -1,13 +1,10 @@
 import React, { useState } from 'react';
 import cl from "classnames";
 import './Courses.scss';
-import { useAuth } from "../../context/AuthContext";
-import Filters from "../Filters/Filters";
 import CoursesCards from "./CoursesCards/CoursesCards";
-import {CheckFilters} from "../../App.utils";
+import {AddNewFilter} from "../../App.utils";
 
 function Courses() {
-    const { isAuthenticated } = useAuth();
     const [filters, setFilters] = useState([]);
 
     function handleFilterAdd(newFilter) {
@@ -18,24 +15,24 @@ function Courses() {
             };
         }
 
-        let newFilters = CheckFilters(filters, newFilter);
+        let newFilters = AddNewFilter(filters, newFilter);
         setFilters(newFilters);
     }
 
-    function handleFiltersClear() {
-        setFilters([]);
-    }
+    // function handleFiltersClear() {
+    //     setFilters([]);
+    // }
 
     return (
         <div className={cl('courses')}>
             <div className={cl('courses-search')}>
-                <input className="input" onChange={handleFilterAdd}  placeholder='Искать курс...'/>
-                <button className="btn" type="button">
+                <input className={cl('input')} onChange={handleFilterAdd}  placeholder='Искать курс...'/>
+                <button className={cl('btn', 'green')} type="button">
                     Искать
                 </button>
             </div>
             <div className={cl('courses-content')}>
-                <Filters onClearFilters={handleFiltersClear}  filters={filters} onAddFilter={handleFilterAdd}/>
+                {/*<Filters onClearFilters={handleFiltersClear}  filters={filters} onAddFilter={handleFilterAdd}/>*/}
                 <CoursesCards filters={filters} />
             </div>
         </div>
