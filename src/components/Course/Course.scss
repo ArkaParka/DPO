@@ -1,21 +1,24 @@
 @import "../../StyleConstants";
 
 .course {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: 2fr 4fr;
+  letter-spacing: .3px;
 
   &-title {
-    padding-left: 1em;
+    background-color: $blue-color;
+    padding: 70px 48px 48px 48px;
+    color: $white;
+
     position: relative;
     width: 100%;
-    margin-top: 1em;
-    color: $blue-color;
     font-weight: 500;
     display: flex;
     align-items: baseline;
 
     .name {
-      font-size: 2em;
+      margin: 0 0 16px;
+      font-size: 34px;
     }
 
     .year {
@@ -25,16 +28,33 @@
     }
 
     .stats {
+      margin: 0 0 16px;
       position: relative;
       top: .5em;
+
+      .stat {
+        color: $white;
+      }
     }
   }
 
-  &-description .section{
-    background-color: $white;
-    font-size: 1.3em;
-    margin-top: 1em;
-    padding: 2em;
-    border-radius: 20px;
+  &-description {
+    padding-top: 50px;
+
+    .content-block {
+      background-color: $white;
+      font-size: 1.3em;
+      padding: 0 8em 0 3em;
+      margin: 1em 0;
+
+      h2 {
+        color: $light-black;
+        margin: 0 0 0.5em;
+        font-size: 34px;
+        font-weight: 400;
+        line-height: normal;
+        letter-spacing: .2px;
+      }
+    }
   }
 }

@@ -1,7 +1,6 @@
 @import "../../StyleConstants";
 
 .body-content {
-  height: 100vh;
-  //max-width: 1840px;
+  height: calc(100vh - 5rem);
   margin: 0 auto;
 }

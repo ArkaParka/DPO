@@ -21,11 +21,17 @@ ul {
 }
 
 .section-outer {
+  height: -webkit-fill-available;
   display: flex;
 }
 
 .section-inner {
   max-width: 90%;
+}
+
+.page-fragment {
+  width: 100%;
+  margin: 0 auto;
 }
 
 .input {

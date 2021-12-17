@@ -17,19 +17,26 @@ function Course({location}) {
         <section className={cl('section-outer')}>
             <div className={cl('course')}>
                 <div className={cl('course-title')}>
-                    <div className={cl('name')}>
-                        {courseData.name}
-                    </div>
-                    <div className={cl('stats')}>
-                        <CardStats courseStats={courseData.stats}/>
+                    <div className={cl('page-fragment')}>
+                        <div className={cl('name')}>
+                            {courseData.name}
+                        </div>
+                        <div className={cl('stats')}>
+                            <CardStats courseStats={courseData.stats}/>
+                        </div>
                     </div>
                 </div>
                 <div className={cl('course-description')}>
-                    <div className={cl('section')}>
-                        {courseData.text}
-                    </div>
-                    <div className={cl('section')}>
-                        {courseData.text}
+                    <div className={cl('page-fragment')}>
+                        <div className={cl('content-block')}>
+                            <h2>О курсе</h2>
+                        </div>
+                        <div className={cl('content-block')}>
+                            {courseData.text}
+                        </div>
+                        <div className={cl('content-block')}>
+                            {courseData.text}
+                        </div>
                     </div>
                 </div>
             </div>

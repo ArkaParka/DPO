@@ -65,9 +65,9 @@ export const defaultUser = {
 
 export const colours = ['blue', 'green', 'red', 'yellow'];
 
-export const courseName = 'Экономика';
-export const courseName2 = 'Программная инженерия';
-export const longCourseName = 'Информатика и вычислительная техника';
+export const courseName = 'Разработка Программного Обеспечения';
+export const courseName2 = 'Компьютерная Графика и Дизайн';
+export const longCourseName = 'Сети и Кибербезопасность';
 export const statHourValue = '16ч';
 export const statCountValue = 4;
 export const courseText = '\nГлубокая аналитика вашего портфеля\n- любое количество стратегий и портфелей\n- акции, etf, облигации, криптовалюта более 70 000 инструментов\n- идеально для долгосрочных инвесторов\n\n*Автоматическое продление бесплатного тарифа каждые 365 дней\nГлубокая аналитика вашего портфеля\n- любое количество стратегий и портфелей\n- акции, etf, облигации, криптовалюта более 70 000 инструментов\n- идеально для долгосрочных инвесторов\n\n*Автоматическое продление бесплатного тарифа каждые 365 дней';
