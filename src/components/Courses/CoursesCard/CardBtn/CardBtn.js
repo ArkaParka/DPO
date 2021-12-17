@@ -14,7 +14,7 @@ function CardBtn() {
                     value =>
                         <button
                             onClick={() => {onOpenModal(value)}}
-                            className={cl('btn', 'green')}
+                            className={cl('btn', 'blue')}
                         >
                             Записаться
                         </button>}

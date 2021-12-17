@@ -1,6 +1,8 @@
+@import "../../../StyleConstants";
+
 .card {
   text-decoration: none;
-  background-color: #fff;
+  background-color: $white;
   border-radius: 0.9rem;
   cursor: pointer;
   display: flex;
@@ -11,14 +13,14 @@
   transition: .3s ease-in-out;
   text-align: start;
   max-height: 500px;
-  box-shadow: 1px 2px 12px 0 rgb(94, 94, 94, .12);
+  box-shadow: 1px 2px 12px 0 $box-shadow-grey-dark;
 
   &:hover {
-    box-shadow: 1px 2px 12px 0 rgb(156, 166, 230, .60);
+    box-shadow: 1px 2px 12px 0 $box-shadow-blue-light;
     transform: translateY(-0.5rem);
 
+    // кружочки в углу
     &:before {
-      background-color: #4cc319;
       transform: translate(50%,-50%) scale(1.3);
     }
   }
@@ -36,22 +38,22 @@
   }
 
   &.green:before {
-    background-color: #54ad54;
+    background-color: $green-color;
   }
 
   &.green:hover:before {
-    background-color: #4cc319;
+    background-color: $green-color-light;
   }
 
   &.blue:before {
-    background-color: #3e54d8;
+    background-color: $blue-color;
   }
 
   &.red:before {
-    background-color: #ed6373;
+    background-color: $red-color;
   }
 
   &.yellow:before {
-    background-color: #f3b63f;
+    background-color: $yellow-color;
   }
 }

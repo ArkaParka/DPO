@@ -11,7 +11,7 @@ function CoursesCard({course}) {
     return (
         <Link
             id='course'
-            className={cl('card', 'green')}
+            className={cl('card')}
             to={{
                 pathname: 'courses/course',
                 data: course,

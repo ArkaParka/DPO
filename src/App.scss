@@ -1,3 +1,5 @@
+@import "StyleConstants";
+
 h1, h2, h3, h4, h5, h6, p {
   margin: 0;
 }
@@ -14,7 +16,7 @@ ul {
 
 .App {
   min-height: 100vh;
-  background-color: #EAF1FE;
+  background-color: $app-bgc-color;
   text-align: center;
 }
 
@@ -27,8 +29,8 @@ ul {
 }
 
 .input {
-  background-color: #fcfdff;
-  border: 1px solid #d3e3ff;
+  background-color: $input-bgc-color;
+  border: 1px solid $input-border-color;
   border-radius: .5rem;
   outline: none;
   padding: .8rem 1.3rem;
@@ -38,7 +40,7 @@ ul {
 }
 
 .btn {
-  color: #fff;
+  color: $white;
   border-radius: 0.5rem;
   cursor: pointer;
   border: 1px solid transparent;
@@ -47,12 +49,19 @@ ul {
 }
 
 .btn.green {
-  background-color: #54ad54;
+  background-color: $green-color;
 }
 
 .btn.green:active,
 .btn.green:hover {
-  background-color: #246024;
+  background-color: $green-color-dark;
 }
 
+.btn.blue {
+  background-color: $blue-color;
+}
 
+.btn.blue:active,
+.btn.blue:hover {
+  background-color: $blue-color-dark;
+}

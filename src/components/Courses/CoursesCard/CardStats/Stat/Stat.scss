@@ -1,7 +1,9 @@
+@import "../../../../../StyleConstants";
+
 .stat {
   display: flex;
   align-items: center;
-  color: #6a6a6a;
+  color: $grey-color-dark;
   margin-right: 25px;
   font-weight: 500;
   white-space: nowrap;

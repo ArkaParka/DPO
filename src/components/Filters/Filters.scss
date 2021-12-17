@@ -1,3 +1,5 @@
+@import "../../StyleConstants";
+
 .filters {
   height: 100%;
   background-color: cornflowerblue;
@@ -14,7 +16,7 @@
 
   &-btn {
     .btn{
-      background-color: #3e54d8;
+      background-color: $blue-color;
       font-size: 0.9em;
       padding: 1.3rem;
       margin-top: 1em;

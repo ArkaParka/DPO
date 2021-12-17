@@ -1,14 +1,16 @@
+@import "../../StyleConstants";
+
 .authorization-btn {
   border: none;
   border-radius: 10px;
   background-color: white;
   width: 260px;
   height: 61px;
-  color: #000;
+  color: $black;
 
   display: flex;
   align-items: center;
-  box-shadow: 0 21px 22px -13px rgba(62, 84, 216, .22);
+  box-shadow: 0 21px 22px -13px $box-shadow-grey-dark;
   padding: 1rem 1.5rem;
   justify-content: center;
   line-height: 1.5;
@@ -26,14 +28,14 @@
 
   &-links a {
     border-bottom: 1px solid transparent;
-    color: #000;
+    color: $black;
     font-weight: 500;
     font-size: 18px;
     text-decoration: none;
     transition: .3s ease-in-out;
 
     &:hover {
-      border-color:  #737373;
+      border-color: $auth-btn-underline-links;
     }
 
     &:not(:last-child) {
@@ -41,7 +43,7 @@
       position: relative;
 
       &:after {
-        background-color:  #000;
+        background-color:  $black;
         content: "";
         height: 70%;
         position: absolute;

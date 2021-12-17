@@ -1,17 +1,18 @@
+@import "../../StyleConstants";
+
 .modal {
-  color: #373943;
+  color: $black-grey-color;
   font-family: Montserrat,sans-serif;
   line-height: 1.5;
 
   &-overlay {
-    background-color: #000;
+    background-color: $black;
     height: 100%;
     left: 0;
     opacity: .3;
     position: fixed;
     top: 0;
     transition: .3s ease-in-out;
-    //visibility: hidden;
     width: 100%;
     z-index: 10;
   }
@@ -20,19 +21,17 @@
     z-index: 21;
     top: 50%;
 
-    background-color: #fff;
-    border: 1px solid #d3e3ff;
+    background-color: $white;
+    border: 1px solid $input-border-color;
     border-radius: 1.1rem;
-    box-shadow: 0 44px 89px -17px rgba(62, 84, 216, .6);
+    box-shadow: 0 44px 89px -17px $box-shadow-dark-blue;
     padding: 1.5rem 4.3rem;
     width: 45rem;
 
     left: 50%;
     position: fixed;
-    //top: -999px;
     transform: translate(-50%,-50%);
     transition: .3s ease-in-out;
-    //z-index: 21;
 
     .modal {
       z-index: 21;
@@ -40,7 +39,7 @@
       &-header {
         font-size: 2em;
         position: relative;
-        color: #3e54d8;
+        color: $blue-color;
         line-height: 1.3;
         text-align: center;
       }
@@ -67,9 +66,9 @@
           }
 
           .btn_blue {
-            background-color: #3e54d8;
-            box-shadow: 0 21px 22px -13px rgba(62, 84, 216, .51);
-            color: #fff;
+            background-color: $blue-color;
+            box-shadow: 0 21px 22px -13px $box-shadow-blue-dark;
+            color: $white;
             padding: 1.66rem 2.88rem;
           }
         }
@@ -81,7 +80,7 @@
           text-align: center;
 
           strong {
-            color: #3e54d8;
+            color: $blue-color;
             cursor: pointer;
             font-weight: 600;
             margin-left: .5em;

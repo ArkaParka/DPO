@@ -1,5 +1,7 @@
+@import "../../StyleConstants";
+
 .section-header {
-  background-color: #222222;
+  background-color: $black-grey-color;
   font-size: calc(10px + 2vmin);
   justify-content: center;
   height: 5rem;
@@ -15,7 +17,7 @@
       height: 60px;
 
       svg {
-        color: #ffffff;
+        color: $white;
         height: 100%;
         width: 100%;
       }
@@ -44,16 +46,17 @@
         color: #bbb;
       }
 
-      &-item:hover {
+      &-item:hover,
+      &-item.active {
         transform: scale(1.1);
       }
 
       &-item a:hover {
-        color: #fff;
+        color: $white;
       }
 
       &-item a:before {
-        background-color: #4aed4e;
+        background-color: $blue-color;
         bottom: 0.1rem;
         content: "";
         height: 0.25rem;
@@ -65,8 +68,11 @@
         width: 110%;
       }
 
-      &-item.active a:before {
-        opacity: .99;
+      &-item.active a {
+        color: $white;
+        &:before {
+          opacity: .99;
+        }
       }
     }
   }

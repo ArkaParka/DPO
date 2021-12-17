@@ -27,7 +27,7 @@ function Courses() {
         <div className={cl('courses')}>
             <div className={cl('courses-search')}>
                 <input className={cl('input')} onChange={handleFilterAdd}  placeholder='Искать курс...'/>
-                <button className={cl('btn', 'green')} type="button">
+                <button className={cl('btn', 'blue')} type="button">
                     Искать
                 </button>
             </div>

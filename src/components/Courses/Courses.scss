@@ -1,3 +1,5 @@
+@import "../../StyleConstants";
+
 .courses {
   height: 100%;
   padding: 0 2em;
@@ -6,13 +8,6 @@
     grid-gap: 1.5rem;
     padding-bottom: 4rem;
     display: grid;
-  }
-
-  &-header {
-    color: #24252e;
-    font-size: 2em;
-    font-weight: 700;
-    line-height: 1.25;
   }
 
   &-search {
@@ -25,17 +20,12 @@
     .input {
       margin-right: 1rem;
       font-size: 18px;
-      box-shadow: 0 21px 22px -13px rgba(62, 84, 216, .22);
+      box-shadow: 0 21px 22px -13px $box-shadow-grey-dark;
     }
 
     .btn {
       padding: 9px 25px;
       font-size: 16px;
-      background-color: #54ad54;
-    }
-
-    .btn:active {
-      background-color: #246024;
     }
   }
 }
