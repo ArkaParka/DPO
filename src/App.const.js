@@ -65,7 +65,7 @@ export const defaultUser = {
 
 export const colours = ['blue', 'green', 'red', 'yellow'];
 
-export const courseName = 'Разработка Программного Обеспечения';
+export const courseName = 'Основы компьютерных и веб-технологий с Python от Диджитализируй';
 export const courseName2 = 'Компьютерная Графика и Дизайн';
 export const longCourseName = 'Сети и Кибербезопасность';
 export const statHourValue = '16ч';

@@ -1,13 +1,14 @@
-import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import { useAuth } from "../../context/AuthContext";
+import React, {useState, useEffect} from 'react';
+import {Link} from 'react-router-dom';
+import {useAuth} from "../../context/AuthContext";
 import cl from "classnames";
-import { FaRegFontAwesomeLogoFull } from "react-icons/all";
-import AuthorizationButton from "../AuthorizationButton/AuthorizationButton";
+import {FaRegFontAwesomeLogoFull} from "react-icons/all";
+import AuthorizationButton from "../Buttons/AuthorizationButton/AuthorizationButton";
 import './Header.scss';
+import PersonalAccountButton from "../Buttons/PersonalAccountButton/PersonalAccountButton";
 
 export const Header = ({onOpenAuthModal}) => {
-    const { isAuthenticated } = useAuth();
+    const {isAuthenticated} = useAuth();
 
     const [isActive, setIsActive] = useState({
         home: false,
@@ -45,9 +46,9 @@ export const Header = ({onOpenAuthModal}) => {
         <header className={cl('section-outer', 'section-header')}>
             <div className={cl('section-inner', 'header')}>
                 <div className={cl('header-logo')}>
-                    <a className={cl('logo')} href='/'>
-                        <FaRegFontAwesomeLogoFull />
-                    </a>
+                    <Link className={cl('logo')} to='/' onClick={handleLinkClick}>
+                        <FaRegFontAwesomeLogoFull id='home'/>
+                    </Link>
                 </div>
                 <div className={cl('header-controls')}>
                     <nav className={cl('header-controls-links')}>
@@ -76,7 +77,11 @@ export const Header = ({onOpenAuthModal}) => {
                     </nav>
                 </div>
                 <div className={cl('header-operation')}>
-                    { !isAuthenticated && <AuthorizationButton  onAuthorization={onOpenAuthModal}/> }
+                    {
+                        isAuthenticated ?
+                            <AuthorizationButton onAuthorization={onOpenAuthModal}/> :
+                            <PersonalAccountButton/>
+                    }
                 </div>
             </div>
         </header>
