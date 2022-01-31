@@ -1,12 +1,13 @@
 import './Stat/Stat.scss';
 import cl from "classnames";
 import Stat from "./Stat/Stat";
-import { IoMdTime, IoPeopleOutline } from "react-icons/all";
+import { IoMdTime } from "react-icons/io";
 import './CardStats.scss';
+import {HiOutlineUsers} from "react-icons/hi";
 
 function CardStats({courseStats}) {
     const timeIcon = <IoMdTime />;
-    const peopleIcon = <IoPeopleOutline />;
+    const peopleIcon = <HiOutlineUsers />;
 
     return (
         <div className={cl('card-stats')}>

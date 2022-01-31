@@ -1,6 +1,6 @@
 import './AuthorizationButton.scss';
 import cl from "classnames";
-import {BsFillPersonFill} from "react-icons/all";
+// import {BsFillPersonFill} from "react-icons/all";
 
 
 function AuthorizationButton({onAuthorization}) {
@@ -12,7 +12,7 @@ function AuthorizationButton({onAuthorization}) {
     return (
     <button className={cl('authorization-btn')}>
         <div className={cl('authorization-btn-icon')}>
-            <BsFillPersonFill />
+            {/*<BsFillPersonFill />*/}
         </div>
         <div className={cl('authorization-btn-links')}>
             <a href="#" id="modal_auth" onClick={openModal}>Вход</a>
