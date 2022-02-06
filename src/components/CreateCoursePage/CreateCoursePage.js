@@ -3,14 +3,16 @@ import React, {useState} from "react";
 import NewCourseTitle from "./NewCourseTitle/NewCourseTitle";
 import './CreateCoursePage.scss';
 import NewCourseProgram from "./NewCourseProgram/NewCourseProgram";
+import CourseEditingPage from "../CourseEditingPage/CourseEditingPage";
+import {courseProgram} from "../../App.const";
 
 function CreateCoursePage({}) {
-    const pageTitle = ['Создание нового курса', 'Программа курса'];
     const course = {
         name: '',
         modules: [
             // {
             //     name: '',
+            //     description: '',
             //     startDate: null,
             //     stopDate: null,
             //     lessons: []
@@ -20,33 +22,39 @@ function CreateCoursePage({}) {
             hour: 0,
             count: 0,
         },
-        text: '',
+        description: '',
     };
-    const [createCourseState, setCreateCourseState] = useState(0);
+
+    const [createCourseState, setCreateCourseState] = useState(2);
     // 0 - title
-    // 1 - program
-    // 2 - create module
-    const [title, setTitle]  = useState('');
+    // 1 - create program (modules name + lessons name)
+    // 2 - redact course
+
+    const [courseTitle, setCourseTitle]  = useState('');
+    const [courseModules, setCourseModules]  = useState([]);
 
     function handleCourseTitleChange(e) {
-        let newTitle = (e.target.value).trim().slice(0, 64);
-
-        setTitle(newTitle);
+        let newTitle = (e.target.value).slice(0, 64);
+        setCourseTitle(newTitle);
     }
 
     function handleConfirmCourseTitle() {
-        if (title) {
-            course.name = title;
+        if (courseTitle) {
+            course.name = courseTitle;
             setCreateCourseState(createCourseState+1);
         } else {
             alert('Название курса не может быть пустой строкой');
         }
-        console.log(course, createCourseState);
     }
 
-    function handlerModuleChanges(newModule) {
-        console.log('newModule', newModule);
-        // setCreateCourseState(2);
+    function handleModuleCreate(newModule) {
+        // TODO: Сделать проверку на наличие курса и изменение полей уже существующего
+        setCourseModules([...courseModules, newModule]);
+    }
+
+    function handleSaveCourseProgram() {
+        course.modules = courseModules;
+        setCreateCourseState(2);
     }
 
     return (
@@ -54,7 +62,7 @@ function CreateCoursePage({}) {
             {
                 (createCourseState === 0) &&
                 <NewCourseTitle
-                    title={title}
+                    title={courseTitle}
                     setTitle={handleCourseTitleChange}
                     confirmTitle={handleConfirmCourseTitle}
                 />
@@ -62,9 +70,14 @@ function CreateCoursePage({}) {
             {
                 (createCourseState === 1) &&
                 <NewCourseProgram
-                    modules={course.modules}
-                    saveModuleChanges={handlerModuleChanges}
+                    courseModules={courseModules}
+                    saveNewModule={handleModuleCreate}
+                    saveCourseProgram={handleSaveCourseProgram}
                 />
+            }
+            {
+                (createCourseState === 2) &&
+                <CourseEditingPage course={courseProgram}/>
             }
         </div>
     );

@@ -3,7 +3,7 @@ import cl from "classnames";
 
 function NewLesson({lessonName, setLessonName, addNewLesson}) {
     function handlerLessonNameChange(e) {
-        let newLessonName = e.target.value.trim().slice(0, 64);
+        let newLessonName = e.target.value.slice(0, 64);
 
         setLessonName(newLessonName);
     }

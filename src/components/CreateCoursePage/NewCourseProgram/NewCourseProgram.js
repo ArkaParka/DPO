@@ -4,24 +4,29 @@ import course from "../../Course/Course";
 import {useState} from "react";
 import NewCourseModule from "../NewCourseModule/NewCourseModule";
 
-function NewCourseProgram({modules, saveModuleChanges}) {
-    const [isNewModuleCreating, setIsNewModuleCreating] = useState(false);
+function NewCourseProgram({courseModules, saveNewModule, saveCourseProgram}) {
+    const [newModules, setNewModules] = useState(courseModules);
 
-    function handlerModuleCreate() {
-        setIsNewModuleCreating(true);
+    function handleNewModuleCreate() {
+        setNewModules([...newModules, {}]);
     }
 
     return (
         <div className={cl('new-course-program-page')}>
             <h2>Программа курса</h2>
-            { !isNewModuleCreating && !modules.length && <NoModules /> }
+            { !courseModules.length && <NoModules /> }
             {
-                !isNewModuleCreating &&
-                <button className={cl('create-module')} onClick={handlerModuleCreate}>+ Новый модуль</button>
+                newModules
+                    .map((module, i) => (
+                        <NewCourseModule
+                            saveNewModule={saveNewModule}
+                            key={i}
+                        />)
+                    )
             }
-            {
-                isNewModuleCreating && <NewCourseModule saveModuleChanges={saveModuleChanges}/>
-            }
+            <button className={cl('create-module')} onClick={handleNewModuleCreate}>+ Новый модуль</button>
+            <hr/>
+            <button className={cl('save-course-program')} onClick={saveCourseProgram}>Сохранить изменения</button>
         </div>
     );
 }
