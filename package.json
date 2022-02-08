@@ -20,7 +20,8 @@
     "react-scripts": "^5.0.0",
     "reactstrap": "^9.0.1",
     "sass": "^1.43.3",
-    "web-vitals": "^1.1.2"
+    "web-vitals": "^1.1.2",
+    "keycloak-js": "4.0.0-beta.2"
   },
   "scripts": {
     "start": "react-scripts start",
