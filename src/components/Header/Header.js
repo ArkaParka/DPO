@@ -2,12 +2,12 @@ import React, {useState, useEffect} from 'react';
 import {Link} from 'react-router-dom';
 import {useAuth} from "../../context/AuthContext";
 import cl from "classnames";
-// import {FaRegFontAwesomeLogoFull} from "react-icons/all";
+import {FaRegFontAwesomeLogoFull} from "react-icons/fa";
 import AuthorizationButton from "../Buttons/AuthorizationButton/AuthorizationButton";
-import './Header.scss';
 import PersonalAccountButton from "../Buttons/PersonalAccountButton/PersonalAccountButton";
+import './Header.scss';
 
-export const Header = ({onOpenAuthModal}) => {
+export const Header = ({}) => {
     const {isAuthenticated} = useAuth();
 
     const [isActive, setIsActive] = useState({
@@ -47,7 +47,7 @@ export const Header = ({onOpenAuthModal}) => {
             <div className={cl('section-inner', 'header')}>
                 <div className={cl('header-logo')}>
                     <Link className={cl('logo')} to='/' onClick={handleLinkClick}>
-                        {/*<FaRegFontAwesomeLogoFull id='home'/>*/}
+                        <FaRegFontAwesomeLogoFull id='home'/>
                     </Link>
                 </div>
                 <div className={cl('header-controls')}>
@@ -79,8 +79,8 @@ export const Header = ({onOpenAuthModal}) => {
                 <div className={cl('header-operation')}>
                     {
                         isAuthenticated ?
-                            <AuthorizationButton onAuthorization={onOpenAuthModal}/> :
-                            <PersonalAccountButton/>
+                            <PersonalAccountButton/> :
+                            <AuthorizationButton />
                     }
                 </div>
             </div>

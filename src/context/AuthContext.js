@@ -1,46 +1,48 @@
 ﻿import React, { useState, useEffect, useContext } from "react";
+import Keycloak from "keycloak-js";
 
-export const AuthContext = React.createContext();
+export const AuthContext = React.createContext(null);
 export const useAuth = () => useContext(AuthContext);
+
 export const AuthProvider = ({
     children
 }) => {
     const [isAuthenticated, setIsAuthenticated] = useState(false);
-    const [user, setUser] = useState();
-    const [isLoading, setIsLoading] = useState(false);
+    const [userInfo, setUserInfo] = useState(null);
+    const [keycloak, setKeycloak] = useState(null);
 
     const getUser = async () => {
-        const response = await fetch('/auth/getUser');
-        const json = await response.json();
+        const keycloak = Keycloak('/keycloak.json');
 
-        setIsAuthenticated(json.isAuthenticated);
-        setIsLoading(false);
-        if (json.isAuthenticated) setUser(json.claims);
+        keycloak.init({onLoad: 'login-required'})
+            .then(authenticated => {
+                setIsAuthenticated(authenticated);
+                setKeycloak(keycloak);
+            });
+
+        keycloak.loadUserInfo()
+            .then(userInfo => {
+                setUserInfo(userInfo);
+            });
     }
 
     useEffect(() => {
         getUser();
     }, []);
 
-    const login = () => {
-        window.location.href = '/auth/login';
-    }
-
-    const logout = () => {
-        window.location.href = '/auth/logout';
-    }
-
     return (
         <AuthContext.Provider
             value={{
                 isAuthenticated,
-                user,
-                isLoading,
-                login,
-                logout
+                userInfo,
+                keycloak
             }}
         >
-            {children}
+            {
+                keycloak ?
+                    (isAuthenticated ? children : <div>Unable to authenticate!</div>)
+                    : <div>Initializing Keycloak...</div>
+            }
         </AuthContext.Provider>
     );
 };

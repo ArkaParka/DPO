@@ -1,9 +1,20 @@
 import './ProfileHeader.scss';
 import cl from "classnames";
-import React from "react";
+import React, {useEffect, useState} from "react";
 import logo from '../../../imgs/user-avatar.png';
 
-function ProfileHeader() {
+function ProfileHeader({userInfo}) {
+    const [name, setName] = useState('');
+    const [email, setEmail] = useState('');
+
+    useEffect(() => {
+        if (userInfo) {
+            setName(userInfo.name);
+            setEmail(userInfo.email);
+        }
+        console.log('userInfo', userInfo);
+    });
+
     return (
         <div className={cl('header')}>
             <div className={cl('user-avatar')}>
@@ -11,10 +22,10 @@ function ProfileHeader() {
             </div>
             <div className={cl('user-info')}>
                 <div className={cl('name')}>
-                    Иван Иванов
+                    {name}
                 </div>
                 <div className={cl('login')}>
-                    @IvanIvanov
+                    {email}
                 </div>
             </div>
         </div>
