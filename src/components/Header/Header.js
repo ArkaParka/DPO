@@ -6,9 +6,10 @@ import {FaRegFontAwesomeLogoFull} from "react-icons/fa";
 import AuthorizationButton from "../Buttons/AuthorizationButton/AuthorizationButton";
 import PersonalAccountButton from "../Buttons/PersonalAccountButton/PersonalAccountButton";
 import './Header.scss';
+import LogoutButton from "../Buttons/LogoutButton/LogoutButton";
 
 export const Header = ({}) => {
-    const {isAuthenticated} = useAuth();
+    const {isAuthenticated, keycloak} = useAuth();
 
     const [isActive, setIsActive] = useState({
         home: false,
@@ -79,7 +80,12 @@ export const Header = ({}) => {
                 <div className={cl('header-operation')}>
                     {
                         isAuthenticated ?
-                            <PersonalAccountButton/> :
+                            (
+                                <>
+                                    <PersonalAccountButton/>
+                                    <LogoutButton keycloak={keycloak} />
+                                </>
+                            ) :
                             <AuthorizationButton />
                     }
                 </div>

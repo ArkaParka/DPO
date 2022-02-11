@@ -27,6 +27,7 @@ export const AuthProvider = ({
     }
 
     useEffect(() => {
+        // TODO: обернуть в try catch
         getUser();
     }, []);
 

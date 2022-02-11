@@ -8,8 +8,10 @@ function Home(props) {
             <section className={cl('section-outer')}>
                 <div className={cl('home-page-title')}>
                     <div className={cl('title')}>
-                        <h1>Получите востребованные знания с помощью курсов Дополнительного профессионального
-                            образования</h1>
+                        <h1>
+                            Получите востребованные знания с помощью курсов Дополнительного профессионального
+                            образования
+                        </h1>
                     </div>
                 </div>
             </section>
