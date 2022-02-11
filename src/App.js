@@ -6,6 +6,7 @@ import Courses from "./components/Courses/Courses";
 import Course from "./components/Course/Course";
 import Profile from "./components/Profile/Profile";
 import CreateCoursePage from "./components/CreateCoursePage/CreateCoursePage";
+import QueryAPI from "./api/QueryAPI";
 import './App.scss';
 
 function App() {
@@ -17,6 +18,7 @@ function App() {
             <Route exact path='/courses/course' component={Course} />
             <Route exact path='/create-course-page' component={CreateCoursePage} />
             <Route exact path='/account' component={Profile} />
+            <Route exact path='/api' component={QueryAPI} />
         </Layout>
     );
 }
