@@ -1,10 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
+import { AuthProvider } from "./context/AuthContext";
+import { BrowserRouter } from "react-router-dom";
 import App from './App';
 import registerServiceWorker from './registerServiceWorker';
-import {AuthProvider} from "./context/AuthContext";
-import {BrowserRouter} from "react-router-dom";
+import './index.css';
 
 ReactDOM.render(
     <AuthProvider>

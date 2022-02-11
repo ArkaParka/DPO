@@ -2,7 +2,7 @@ import React from "react";
 import cl from "classnames";
 import './Home.scss';
 
-function Home(props) {
+function Home() {
     return (
         <div className={cl('home-page')}>
             <section className={cl('section-outer')}>

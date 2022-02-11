@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom'
 import cl from "classnames";
+import './LogoutButton.scss';
 
 class LogoutButton extends Component {
 
@@ -12,7 +13,7 @@ class LogoutButton extends Component {
     render() {
         return (
             <button
-                className={cl('personal-account-btn', 'btn', 'blue')}
+                className={cl('logout-btn', 'btn', 'blue')}
                 onClick={ () => this.logout() }
             >
                 Выйти

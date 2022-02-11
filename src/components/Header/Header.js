@@ -1,14 +1,14 @@
-import React, {useState, useEffect} from 'react';
-import {Link} from 'react-router-dom';
-import {useAuth} from "../../context/AuthContext";
-import cl from "classnames";
-import {FaRegFontAwesomeLogoFull} from "react-icons/fa";
+import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import { useAuth } from "../../context/AuthContext";
+import { FaRegFontAwesomeLogoFull } from "react-icons/fa";
 import AuthorizationButton from "../Buttons/AuthorizationButton/AuthorizationButton";
 import PersonalAccountButton from "../Buttons/PersonalAccountButton/PersonalAccountButton";
-import './Header.scss';
 import LogoutButton from "../Buttons/LogoutButton/LogoutButton";
+import cl from "classnames";
+import './Header.scss';
 
-export const Header = ({}) => {
+export const Header = () => {
     const {isAuthenticated, keycloak} = useAuth();
 
     const [isActive, setIsActive] = useState({
@@ -16,6 +16,8 @@ export const Header = ({}) => {
         courses: false,
     });
 
+    // TODO: Продумать логику переключения в личный кабинет и др.
+    // TODO: Убирать из localhost
     function handleLinkClick(e) {
         const homeActive = {
             home: true,
