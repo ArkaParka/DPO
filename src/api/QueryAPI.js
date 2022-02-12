@@ -16,27 +16,30 @@ class QueryAPI extends Component {
         super(props);
         this.state = { response: null };
         this.URL = {
-            getUserSettings: 'http://localhost:65100/api/v1/User/GetUserSettings',
-            getAll: 'http://localhost:65100/api/v1/User/GetUserSettings',
+            announcement: {},
+            сourseCatalog: {
+                get: 'api/CourseCatalog/Get',
+            },
+            module: {},
+            task: {},
+            test: {},
         };
     }
 
     authorizationHeader(method) {
-        if(!this.props.keycloak) return {};
-        console.log('this.props.keycloak.token', this.props.keycloak.token);
+        // if(!this.props.keycloak) return {};
+        // console.log('this.props.keycloak.token', this.props.keycloak.token);
         return {
             method: method,
             headers: {
-                "Authorization": "Bearer " + this.props.keycloak.token,
+                // "Authorization": "Bearer " + this.props.keycloak.token,
                 accept: 'text/plain',
-                mode: "no-cors"
             }
         };
     }
 
     handleClick = (url, method) => {
         fetch(url, this.authorizationHeader(method))
-        // fetch('http://localhost:9000/users', this.authorizationHeader())
             .then(response => {
                 if (response.status === 200)
                     return response.json();
@@ -54,8 +57,8 @@ class QueryAPI extends Component {
     render() {
         return (
             <div className={cl('QueryAPI')}>
-                <button onClick={() => this.handleClick(this.URL.getUserSettings, 'GET')}>GetUserSettings</button>
-                <button onClick={() => this.handleClick(this.URL.getAll, 'GET')}>GetAll</button>
+                <button onClick={() => this.handleClick(this.URL.сourseCatalog.get, 'GET')}>CourseCatalog Get</button>
+                <button onClick={() => this.handleClick(this.URL.сourseCatalog.get, 'GET')}>Announcement Get</button>
                 <APIResponse response={this.state.response}/>
             </div>
         );

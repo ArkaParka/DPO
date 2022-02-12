@@ -8,6 +8,7 @@ import Profile from "./components/Profile/Profile";
 import CreateCoursePage from "./components/CreateCoursePage/CreateCoursePage";
 import QueryAPI from "./api/QueryAPI";
 import './App.scss';
+// web.local.dev/bff/auth/getuser
 
 function App() {
 

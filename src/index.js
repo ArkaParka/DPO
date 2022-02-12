@@ -5,13 +5,15 @@ import { BrowserRouter } from "react-router-dom";
 import App from './App';
 import registerServiceWorker from './registerServiceWorker';
 import './index.css';
+import QueryAPI from "./api/QueryAPI";
 
 ReactDOM.render(
-    <AuthProvider>
-        <BrowserRouter>
-            <App />
-        </BrowserRouter>
-    </AuthProvider>,
+    <QueryAPI />,
+    // <AuthProvider>
+    //     <BrowserRouter>
+    //         <App />
+    //     </BrowserRouter>
+    // </AuthProvider>,
   document.getElementById('root')
 );
 
