@@ -10,7 +10,7 @@ class APIResponse extends Component {
     }
 }
 
-class QueryAPI extends Component {
+class CoursesAPI extends Component {
 
     constructor(props) {
         super(props);
@@ -56,13 +56,12 @@ class QueryAPI extends Component {
 
     render() {
         return (
-            <div className={cl('QueryAPI')}>
+            <div className={cl('CoursesAPI')}>
                 <button onClick={() => this.handleClick(this.URL.сourseCatalog.get, 'GET')}>CourseCatalog Get</button>
-                <button onClick={() => this.handleClick(this.URL.сourseCatalog.get, 'GET')}>Announcement Get</button>
                 <APIResponse response={this.state.response}/>
             </div>
         );
     }
 }
 
-export default QueryAPI;
+export default CoursesAPI;
