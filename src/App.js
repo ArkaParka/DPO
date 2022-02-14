@@ -19,7 +19,7 @@ function App() {
             <Route exact path='/courses/course' component={Course} />
             <Route exact path='/create-course-page' component={CreateCoursePage} />
             <Route exact path='/account' component={Profile} />
-            <Route exact path='/api' component={CoursesAPI} />
+            <Route exact path='/courses-api' component={CoursesAPI} />
         </Layout>
     );
 }

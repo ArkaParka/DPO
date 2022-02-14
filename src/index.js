@@ -8,11 +8,11 @@ import './index.css';
 import CoursesAPI from "./api/CoursesAPI";
 
 ReactDOM.render(
-    <CoursesAPI />,
+    // <CoursesAPI />,
     // <AuthProvider>
-    //     <BrowserRouter>
-    //         <App />
-    //     </BrowserRouter>
+        <BrowserRouter>
+            <App />
+        </BrowserRouter>,
     // </AuthProvider>,
   document.getElementById('root')
 );

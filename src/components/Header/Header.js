@@ -9,7 +9,8 @@ import cl from "classnames";
 import './Header.scss';
 
 export const Header = () => {
-    const {isAuthenticated, keycloak} = useAuth();
+    // const {isAuthenticated, keycloak} = useAuth();
+    const {isAuthenticated, keycloak} = {isAuthenticated: true, keycloak: null};
 
     const [isActive, setIsActive] = useState({
         home: false,
