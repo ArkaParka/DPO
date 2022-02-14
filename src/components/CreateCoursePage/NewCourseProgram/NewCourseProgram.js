@@ -16,6 +16,7 @@ function NewCourseProgram({courseModules, saveNewModule, saveCourseProgram}) {
             <h2>Программа курса</h2>
             { !courseModules.length && <NoModules /> }
             {
+                // TODO: Вынести стэйты модуля в программу курса и сделать по примеру уроков
                 newModules
                     .map((module, i) => (
                         <NewCourseModule

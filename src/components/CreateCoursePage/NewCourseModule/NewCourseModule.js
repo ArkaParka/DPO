@@ -4,12 +4,11 @@ import {useState} from "react";
 import ModuleInfo from "../ModuleInfo/ModuleInfo";
 import NewLesson from "../NewLesson/NewLesson";
 import Lesson from "../Lesson/Lesson";
+import Button from "@mui/material/Button";
 
 function NewCourseModule({saveNewModule}) {
     const [moduleName, setModuleName] = useState('Новый модуль');
     const [moduleDescription, setModuleDescription] = useState('');
-    const [startDate, setStartDate] = useState(null);
-    const [stopDate, setStopDate] = useState(null);
 
     const [lessonName, setLessonName] = useState('');
     const [lessons, setLessons] = useState([]);
@@ -24,7 +23,7 @@ function NewCourseModule({saveNewModule}) {
         setLessonName('');
     }
 
-    function handlerModuleSaveChanges() {
+    function handleModuleSaveChanges() {
         if (!moduleName) {
             alert('Имя модуля не может быть пустой строкой');
             return;
@@ -33,8 +32,6 @@ function NewCourseModule({saveNewModule}) {
 
         newModule.name = moduleName;
         newModule.description = moduleDescription;
-        newModule.startDate = startDate;
-        newModule.stopDate = stopDate;
         newModule.lessons = lessons;
 
         saveNewModule(newModule);
@@ -42,31 +39,31 @@ function NewCourseModule({saveNewModule}) {
 
     return (
         <div className={cl('new-course-module')}>
+            <h2>Создание нового модуля</h2>
+
             <ModuleInfo
                 moduleName={moduleName}
                 setModuleName={setModuleName}
                 moduleDescription={moduleDescription}
                 setModuleDescription={setModuleDescription}
-                startDate={startDate}
-                setStartDate={setStartDate}
-                stopDate={stopDate}
-                setStopDate={setStopDate}
             />
             {
-                lessons.map(lesson => <Lesson lesson={lesson} key={lesson.name} />)
+                lessons.map(lesson => <Lesson lesson={lesson} key={lesson.name}/>)
             }
+
             <NewLesson
                 lessonName={lessonName}
                 setLessonName={setLessonName}
                 addNewLesson={handleLessonCreate}
             />
 
-            <button
-                className={cl('save-module-changes')}
-                onClick={handlerModuleSaveChanges}
+            <Button
+                className={cl('save-module-changes', 'btn')}
+                onClick={handleModuleSaveChanges}
+                variant="contained"
             >
                 Сохранить модуль
-            </button>
+            </Button>
         </div>
     );
 }

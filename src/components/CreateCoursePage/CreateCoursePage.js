@@ -6,6 +6,7 @@ import NewCourseProgram from "./NewCourseProgram/NewCourseProgram";
 import CourseEditingPage from "../CourseEditingPage/CourseEditingPage";
 import {courseProgram} from "../../App.const";
 import {useAuth} from "../../context/AuthContext";
+import {createCourse} from "../../api/CoursesAPI";
 
 function CreateCoursePage({}) {
     // const {userInfo} = useAuth();
@@ -64,6 +65,7 @@ function CreateCoursePage({}) {
         if (courseName) {
             // TODO: send request
             console.log('course', req);
+            createCourse(req);
             // setCreateCourseState(createCourseState+1);
         } else {
             alert('Название курса не может быть пустой строкой');

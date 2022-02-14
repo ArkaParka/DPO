@@ -52,7 +52,7 @@ function NewCourseCreatePage({name, description, speciality, hours, contentImage
             </Form>
 
             <Button
-                className={cl('course-save-btn')}
+                className={cl('course-save-btn', 'btn')}
                 onClick={() => saveCourse()}
                 variant="contained"
             >
