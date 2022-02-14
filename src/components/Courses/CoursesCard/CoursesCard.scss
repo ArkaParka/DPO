@@ -1,59 +1,59 @@
-@import "../../../StyleConstants";
-
-.card {
-  text-decoration: none;
-  background-color: $white;
-  border-radius: 0.9rem;
-  cursor: pointer;
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-  padding: 1.8rem 1.5rem;
-  position: relative;
-  transition: .3s ease-in-out;
-  text-align: start;
-  max-height: 500px;
-  box-shadow: 1px 2px 12px 0 $box-shadow-grey-dark;
-
-  &:hover {
-    box-shadow: 1px 2px 12px 0 $box-shadow-blue-light;
-    transform: translateY(-0.5rem);
-
-    // кружочки в углу
-    &:before {
-      transform: translate(50%,-50%) scale(1.3);
-    }
-  }
-
-  &:before {
-    border-radius: 50%;
-    content: "";
-    height: 8rem;
-    position: absolute;
-    right: 0;
-    top: 0;
-    transform: translate(50%,-50%);
-    transition: .3s ease-in-out;
-    width: 8rem;
-  }
-
-  &.green:before {
-    background-color: $green-color;
-  }
-
-  &.green:hover:before {
-    background-color: $green-color-light;
-  }
-
-  &.blue:before {
-    background-color: $blue-color;
-  }
-
-  &.red:before {
-    background-color: $red-color;
-  }
-
-  &.yellow:before {
-    background-color: $yellow-color;
-  }
-}
+//@import "../../../StyleConstants";
+//
+//.card {
+//  text-decoration: none;
+//  background-color: $white;
+//  border-radius: 0.9rem;
+//  cursor: pointer;
+//  display: flex;
+//  flex-direction: column;
+//  overflow: hidden;
+//  padding: 1.8rem 1.5rem;
+//  position: relative;
+//  transition: .3s ease-in-out;
+//  text-align: start;
+//  max-height: 500px;
+//  box-shadow: 1px 2px 12px 0 $box-shadow-grey-dark;
+//
+//  &:hover {
+//    box-shadow: 1px 2px 12px 0 $box-shadow-blue-light;
+//    transform: translateY(-0.5rem);
+//
+//    // кружочки в углу
+//    &:before {
+//      transform: translate(50%,-50%) scale(1.3);
+//    }
+//  }
+//
+//  &:before {
+//    border-radius: 50%;
+//    content: "";
+//    height: 8rem;
+//    position: absolute;
+//    right: 0;
+//    top: 0;
+//    transform: translate(50%,-50%);
+//    transition: .3s ease-in-out;
+//    width: 8rem;
+//  }
+//
+//  &.green:before {
+//    background-color: $green-color;
+//  }
+//
+//  &.green:hover:before {
+//    background-color: $green-color-light;
+//  }
+//
+//  &.blue:before {
+//    background-color: $blue-color;
+//  }
+//
+//  &.red:before {
+//    background-color: $red-color;
+//  }
+//
+//  &.yellow:before {
+//    background-color: $yellow-color;
+//  }
+//}
