@@ -6,9 +6,14 @@ import NewLesson from "../NewLesson/NewLesson";
 import Lesson from "../Lesson/Lesson";
 import Button from "@mui/material/Button";
 
-function NewCourseModule({saveNewModule}) {
-    const [moduleName, setModuleName] = useState('Новый модуль');
-    const [moduleDescription, setModuleDescription] = useState('');
+function NewCourseModule(
+    {
+        moduleName,
+        setModuleName,
+        moduleDescription,
+        setModuleDescription,
+        saveNewModule
+    }) {
 
     const [lessonName, setLessonName] = useState('');
     const [lessons, setLessons] = useState([]);

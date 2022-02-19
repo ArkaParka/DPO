@@ -2,10 +2,10 @@ import cl from "classnames";
 import {Alert} from "react-bootstrap";
 import './Lesson.scss';
 
-function Lesson({lesson, key}) {
+function Lesson({lesson}) {
     return (
         <section className={cl('lesson')}>
-            <Alert key={key} variant='primary' className={cl("lesson-name")}>
+            <Alert variant='primary' className={cl("lesson-name")}>
                 {lesson.name}
             </Alert>
         </section>

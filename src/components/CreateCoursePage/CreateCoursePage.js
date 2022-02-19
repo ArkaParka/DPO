@@ -12,11 +12,12 @@ function CreateCoursePage({}) {
     // const {userInfo} = useAuth();
     const professorID = "3fa85f64-5717-4562-b3fc-2c963f66afa6";
 
-    const [createCourseState, setCreateCourseState] = useState(0);
+    const [createCourseState, setCreateCourseState] = useState(1);
     // 0 - create course
     // 1 - create program (modules + lessons)
     // 2 -
 
+    // *** COURSE ***
     const [courseName, setCourseName]  = useState('');
     const [courseDescription, setCourseDescription]  = useState('');
     const [courseSpeciality, setCourseSpeciality]  = useState('');
@@ -65,12 +66,13 @@ function CreateCoursePage({}) {
         if (courseName) {
             // TODO: send request
             console.log('course', req);
-            createCourse(req);
+            // createCourse(req);
             // setCreateCourseState(createCourseState+1);
         } else {
             alert('Название курса не может быть пустой строкой');
         }
     }
+
 
     return (
         <div className={cl('create-course-page')}>
@@ -88,12 +90,12 @@ function CreateCoursePage({}) {
                 />
             }
             {
-                // (createCourseState === 1) &&
-                // <NewCourseProgram
-                //     courseModules={courseModules}
-                //     saveNewModule={handleModuleCreate}
-                //     saveCourseProgram={handleSaveCourseProgram}
-                // />
+                (createCourseState === 1) &&
+                <NewCourseProgram
+                    // courseModules={modules}
+                    // saveNewModule={handleModuleCreate}
+                    // saveCourseProgram={handleSaveCourseProgram}
+                />
             }
             {
                 // (createCourseState === 2) &&

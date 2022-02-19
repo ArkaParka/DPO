@@ -5,27 +5,55 @@ import {useState} from "react";
 import NewCourseModule from "../NewCourseModule/NewCourseModule";
 
 function NewCourseProgram({courseModules, saveNewModule, saveCourseProgram}) {
-    const [newModules, setNewModules] = useState(courseModules);
+    // *** MODULES ***
+    const [modules, setModules]  = useState([]);
 
-    function handleNewModuleCreate() {
-        setNewModules([...newModules, {}]);
+    const [moduleName, setModuleName] = useState('Новый модуль');
+    const [moduleDescription, setModuleDescription] = useState('');
+
+
+    function handleModuleCreate() {
+        if (!moduleName) {
+            alert('Имя модуля не может быть пустой строкой');
+            return;
+        }
+
+        // TODO: Сделать проверку наличия module в course
+        let newModule = {
+            name: moduleName,
+            description: moduleDescription,
+        }
+
+        setModules([...modules, newModule]);
+        setModuleName('Новый модуль');
+        setModuleDescription('');
     }
 
     return (
         <div className={cl('new-course-program-page')}>
             <h2>Программа курса</h2>
-            { !courseModules.length && <NoModules /> }
+            { !modules.length && <NoModules /> }
             {
                 // TODO: Вынести стэйты модуля в программу курса и сделать по примеру уроков
-                newModules
-                    .map((module, i) => (
-                        <NewCourseModule
-                            saveNewModule={saveNewModule}
-                            key={i}
-                        />)
+                modules.map((module, i) => (
+                    JSON.stringify(module)
+                    )
+                        // <NewCourseModule
+                        //     saveNewModule={saveNewModule}
+                        //     key={i}
+                        // />)
                     )
             }
-            <button className={cl('create-module')} onClick={handleNewModuleCreate}>+ Новый модуль</button>
+
+            <NewCourseModule
+                moduleName={moduleName}
+                setModuleName={setModuleName}
+                moduleDescription={moduleDescription}
+                setModuleDescription={setModuleDescription}
+
+                saveNewModule={handleModuleCreate}
+            />
+            {/*<button className={cl('create-module')} onClick={handleModuleCreate}>+ Новый модуль</button>*/}
             <hr/>
             <button className={cl('save-course-program')} onClick={saveCourseProgram}>Сохранить изменения</button>
         </div>
