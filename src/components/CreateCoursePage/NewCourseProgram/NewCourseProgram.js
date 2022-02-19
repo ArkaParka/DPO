@@ -30,6 +30,7 @@ function NewCourseProgram({courseModules, saveNewModule, saveCourseProgram}) {
                     <NewCourseModule
                         module={module}
                         key={i}
+                        index={i}
                     />)
                 )
             }

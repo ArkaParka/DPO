@@ -9,7 +9,7 @@ import Button from "@mui/material/Button";
 function NewCourseModule(
     {
         module = null,
-        key = 0,
+        index = 0,
         moduleName,
         setModuleName,
         moduleDescription,
@@ -48,8 +48,7 @@ function NewCourseModule(
     return (
         <div className={cl('new-course-module')}>
             {
-                // TODO: Сделать нумерацию модулей
-                module ? <h2>{key+1} Модуль</h2> : <h2>Создание нового модуля</h2>
+                module ? <h2>{index+1} Модуль</h2> : <h2>Создание нового модуля</h2>
             }
 
             <ModuleInfo
