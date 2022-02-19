@@ -12,17 +12,8 @@ function NewCourseProgram({courseModules, saveNewModule, saveCourseProgram}) {
     const [moduleDescription, setModuleDescription] = useState('');
 
 
-    function handleModuleCreate() {
-        if (!moduleName) {
-            alert('Имя модуля не может быть пустой строкой');
-            return;
-        }
-
+    function handleModuleCreate(newModule) {
         // TODO: Сделать проверку наличия module в course
-        let newModule = {
-            name: moduleName,
-            description: moduleDescription,
-        }
 
         setModules([...modules, newModule]);
         setModuleName('Новый модуль');

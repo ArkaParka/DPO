@@ -33,13 +33,14 @@ function NewCourseModule(
             alert('Имя модуля не может быть пустой строкой');
             return;
         }
-        let newModule = {};
-
-        newModule.name = moduleName;
-        newModule.description = moduleDescription;
-        newModule.lessons = lessons;
+        let newModule = {
+            name: moduleName,
+            description: moduleDescription,
+            lessons: lessons
+        };
 
         saveNewModule(newModule);
+        setLessons([]);
     }
 
     return (
