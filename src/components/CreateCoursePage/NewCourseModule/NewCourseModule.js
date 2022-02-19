@@ -8,6 +8,8 @@ import Button from "@mui/material/Button";
 
 function NewCourseModule(
     {
+        module = null,
+        key = 0,
         moduleName,
         setModuleName,
         moduleDescription,
@@ -16,7 +18,7 @@ function NewCourseModule(
     }) {
 
     const [lessonName, setLessonName] = useState('');
-    const [lessons, setLessons] = useState([]);
+    const [lessons, setLessons] = useState(module?.lessons || []);
 
     function handleLessonCreate() {
         // TODO: Сделать проверку наличия урока в модуле
@@ -45,31 +47,39 @@ function NewCourseModule(
 
     return (
         <div className={cl('new-course-module')}>
-            <h2>Создание нового модуля</h2>
+            {
+                // TODO: Сделать нумерацию модулей
+                module ? <h2>{key+1} Модуль</h2> : <h2>Создание нового модуля</h2>
+            }
 
             <ModuleInfo
-                moduleName={moduleName}
+                module={module}
+                moduleName={module ? module?.name : moduleName}
                 setModuleName={setModuleName}
-                moduleDescription={moduleDescription}
+                moduleDescription={module ? module?.description : moduleDescription}
                 setModuleDescription={setModuleDescription}
             />
             {
                 lessons.map(lesson => <Lesson lesson={lesson} key={lesson.name}/>)
             }
 
-            <NewLesson
-                lessonName={lessonName}
-                setLessonName={setLessonName}
-                addNewLesson={handleLessonCreate}
-            />
+            {
+                !module && <NewLesson
+                    lessonName={lessonName}
+                    setLessonName={setLessonName}
+                    addNewLesson={handleLessonCreate}
+                />
+            }
 
-            <Button
-                className={cl('save-module-changes', 'btn')}
-                onClick={handleModuleSaveChanges}
-                variant="contained"
-            >
-                Сохранить модуль
-            </Button>
+            {
+                !module && <Button
+                    className={cl('save-module-changes', 'btn')}
+                    onClick={handleModuleSaveChanges}
+                    variant="contained"
+                >
+                    Сохранить модуль
+                </Button>
+            }
         </div>
     );
 }

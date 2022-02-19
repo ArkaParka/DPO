@@ -27,13 +27,11 @@ function NewCourseProgram({courseModules, saveNewModule, saveCourseProgram}) {
             {
                 // TODO: Вынести стэйты модуля в программу курса и сделать по примеру уроков
                 modules.map((module, i) => (
-                    JSON.stringify(module)
-                    )
-                        // <NewCourseModule
-                        //     saveNewModule={saveNewModule}
-                        //     key={i}
-                        // />)
-                    )
+                    <NewCourseModule
+                        module={module}
+                        key={i}
+                    />)
+                )
             }
 
             <NewCourseModule
