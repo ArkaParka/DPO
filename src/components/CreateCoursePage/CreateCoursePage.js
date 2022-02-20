@@ -6,7 +6,7 @@ import NewCourseProgram from "./NewCourseProgram/NewCourseProgram";
 import CourseEditingPage from "../CourseEditingPage/CourseEditingPage";
 import {courseProgram} from "../../App.const";
 import {useAuth} from "../../context/AuthContext";
-import {createCourse} from "../../api/CoursesAPI";
+import {createCourse, createCourseModules} from "../../api/CoursesAPI";
 
 function CreateCoursePage({}) {
     // const {userInfo} = useAuth();
@@ -76,6 +76,7 @@ function CreateCoursePage({}) {
     function handleSaveCourseProgram(modules) {
         console.log(modules);
         // TODO: send request for create modules in course
+        createCourseModules(modules);
     }
 
     return (

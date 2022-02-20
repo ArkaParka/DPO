@@ -9,7 +9,9 @@ export const APIs = {
     сourseCatalog: {
         get: 'api/CourseCatalog/Get',
     },
-    module: {},
+    module: {
+        create: '/api/Module/Create',
+    },
     task: {},
     test: {},
 };
@@ -54,6 +56,12 @@ export function sendRequest(url, method, data) {
 
 export function createCourse(course) {
     sendRequest(APIs.course.create, 'POST', course);
+}
+
+export function createCourseModules(modules) {
+    modules.forEach(module => {
+        sendRequest(APIs.module.create, 'POST', module);
+    })
 }
 
 class APIResponse extends Component {

@@ -1,7 +1,7 @@
 import './NewCourseProgram.scss';
 import cl from "classnames";
 import course from "../../Course/Course";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import NewCourseModule from "../NewCourseModule/NewCourseModule";
 import Button from "@mui/material/Button";
 
@@ -32,8 +32,10 @@ function NewCourseProgram({saveCourseProgram}) {
             <hr/>
             {!modules.length && <NoModules/>}
             {
-                modules.map((module, i) => (
+                modules.map((module, i, modules) => (
                     <NewCourseModule
+                        modules={modules}
+                        setModules={setModules}
                         module={module}
                         key={i}
                         index={i}

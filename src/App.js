@@ -20,6 +20,7 @@ function App() {
             <Route exact path='/courses/course' component={Course} />
             <Route exact path='/create-course-page' component={CreateCoursePage} />
             <Route exact path='/create-course-module' component={NewCourseModule} />
+            <Route exact path='/create-course-task' component={NewCourseModule} />
             <Route exact path='/account' component={Profile} />
             <Route exact path='/courses-api' component={CoursesAPI} />
         </Layout>

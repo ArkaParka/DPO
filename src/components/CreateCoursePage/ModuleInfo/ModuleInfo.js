@@ -5,7 +5,7 @@ import "react-datepicker/dist/react-datepicker.css";
 
 function ModuleInfo(
     {
-        module= false,
+        isInputDisable= false,
         moduleName,
         setModuleName,
         moduleDescription,
@@ -30,7 +30,7 @@ function ModuleInfo(
                         type="text"
                         onChange={handleModuleNameChange}
                         value={moduleName}
-                        disabled={module}
+                        disabled={isInputDisable}
                     />
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="module-description">
@@ -41,7 +41,7 @@ function ModuleInfo(
                         value={moduleDescription}
                         onChange={handleModuleDescriptionChange}
                         cols="30"
-                        disabled={module}
+                        disabled={isInputDisable}
                     />
                 </Form.Group>
             </Form>
