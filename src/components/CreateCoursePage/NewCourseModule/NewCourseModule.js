@@ -131,11 +131,19 @@ function NewCourseModule(
                 setModuleDescription={setModuleDescription || setDescription}
             />
             {
-                lessons.map(lesson => <Lesson lesson={lesson} key={lesson.name}/>)
+                lessons.map((lesson, i) => (
+                    <Lesson
+                        lesson={lesson}
+                        key={lesson.name}
+                        index={i}
+                        lessons={lessons}
+                        setLessons={setLessons}
+                    />)
+                )
             }
 
             {
-                !module && <NewLesson
+                (!module || isRedacting) && <NewLesson
                     lessonName={lessonName}
                     setLessonName={setLessonName}
                     addNewLesson={handleLessonCreate}

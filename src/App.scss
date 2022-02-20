@@ -78,3 +78,31 @@ ul {
 .btn.blue:hover {
   background-color: $blue-color-dark;
 }
+
+.course-redact-btns {
+  margin-left: auto;
+
+  .course-redact-btn {
+    cursor: pointer;
+  }
+
+  .delete-btn {
+    width: 1.5em;
+    height: 2em;
+    color: brown;
+  }
+
+  .accept-btn {
+    height: 2em;
+    width: 1.3em;
+    color: limegreen;
+    margin-right: 10px;
+  }
+
+  .redact-btn {
+    height: 2em;
+    width: 1.3em;
+    color: #ffc107;
+    margin-right: 10px;
+  }
+}
