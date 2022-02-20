@@ -2,9 +2,9 @@ import cl from "classnames";
 import {Alert} from "react-bootstrap";
 import './Lesson.scss';
 import {useState} from "react";
-import {ImCross} from "react-icons/im";
 import {FaCheck} from "react-icons/fa";
 import {BsPencilFill} from "react-icons/bs";
+import {IoTrashOutline} from "react-icons/io5";
 
 function Lesson({lesson, lessons, setLessons, index}) {
     const [lessonName, setLessonName] = useState(lesson.name || '');
@@ -56,7 +56,7 @@ function Lesson({lesson, lessons, setLessons, index}) {
                                 onClick={handleLessonRedact}
                             />
                     }
-                    <ImCross
+                    <IoTrashOutline
                         className={cl('course-redact-btn', 'delete-btn', 'lesson-redact-btn')}
                         onClick={handleLessonDelete}
                     />
