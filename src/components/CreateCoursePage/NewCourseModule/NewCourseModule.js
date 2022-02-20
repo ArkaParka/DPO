@@ -5,6 +5,8 @@ import ModuleInfo from "../ModuleInfo/ModuleInfo";
 import NewLesson from "../NewLesson/NewLesson";
 import Lesson from "../Lesson/Lesson";
 import Button from "@mui/material/Button";
+import {IoTrashOutline} from "react-icons/io5";
+import {BsPencilFill} from "react-icons/bs";
 
 function NewCourseModule(
     {
@@ -45,12 +47,34 @@ function NewCourseModule(
         setLessons([]);
     }
 
+    function handleModuleRedact() {
+        // TODO: Redact module
+    }
+
+    function handleModuleDelete() {
+        // TODO: Delete module
+    }
+
     return (
         <div className={cl('new-course-module')}>
-            {
-                module ? <h2>{index+1} Модуль</h2> : <h2>Создание нового модуля</h2>
-            }
-
+            <div className="new-course-title">
+                {
+                    module ? <h2>{index + 1} Модуль</h2> : <h2>Создание нового модуля</h2>
+                }
+                {
+                    module &&
+                    <div className="course-redact-btns">
+                        <BsPencilFill
+                            className={cl('course-redact-btn', 'redact-btn')}
+                            onClick={handleModuleRedact}
+                        />
+                        <IoTrashOutline
+                            className={cl('course-redact-btn', 'delete-btn')}
+                            onClick={handleModuleDelete}
+                        />
+                    </div>
+                }
+            </div>
             <ModuleInfo
                 module={module}
                 moduleName={module ? module?.name : moduleName}

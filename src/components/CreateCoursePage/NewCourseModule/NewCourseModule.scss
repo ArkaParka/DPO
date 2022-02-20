@@ -1,4 +1,40 @@
 .new-course-module {
   display: flex;
   flex-direction: column;
+  margin-bottom: 20px;
+}
+
+.new-course-title {
+  display: flex;
+  flex-direction: row;
+  height: 30px;
+
+  h2 {
+    font-size: 25px;
+  }
+
+  .course-redact-btns {
+    margin-left: auto;
+
+    .course-redact-btn {
+      cursor: pointer;
+    }
+
+    .delete-btn {
+      width: 1.5em;
+      height: 2em;
+      color: red;
+    }
+
+    .redact-btn {
+      height: 2em;
+      width: 1.3em;
+      color: limegreen;
+      margin-right: 10px;
+    }
+  }
+}
+
+.save-module-changes {
+  width: fit-content;
 }

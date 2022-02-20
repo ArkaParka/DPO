@@ -3,14 +3,14 @@ import cl from "classnames";
 import course from "../../Course/Course";
 import {useState} from "react";
 import NewCourseModule from "../NewCourseModule/NewCourseModule";
+import Button from "@mui/material/Button";
 
-function NewCourseProgram({courseModules, saveNewModule, saveCourseProgram}) {
+function NewCourseProgram({saveCourseProgram}) {
     // *** MODULES ***
-    const [modules, setModules]  = useState([]);
+    const [modules, setModules] = useState([]);
 
     const [moduleName, setModuleName] = useState('Новый модуль');
     const [moduleDescription, setModuleDescription] = useState('');
-
 
     function handleModuleCreate(newModule) {
         // TODO: Сделать проверку наличия module в course
@@ -20,12 +20,18 @@ function NewCourseProgram({courseModules, saveNewModule, saveCourseProgram}) {
         setModuleDescription('');
     }
 
+    function handleSaveCourseProgram() {
+        saveCourseProgram(modules);
+    }
+
     return (
         <div className={cl('new-course-program-page')}>
-            <h2>Программа курса</h2>
-            { !modules.length && <NoModules /> }
+            <div className="new-course-program-title">
+                <h2>Программа курса</h2>
+            </div>
+            <hr/>
+            {!modules.length && <NoModules/>}
             {
-                // TODO: Вынести стэйты модуля в программу курса и сделать по примеру уроков
                 modules.map((module, i) => (
                     <NewCourseModule
                         module={module}
@@ -34,7 +40,7 @@ function NewCourseProgram({courseModules, saveNewModule, saveCourseProgram}) {
                     />)
                 )
             }
-
+            <hr/>
             <NewCourseModule
                 moduleName={moduleName}
                 setModuleName={setModuleName}
@@ -43,9 +49,14 @@ function NewCourseProgram({courseModules, saveNewModule, saveCourseProgram}) {
 
                 saveNewModule={handleModuleCreate}
             />
-            {/*<button className={cl('create-module')} onClick={handleModuleCreate}>+ Новый модуль</button>*/}
             <hr/>
-            <button className={cl('save-course-program')} onClick={saveCourseProgram}>Сохранить изменения</button>
+            <Button
+                className={cl('save-course-program', 'btn')}
+                onClick={handleSaveCourseProgram}
+                variant="contained"
+            >
+                Сохранить изменения
+            </Button>
         </div>
     );
 }

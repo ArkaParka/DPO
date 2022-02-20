@@ -64,7 +64,7 @@ function CreateCoursePage({}) {
             "contentImage": courseContentImage
         }
         if (courseName) {
-            // TODO: send request
+            // TODO: send request for create course
             console.log('course', req);
             // createCourse(req);
             // setCreateCourseState(createCourseState+1);
@@ -73,6 +73,10 @@ function CreateCoursePage({}) {
         }
     }
 
+    function handleSaveCourseProgram(modules) {
+        console.log(modules);
+        // TODO: send request for create modules in course
+    }
 
     return (
         <div className={cl('create-course-page')}>
@@ -94,7 +98,7 @@ function CreateCoursePage({}) {
                 <NewCourseProgram
                     // courseModules={modules}
                     // saveNewModule={handleModuleCreate}
-                    // saveCourseProgram={handleSaveCourseProgram}
+                    saveCourseProgram={handleSaveCourseProgram}
                 />
             }
             {
