@@ -10,6 +10,8 @@ import CoursesAPI from "./api/CoursesAPI";
 import './App.scss';
 import NewCourseModule from "./components/CreateCoursePage/NewCourseModule/NewCourseModule";
 import NewCourseTask from "./components/CreateCoursePage/NewCourseTask/NewCourseTask";
+import NewCourseCreatePage from "./components/CreateCoursePage/NewCourseTitle/NewCourseCreatePage";
+import CourseProgram from "./components/CourseProgram/CourseProgram";
 // web.local.dev/bff/auth/getuser
 
 function App() {
@@ -20,6 +22,7 @@ function App() {
             <Route exact path='/courses' component={Courses} />
             <Route exact path='/courses/course' component={Course} />
             <Route exact path='/create-course-page' component={CreateCoursePage} />
+            <Route exact path='/create-course-program' component={CourseProgram} />
             <Route exact path='/create-course-module' component={NewCourseModule} />
             <Route exact path='/create-course-task' component={NewCourseTask} />
             <Route exact path='/account' component={Profile} />

@@ -1,0 +1,51 @@
+.pro-sidebar > .pro-sidebar-inner {
+  background: #24252e;
+}
+
+.pro-sidebar .pro-menu {
+  color: #dfdfdf;
+}
+
+.module {
+  .pro-inner-item {
+    flex-direction: row-reverse;
+    padding: 8px 14px 8px 15px !important;
+  }
+
+  .pro-icon-wrapper {
+    margin: 0;
+
+    .pro-icon {
+      svg {
+        transform: rotateZ(45deg);
+        position: absolute;
+        height: 17px;
+        width: auto;
+      }
+    }
+  }
+}
+
+.open-menu,
+.close-menu {
+  display: none;
+
+  &.visible {
+    display: flex;
+  }
+}
+
+.container {
+  padding: 0;
+  max-width: 100%;
+}
+
+.course-program {
+  height: 100%;
+  display: flex;
+
+  &-content {
+    width: 100%;
+    padding: 1em 3em;
+  }
+}

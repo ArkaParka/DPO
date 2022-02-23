@@ -1,10 +1,11 @@
-import React, { Component } from 'react';
+import React, {Component, useState} from 'react';
 import cl from "classnames";
 
 export const APIs = {
     announcement: {},
     course: {
         create: '/api/Course/Create',
+        getById: 'api/Course/GetById/'
     },
     сourseCatalog: {
         get: 'api/CourseCatalog/Get',
@@ -39,19 +40,20 @@ export function requestHeader(method, data = {}) {
 }
 
 export function sendRequest(url, method, data) {
-    fetch(url, this.requestHeader(method, data))
+    console.log(requestHeader(method, data));
+    return fetch(url, requestHeader(method, data))
         .then(response => {
             if (response.status === 200)
                 return response.json();
             else
                 return { status: response.status, message: response.statusText }
         })
-        .then(json => this.setState((state, props) => ({
-            response: JSON.stringify(json, null, 2)
-        })))
-        .catch(err => {
-            this.setState((state, props) => ({ response: err.toString() }))
+        .then(json => {
+            return {response: json};
         })
+        .catch(err => {
+            return {response: err.toString()}
+        });
 }
 
 export function createCourse(course) {
@@ -62,6 +64,16 @@ export function createCourseModules(modules) {
     modules.forEach(module => {
         sendRequest(APIs.module.create, 'POST', module);
     })
+}
+
+export async function createModule(courseId, module) {
+    let response = (await sendRequest(APIs.course.create, 'POST', module)).response;
+    return response;
+}
+
+export async function getCourseModules(courseId) {
+    let response = (await sendRequest(APIs.course.getById + courseId, 'GET')).response;
+    return response?.modules ? response.modules : [];
 }
 
 class APIResponse extends Component {
