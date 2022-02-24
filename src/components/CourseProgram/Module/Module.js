@@ -6,6 +6,7 @@ import {useEffect, useState} from "react";
 import Button from "@mui/material/Button";
 import {createModule} from "../../../api/CoursesAPI";
 import _ from 'lodash';
+import TextEditor from "../../TextEditor/TextEditor";
 
 function Module({courseId= '6216248d8b686a35f1467abf', order= 0, module = {}}) {
     const [name, setName] = useState(module.name || 'Новый модуль');
@@ -61,13 +62,9 @@ function Module({courseId= '6216248d8b686a35f1467abf', order= 0, module = {}}) {
                     />
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="module-description">
-                    <Form.Control
-                        as="textarea"
-                        rows={3}
-                        placeholder='Содержание модуля'
-                        onChange={(e) => setContent(e.target.value)}
+                    <TextEditor
+                        setContent={setContent}
                         value={content}
-                        cols="30"
                     />
                 </Form.Group>
                 <Button

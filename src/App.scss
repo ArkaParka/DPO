@@ -1,6 +1,15 @@
 @import "StyleConstants";
 @import "~bootstrap/scss/bootstrap";
 
+html,
+body {
+  height: 100%;
+}
+
+#root {
+  height: inherit;
+}
+
 h1, h2, h3, h4, h5, h6, p {
   margin: 0;
 }
@@ -22,12 +31,15 @@ ul {
 }
 
 .section-outer {
-  height: -webkit-fill-available;
   display: flex;
 }
 
 .section-inner {
   max-width: 90%;
+}
+
+.container {
+  height: 100%;
 }
 
 .page-fragment {
@@ -53,12 +65,6 @@ ul {
 
 .btn {
   text-transform: inherit !important;
-  //color: $white;
-  //border-radius: 0.5rem;
-  //cursor: pointer;
-  //border: 1px solid transparent;
-  //font-weight: 600;
-  //transition: 0.3s ease-in-out;
 }
 
 .btn.green {
