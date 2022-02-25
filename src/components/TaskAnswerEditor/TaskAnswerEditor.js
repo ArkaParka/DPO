@@ -8,15 +8,15 @@ import { EditorState, ContentState } from 'draft-js';
 import htmlToDraft from 'html-to-draftjs';
 import './TextEditor.scss';
 
-const TextEditor = ({value, setValue, title}) => {
+const TextEditor = ({content, setContent, title}) => {
     const [editorState, setEditorState] = useState(
-        value ? () => convertContentToEditorState(value) : () => EditorState.createEmpty(),
+        content ? () => convertContentToEditorState(content) : () => EditorState.createEmpty(),
     );
 
     const handleEditorChange = (state) => {
         setEditorState(state);
         let html = convertContentToHTML(state);
-        setValue(html);
+        setContent(html);
     }
 
     function convertContentToHTML(editor) {

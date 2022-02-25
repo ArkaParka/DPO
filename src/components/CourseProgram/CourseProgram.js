@@ -1,5 +1,5 @@
 import cl from "classnames";
-import { ProSidebar, Menu, MenuItem, SubMenu } from 'react-pro-sidebar';
+import {ProSidebar, Menu, MenuItem, SubMenu} from 'react-pro-sidebar';
 import 'react-pro-sidebar/dist/css/styles.css';
 import './CourseProgram.scss';
 import {AiOutlineArrowLeft, AiOutlineMenu, AiOutlinePlus} from "react-icons/ai";
@@ -9,20 +9,21 @@ import {BsFillJournalBookmarkFill} from "react-icons/bs";
 import Module from "./Module/Module";
 import {getCourseModules} from "../../api/CoursesAPI";
 import Course from "./Course/Course";
+import Task from "./Task/Task";
 
 const createStates = {
     courseCreate: 'course-create',
     moduleCreate: 'module-create',
-    lessonCreate: 'lesson-create',
+    taskCreate: 'task-create',
     moduleRedact: 'module-redact',
-    lessonRedact: 'lesson-redact',
+    taskRedact: 'task-redact',
 }
 
-function CourseProgram({courseId='6218b23a28160b846e6f30f5'}) {
+function CourseProgram({courseId = '6218b1a428160b846e6f30d2'}) {
     const [isCollapsed, setIsCollapsed] = useState(false);
     const [state, setState] = useState(createStates.courseCreate);
     const [modules, setModules] = useState([]);
-    const [lessons, setLessons] = useState([]);
+    const [tasks, setTasks] = useState([]);
     const [module, setModule] = useState(null);
     const [course, setCourse] = useState(null);
 
@@ -42,82 +43,86 @@ function CourseProgram({courseId='6218b23a28160b846e6f30f5'}) {
                 <Menu iconShape="square">
                     <MenuItem
                         className={cl('open-menu', {visible: isCollapsed})}
-                        icon={<AiOutlineMenu />}
+                        icon={<AiOutlineMenu/>}
                         onClick={() => setIsCollapsed(false)}
                         title="Открыть меню"
                     />
                     <MenuItem
                         className={cl('close-menu', {visible: !isCollapsed})}
-                        icon={<AiOutlineArrowLeft />}
+                        icon={<AiOutlineArrowLeft/>}
                         onClick={() => setIsCollapsed(true)}
                         title="Закрыть меню"
                     />
                     <MenuItem
-                        icon={<AiOutlinePlus />}
-                        onClick={() =>  setState(createStates.courseCreate)}
+                        icon={<AiOutlinePlus/>}
+                        onClick={() => setState(createStates.courseCreate)}
                         title="Создать курс"
                     >
                         {
                             course ? 'Редактировать курс' : 'Создать курс'
                         }
                     </MenuItem>
-                    <SubMenu title="Модули" icon={<BsFillJournalBookmarkFill />}>
+                    <SubMenu title="Модули" icon={<BsFillJournalBookmarkFill/>}>
                         {
                             modules.length ? modules.map((module, i) => (
-                                <MenuItem
-                                    key={i}
-                                    className={cl('module')}
-                                    onClick={() => {
-                                        setState(createStates.moduleRedact);
-                                        setModule(module);
-                                    }}
-                                    icon={<AiOutlinePlus onClick={() => handleModuleDelete(module.id)} />}
-                                >
-                                    {module.name}
-                                </MenuItem>
-                            )) :
+                                    <MenuItem
+                                        key={i}
+                                        className={cl('module')}
+                                        onClick={() => {
+                                            setState(createStates.moduleRedact);
+                                            setModule(module);
+                                        }}
+                                        icon={<AiOutlinePlus onClick={() => handleModuleDelete(module.id)}/>}
+                                    >
+                                        {module.name}
+                                    </MenuItem>
+                                )) :
                                 <MenuItem className={cl('no-modules')}>Нет модулей</MenuItem>
                         }
                     </SubMenu>
-                    <SubMenu title="Задания" icon={<BiTask />}>
+                    <SubMenu title="Задания" icon={<BiTask/>}>
                         {
-                            lessons.length ? lessons.map((module, i) => (
-                                    <MenuItem>Задание {i+1}</MenuItem>
+                            tasks.length ? tasks.map((module, i) => (
+                                    <MenuItem>Задание {i + 1}</MenuItem>
                                 )) :
-                                <MenuItem className={cl('no-lessons')}>Нет заданий</MenuItem>
+                                <MenuItem className={cl('no-tasks')}>Нет заданий</MenuItem>
                         }
                     </SubMenu>
-                    <MenuItem
-                        icon={<AiOutlinePlus />}
-                        onClick={() => setState(createStates.moduleCreate)}
-                        aria-disabled={true}
-                    >
-                        Создать модуль
-                    </MenuItem>
-                    <MenuItem
-                        icon={<AiOutlinePlus />}
-                        onClick={() => setState(createStates.lessonCreate)}
-                    >
-                        Создать задание
-                    </MenuItem>
+                    {
+                        course &&
+                        <>
+                            <MenuItem
+                                icon={<AiOutlinePlus/>}
+                                onClick={() => setState(createStates.moduleCreate)}
+                            >
+                                Создать модуль
+                            </MenuItem>
+                            <MenuItem
+                                icon={<AiOutlinePlus/>}
+                                onClick={() => setState(createStates.taskCreate)}
+                            >
+                                Создать задание
+                            </MenuItem>
+                        </>
+                    }
                 </Menu>
             </ProSidebar>
             <div className="course-program-content">
                 {
                     state === createStates.courseCreate &&
-                    <Course course={course || undefined} isNewCourse={!course} setCourse={setCourse} />
+                    <Course course={course || undefined} isNewCourse={!course} setCourse={setCourse}/>
                 }
                 {
                     state === createStates.moduleCreate &&
-                    <Module isNewModule order={modules.length} />
+                    <Module isNewModule order={modules.length}/>
                 }
                 {
                     state === createStates.moduleRedact &&
-                    <Module module={module || undefined} order={module.order} />
+                    <Module module={module || undefined} order={module.order}/>
                 }
                 {
-                    state === createStates.lessonCreate &&
-                    'lesson create'
+                    state === createStates.taskCreate &&
+                    <Task />
                 }
             </div>
         </section>

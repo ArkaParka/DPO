@@ -12,6 +12,8 @@ import EditorState from "draft-js/lib/EditorState";
 function Module(
     {
         courseId= '6218b23a28160b846e6f30f5',
+        // TODO: Исправить порядок в модулях и курсах,
+        // TODO: его можно взять из самого объекта модуля
         order= 0,
         module = {
             name: 'Новый модуль',
@@ -68,12 +70,13 @@ function Module(
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="module-content">
                     <TextEditor
-                        setContent={setContent}
-                        content={content}
+                        setValue={setContent}
+                        value={content}
+                        title='Содержимое курса'
                     />
                 </Form.Group>
                 <Button
-                    className={cl('save-module-changes', 'btn')}
+                    className={cl('module-save-btn', 'btn')}
                     onClick={handleModuleSaveChanges}
                     variant="contained"
                 >

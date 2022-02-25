@@ -18,7 +18,8 @@ function Course(
             speciality: '',
             hours: 0,
             contentImage: ''
-        }
+        },
+        setCourse
     }) {
     const [name, setName] = useState(course.name);
     const [description, setDescription] = useState(course.description);
@@ -42,6 +43,7 @@ function Course(
         }
 
         console.log(newCourse);
+        setCourse(newCourse);
         if (isNewCourse) {
             // let resp = await createCourse(newCourse);
             // console.log('resp', resp);

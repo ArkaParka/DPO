@@ -5,7 +5,7 @@ export const APIs = {
     announcement: {},
     course: {
         create: '/api/Course/Create',
-        getById: 'api/Course/GetById/'
+        get: 'api/Course/Get/'
     },
     сourseCatalog: {
         get: 'api/CourseCatalog/Get',
@@ -72,7 +72,7 @@ export async function createModule(courseId, module) {
 }
 
 export async function getCourseModules(courseId) {
-    let response = (await sendRequest(APIs.course.getById + courseId, 'GET')).response;
+    let response = (await sendRequest(APIs.course.get + courseId, 'GET')).response;
     return response?.modules ? response.modules : [];
 }
 

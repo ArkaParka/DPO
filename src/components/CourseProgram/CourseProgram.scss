@@ -10,6 +10,10 @@
   color: #dfdfdf;
 }
 
+.pro-menu-item.checked {
+    background-color: #80808029;
+}
+
 .module {
   .pro-inner-item {
     flex-direction: row-reverse;
@@ -55,7 +59,7 @@
 }
 
 .no-modules,
-.no-lessons {
+.no-tasks {
   text-align: center;
   margin-left: -25px;
 }
