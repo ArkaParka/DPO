@@ -11,7 +11,7 @@ import EditorState from "draft-js/lib/EditorState";
 
 function Module(
     {
-        courseId= '6216248d8b686a35f1467abf',
+        courseId= '6218b23a28160b846e6f30f5',
         order= 0,
         module = {
             name: 'Новый модуль',
@@ -26,7 +26,7 @@ function Module(
     const [content, setContent] = useState(module.content);
 
     async function handleModuleSaveChanges() {
-        if (!name || !description) {
+        if (!name.trim() || !description.trim()) {
             alert('Поле не может быть пустым');
             return;
         }
@@ -39,7 +39,7 @@ function Module(
             order: order
         }
 
-        console.log(JSON.stringify(newModule));
+        console.log(newModule);
         if (isNewModule) {
             let resp = await createModule(courseId, newModule);
             console.log('resp', resp);
@@ -66,7 +66,7 @@ function Module(
                         cols="30"
                     />
                 </Form.Group>
-                <Form.Group className="mb-3" controlId="module-description">
+                <Form.Group className="mb-3" controlId="module-content">
                     <TextEditor
                         setContent={setContent}
                         content={content}
