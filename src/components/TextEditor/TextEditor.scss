@@ -1,0 +1,29 @@
+@import "../../variables";
+
+.text-editor {
+  min-height: 300px;
+
+  &-header {
+    line-height: 2em;
+    position: relative;
+    margin: 0 auto;
+    background: #d3e3ff;
+    padding: 0.5em 1em;
+    overflow: hidden;
+    border-radius: 0.25rem 0.25rem 0 0;
+  }
+}
+
+.public-DraftEditor-content {
+  min-height: 200px;
+}
+
+.rdw-editor-main {
+  min-height: 160px;
+  overflow: visible;
+}
+
+.rdw-editor-toolbar {
+  border: 1px solid #d3e3ff;
+  border-radius: 0 0 0.25rem 0.25rem;
+}

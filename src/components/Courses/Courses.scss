@@ -1,0 +1,31 @@
+@import "../../variables";
+
+.courses {
+  height: 100%;
+  padding: 0 2em;
+
+  &-content {
+    grid-gap: 1.5rem;
+    padding-bottom: 4rem;
+    display: grid;
+  }
+
+  &-search {
+    position: relative;
+    display: flex;
+    padding: 14px 16px;
+    margin: 2rem auto;
+    width: 44rem;
+
+    .input {
+      margin-right: 1rem;
+      font-size: 16px;
+      box-shadow: 0 21px 22px -13px $box-shadow-grey-dark;
+    }
+
+    .btn {
+      padding: 9px 25px;
+      font-size: 14px;
+    }
+  }
+}

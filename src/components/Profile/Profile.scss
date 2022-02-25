@@ -1,0 +1,27 @@
+@import "../../variables";
+
+.profile-page {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+
+  &-header {
+    //background-color: $blue-color;
+    height: 13em;
+    padding: 2em 0;
+    display: flex;
+    max-width: 100%;
+  }
+
+  &-content {
+    height: 100%;
+  }
+}
+
+.content {
+  display: flex;
+  flex-direction: row;
+  font-size: 2em;
+  height: 100%;
+  padding: 1em 0;
+}

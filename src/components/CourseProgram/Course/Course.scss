@@ -1,0 +1,22 @@
+@import "../../../_variables";
+
+.course {
+  display: flex;
+  flex-direction: column;
+}
+
+.course-save-btn,
+.react-numeric-input {
+  width: fit-content;
+}
+
+.note {
+  justify-content: flex-end;
+  display: flex;
+  font-size: 12px;
+  margin-top: 2px;
+
+  svg {
+    color: $error-color;
+  }
+}

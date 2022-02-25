@@ -1,0 +1,38 @@
+@import "../../../variables";
+
+.header {
+  display: flex;
+  flex-direction: row;
+
+  .user-avatar {
+    overflow: hidden;
+    height: fit-content;
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+
+    img {
+      height: 100%;
+    }
+  }
+
+  .user-info {
+    flex-direction: column;
+    padding-top: 7px;
+    margin-left: 32px;
+    border-bottom: 1px solid $grey-color-light;
+    display: flex;
+    padding-right: 15px;
+    align-content: space-between;
+    flex-grow: 1;
+    //color: $white;
+
+    .name {
+      font-size: 2em;
+    }
+
+    .login {
+      font-size: 1em;
+    }
+  }
+}

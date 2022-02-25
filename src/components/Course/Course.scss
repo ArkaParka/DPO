@@ -1,0 +1,60 @@
+@import "../../variables";
+
+.course {
+  display: grid;
+  grid-template-columns: 2fr 4fr;
+  letter-spacing: .3px;
+
+  &-title {
+    background-color: $blue-color;
+    padding: 70px 48px 48px 48px;
+    color: $white;
+
+    position: relative;
+    width: 100%;
+    font-weight: 500;
+    display: flex;
+    align-items: baseline;
+
+    .name {
+      margin: 0 0 16px;
+      font-size: 34px;
+    }
+
+    .year {
+      margin: 0 .5em;
+      font-size: 1.5em;
+      white-space: nowrap;
+    }
+
+    .stats {
+      margin: 0 0 16px;
+      position: relative;
+      top: .5em;
+
+      .stat {
+        color: $white;
+      }
+    }
+  }
+
+  &-description {
+    padding-top: 50px;
+
+    .content-block {
+      background-color: $white;
+      font-size: 1.3em;
+      padding: 0 8em 0 3em;
+      margin: 1em 0;
+
+      h2 {
+        color: $light-black;
+        margin: 0 0 0.5em;
+        font-size: 34px;
+        font-weight: 400;
+        line-height: normal;
+        letter-spacing: .2px;
+      }
+    }
+  }
+}

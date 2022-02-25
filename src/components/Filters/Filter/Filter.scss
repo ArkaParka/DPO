@@ -1,0 +1,12 @@
+@import "../../../variables";
+
+.filter {
+  &-title {
+    color: white;
+    font-weight: 500;
+  }
+
+  &-data {
+    padding: .5em 0;
+  }
+}

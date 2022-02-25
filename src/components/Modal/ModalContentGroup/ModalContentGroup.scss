@@ -1,0 +1,64 @@
+@import "../../../variables";
+
+.modal-content {
+  &-group {
+    &:not(:first-child) {
+      margin-top: 0.7rem;
+    }
+
+    &-label {
+      align-items: center;
+      display: flex;
+      margin-bottom: .1rem;
+
+      & h4 {
+        color: $black-grey-color;
+        font-weight: 500;
+        margin-right: .7rem;
+      }
+
+      span {
+        color: $grey-color-light;
+        font-size: .8em;
+      }
+    }
+
+    &-message {
+      display: none;
+      margin-top: .5rem;
+    }
+
+    &-error {
+      display: none;
+    }
+  }
+
+  &.error {
+    .modal-content {
+      &-group {
+        &-error {
+          display: block;
+          color: $red-color;
+        }
+      }
+
+      &-group.error {
+        .modal-content-group {
+          &-input .input {
+            border-color: $red-color;
+          }
+
+          &-message {
+            display: block;
+            text-align: start;
+
+            & span {
+              color: $red-color;
+              font-size: .8em;
+            }
+          }
+        }
+      }
+    }
+  }
+}

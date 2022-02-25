@@ -1,117 +1,144 @@
 import './Modal.scss';
-
+import ModalContentGroup from "./ModalContentGroup/ModalContentGroup";
+import React, {useState, useEffect} from "react";
+import cl from 'classnames';
 
 function Modal(props) {
+    const title = props.data.title;
+    const btnText = props.data.btnText;
     const fields = props.data.fields;
+    const isRegistration = title === 'Регистрация';
+    const [user, changeUserState] = useState({
+        firstName: "",
+        lastName: "",
+        username: "",
+        password: "",
+        password_confirmation: "",
+        email: "",
+        emailConfirmed: false,
+    });
+    const [password_has_error, isPasswordHasError] = useState(true);
+    const [isError, setIsError] = useState(false);
 
-    // const onLogin = async () => {
-    //     // const { email, password } = this.props;
-    //     // try {
-    //     //     const response = await axios.post('/login', { email, password });
-    //     //     console.log(response);
-    //     // } catch (err) {
-    //     //     console.log('ERROR');
-    //     // }
-    //     console.log('handleAuthClick');
-    // };
-    //
-    // const onRegister = async () => {
-    //     const token = 'Bearer ' + (props.data.token);
-    //
-    //     try {
-    //         const response = await fetch('https://ocelot.local.dev/api/Users/register', {
-    //             method: 'POST',
-    //             headers: {
-    //                 'Accept': 'application/json',
-    //                 'Authorization': token,
-    //                 'Content-Type': 'application/json',
-    //             },
-    //             body: JSON.stringify({
-    //                 user: {
-    //                     firstName: "FFF",
-    //                     lastName: "GGG",
-    //                     username: "hhhh",
-    //                     password: "string",
-    //                     emailConfirmed: true
-    //                 }
-    //             })
-    //         });
-    //         const data = await response.json();
-    //         console.log('data', data);
-    //     } catch (err) {
-    //         console.log('ERROR');
-    //     }
-    // };
+    const onFieldChange = (event) => {
+        switch(event.target.name){
+            case 'firstName':
+                changeUserState({...user, firstName: event.target.value});
+                break;
+            case 'lastName':
+                changeUserState({...user, lastName: event.target.value});
+                break;
+            case 'username':
+                changeUserState({...user, username: event.target.value});
+                break;
+            case 'email':
+                changeUserState({...user, email: event.target.value});
+                break;
+            case 'password':
+                changeUserState({...user, password: event.target.value});
+                break;
+            case 'password_confirmation':
+                changeUserState({...user, password_confirmation: event.target.value});
+                break;
+        }
+
+    }
+
+    const handleCloseModal = () => {
+        props.onSubmit({isOpen: false, userData: null, isRegistration: null});
+    }
+
+    const handleSubmitForm = (e) => {
+        e.preventDefault();
+        let emptyFieldOnReg = Object.keys(user).find(field => (user[field]).toString().trim() === "");
+        let emptyFieldOnAuth = (user.username === '' || user.password === '');
+
+        if (isRegistration) {
+            if (!emptyFieldOnReg && !password_has_error) {
+                setIsError(false);
+                props.onSubmit({isOpen: false, userData: user, isRegistration: isRegistration});
+                setTimeout(showMessage, 1000);
+            }
+            else {
+                setIsError(true);
+            }
+        }
+        else if (!emptyFieldOnAuth) {
+            props.onSubmit({isOpen: false, userData: user, isRegistration: isRegistration});
+        }
+        else {
+            setIsError(true);
+        }
+    }
+
+    const showMessage = () => {
+        alert(`На ${user.email} мы отправили письмо с подтверждением.`);
+    }
+
+    const confirmPassword = () => {
+        if(!user.password || user.password.length < 6 || user.password !== user.password_confirmation) {
+            isPasswordHasError(true);
+        }
+        else {
+            isPasswordHasError(false);
+        }
+    }
+
+    const handleOpenAuthModal = () => {
+        props.onOpenAuthModal({isOpen: true, event: 'modal_auth'});
+    }
+
+    useEffect(() => {
+        confirmPassword();
+    }, [user.password, user.password_confirmation]);
 
     return (
         <div className="modal">
-            <div className="modal-overlay"></div>
-            <div className="modal-container">
-                <div className="modal modal-header">
-                    <h2>Регистрация</h2>
+            <div className={cl('modal-overlay')} onClick={handleCloseModal}></div>
+            <div
+                className={cl( 'modal-container')}
+            >
+                <div className={cl('modal modal-header')}>
+                    <h2>{title}</h2>
                 </div>
-                <form className="modal-content" method="post" action="https://beatmarket.one/registration"
-                      id="registerForm">
-                    <input type="hidden" name="_token" value="ZZ7s5fXXbZOFqYOJFd3RFHfCfUhkj9f87bkty3kw" />
-                    <input type="hidden" name="localTimeZone" value="3" id="localTimeZoneRegister" />
+                <form
+                    className={cl( 'modal-content', { error: isError})}
+                    id="registerForm"
+                    onSubmit={handleSubmitForm}
+                >
+                    {
+                        fields.map((field, i) =>
+                            <ModalContentGroup
+                                key={i}
+                                label={field.label}
+                                input={field.input}
+                                value={user[field.input.name]}
+                                onInputChange={onFieldChange}
+                                message={field.message}
+                            />
+                        )
+                    }
 
-                        <div className="modal-content-group error">
+                    <ModalContentGroup isError={true} />
 
-                            <div className="modal-content-group-label">
-                                <h4>E-mail</h4>
-                                <span>На этот адрес мы отправим письмо с подтверждением</span>
+                    <div className={cl('modal-content-btn')}>
+                        <button className={cl('btn btn_blue')}>{btnText}</button>
+                    </div>
+                    {
+                        isRegistration && (
+                            <div className={cl('modal-content-link')}>
+                                <span>
+                                    Уже есть аккаунт?
+                                    <strong
+                                        data-changemodal="modal_auth"
+                                        onClick={handleOpenAuthModal}
+                                    >
+                                        Авторизироваться
+                                    </strong>
+                                </span>
                             </div>
-
-                            <div className="modal-content-group-input">
-                                <input name="email" type="email" placeholder="mymail@example.com" className="input_text" />
-                            </div>
-
-                            <div className="modal-content-group-message">
-                                <span>Поле E-Mail адрес обязательно для заполнения.</span>
-                            </div>
-
-                        </div>
-
-                        <div className="modal-content-group error">
-
-                            <div className="modal-content-group-label">
-                                <h4>Пароль</h4>
-                                <span>Минимум 6 символов</span>
-                            </div>
-
-                            <div className="modal-content-group-input icon">
-                                <input name="password" type="password" className="input_text" />
-                            </div>
-
-                            <div className="modal-content-group-message">
-                                <span>Поле Пароль обязательно для заполнения.</span>
-                            </div>
-                        </div>
-                        <div className="modal-content-group">
-                            <div className="modal-content-group-label">
-                                <h4>Повторите пароль</h4>
-                            </div>
-                            <div className="modal-content-group-input icon">
-                                <input name="password_confirmation" type="password" className="input_text" />
-                            </div>
-                            <div className="modal-content-group-message">
-                                <span>Это поле обязательно для заполнения</span>
-                            </div>
-                        </div>
-
-
-                        <div className="modal-content-group">
-                            <div className="modal-content-group-error"><p>Ошибка</p></div>
-                        </div>
-
-                        <div className="modal-content-btn">
-                            <button className="btn btn_blue">Зарегистрироваться</button>
-                        </div>
-
-                        <div className="modal-content-link">
-                            <span>Уже есть аккаунт? <strong
-                                data-changemodal="modal_auth">Авторизироваться</strong></span>
-                        </div>
+                        )
+                    }
                 </form>
             </div>
         </div>
@@ -119,3 +146,4 @@ function Modal(props) {
 }
 
 export default Modal;
+

@@ -1,0 +1,20 @@
+.lesson-name {
+  width: 95%;
+  margin-left: auto;
+  align-items: center;
+  display: flex;
+
+  input {
+    background: transparent;
+    border: none;
+
+    &.redact {
+      border-bottom: 1px solid black;
+    }
+
+    &:focus-visible {
+      outline: none;
+      box-shadow: none;
+    }
+  }
+}

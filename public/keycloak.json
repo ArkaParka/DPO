@@ -1,0 +1,10 @@
+{
+    "realm": "EDU",
+    "auth-server-url": "https://keycloak.local.dev/auth/",
+    "ssl-required": "external",
+    "resource": "BFF",
+    "credentials": {
+        "secret": "**********"
+    },
+    "confidential-port": 0
+}
