@@ -7,15 +7,27 @@ import Button from "@mui/material/Button";
 import {createModule} from "../../../api/CoursesAPI";
 import _ from 'lodash';
 import TextEditor from "../../TextEditor/TextEditor";
+import EditorState from "draft-js/lib/EditorState";
 
-function Module({courseId= '6216248d8b686a35f1467abf', order= 0, module = {}}) {
-    const [name, setName] = useState(module.name || 'Новый модуль');
-    const [description, setDescription] = useState(module.description || '');
-    const [content, setContent] = useState(module.content || '');
+function Module(
+    {
+        courseId= '6216248d8b686a35f1467abf',
+        order= 0,
+        module = {
+            name: 'Новый модуль',
+            description: '',
+            content: '<p>hi</p>'
+        },
+        isNewModule = false
+    }) {
+
+    const [name, setName] = useState(module.name);
+    const [description, setDescription] = useState(module.description);
+    const [content, setContent] = useState(module.content);
 
     async function handleModuleSaveChanges() {
-        if (!name) {
-            alert('Имя модуля не может быть пустой строкой');
+        if (!name || !description) {
+            alert('Поле не может быть пустым');
             return;
         }
 
@@ -26,20 +38,13 @@ function Module({courseId= '6216248d8b686a35f1467abf', order= 0, module = {}}) {
             content: content,
             order: order
         }
+
         console.log(JSON.stringify(newModule));
-        if (_.isEmpty(module)) {
+        if (isNewModule) {
             let resp = await createModule(courseId, newModule);
             console.log('resp', resp);
         }
     }
-
-    useEffect(() => {
-        if (!_.isEmpty(module)) {
-            setName(module.name || '');
-            setDescription(module.description || '');
-            setContent(module.content || '');
-        }
-    }, [module])
 
     return (
         <section className={cl('module')}>
@@ -64,7 +69,7 @@ function Module({courseId= '6216248d8b686a35f1467abf', order= 0, module = {}}) {
                 <Form.Group className="mb-3" controlId="module-description">
                     <TextEditor
                         setContent={setContent}
-                        value={content}
+                        content={content}
                     />
                 </Form.Group>
                 <Button

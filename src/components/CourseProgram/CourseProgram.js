@@ -106,7 +106,7 @@ function CourseProgram({courseId='6216248d8b686a35f1467abf'}) {
             <div className="course-program-content">
                 {
                     state === createStates.moduleCreate &&
-                    <Module order={modules.length} />
+                    <Module isNewModule order={modules.length} />
                 }
                 {
                     state === createStates.lessonCreate &&
