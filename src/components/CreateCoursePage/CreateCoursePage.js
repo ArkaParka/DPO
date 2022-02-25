@@ -12,7 +12,7 @@ function CreateCoursePage({}) {
     // const {userInfo} = useAuth();
     const professorID = "3fa85f64-5717-4562-b3fc-2c963f66afa6";
 
-    const [createCourseState, setCreateCourseState] = useState(1);
+    const [createCourseState, setCreateCourseState] = useState(0);
     // 0 - create course
     // 1 - create program (modules + lessons)
     // 2 -
