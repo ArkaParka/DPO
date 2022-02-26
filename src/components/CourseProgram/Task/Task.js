@@ -3,6 +3,7 @@ import {Form} from "react-bootstrap";
 import Button from '@mui/material/Button';
 import {useState} from "react";
 import TextEditor from "../../TextEditor/TextEditor";
+import TaskAnswerEditor from "../../TaskAnswerEditor/TaskAnswerEditor";
 
 function Task(
     {
@@ -53,7 +54,7 @@ function Task(
                     />
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="task-description">
-
+                    <TaskAnswerEditor title='Текстовая задача | Настройки' />
                 </Form.Group>
             </Form>
             <Button

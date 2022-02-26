@@ -21,7 +21,7 @@ const createStates = {
 
 function CourseProgram({courseId = '6218b1a428160b846e6f30d2'}) {
     const [isCollapsed, setIsCollapsed] = useState(false);
-    const [state, setState] = useState(createStates.courseCreate);
+    const [state, setState] = useState(createStates.taskCreate);
     const [modules, setModules] = useState([]);
     const [tasks, setTasks] = useState([]);
     const [module, setModule] = useState(null);

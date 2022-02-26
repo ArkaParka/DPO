@@ -1,0 +1,35 @@
+.answer-form {
+  min-height: 200px;
+  border-radius: 0 0 0.25rem 0.25rem;
+}
+
+.answer {
+  margin-bottom: 10px;
+}
+
+.radio-group > div > div {
+  align-items: center;
+}
+
+.task-answer-editor .item {
+  width: 15px !important;
+  height: 15px !important;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  padding: 0 0 0 0.2px !important;
+}
+
+.radio-group > div > div:last-child {
+  width: 15px;
+  height: 15px;
+}
+
+.edit-title {
+  margin-bottom: 5px;
+}
+
+legend {
+  font-size: inherit;
+}
+
