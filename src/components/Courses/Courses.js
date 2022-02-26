@@ -3,6 +3,7 @@ import cl from "classnames";
 import './Courses.scss';
 import CoursesCards from "./CoursesCards/CoursesCards";
 import {AddNewFilter} from "../../App.utils";
+import Button from "@mui/material/Button";
 
 function Courses() {
     const [filters, setFilters] = useState([]);
@@ -27,9 +28,12 @@ function Courses() {
         <div className={cl('courses')}>
             <div className={cl('courses-search')}>
                 <input className={cl('input')} onChange={handleFilterAdd}  placeholder='Искать курс...'/>
-                <button className={cl('btn', 'blue')} type="button">
+                <Button
+                    className={cl('find-course-btn', 'btn')}
+                    variant="contained"
+                >
                     Искать
-                </button>
+                </Button>
             </div>
             <div className={cl('courses-content')}>
                 {/*<Filters onClearFilters={handleFiltersClear}  filters={filters} onAddFilter={handleFilterAdd}/>*/}

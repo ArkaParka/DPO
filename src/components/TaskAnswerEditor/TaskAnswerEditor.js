@@ -31,21 +31,18 @@ const TaskAnswerEditor = ({value, setValue, title}) => {
             <div className="answer-form form-control">
                 <div className="answer">
                     <div className="edit-title">Верный ответ:</div>
-                    {
-                        answerType === answerTypes.text ?
-                            <Form.Control
-                                type="text"
-                                onChange={(e) => setAnswer(e.target.value)}
-                                value={answer}
-                                placeholder="Ответ на задание"
-                            /> :
-                            <Form.Control
-                                type="file"
-                                value={answer}
-                                multiple={answerType === answerTypes.multyfile}
-                                onChange={(e) => setAnswer(e.target.value)}
-                            />
-                    }
+                    <Form.Control
+                        type="text"
+                        onChange={(e) => setAnswer(e.target.value)}
+                        value={answer}
+                        placeholder="Ответ на задание"
+                    />
+                     {/*<Form.Control*/}
+                     {/*    type="file"*/}
+                     {/*    value={answer}*/}
+                     {/*    multiple={answerType === answerTypes.multyfile}*/}
+                     {/*    onChange={(e) => setAnswer(e.target.value)}*/}
+                     {/*/>*/}
                 </div>
                 <div className="options">
                     <fieldset className="options-block">

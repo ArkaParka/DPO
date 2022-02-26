@@ -12,19 +12,28 @@
     align-items: center;
 
     &-logo {
-      width: 247px;
+      width: 100%;
       height: 60px;
 
       svg {
         color: $white;
         height: 100%;
-        width: 100%;
+        width: 200px;
       }
     }
 
     &-controls, &-operation {
+      width: 100%;
       align-items: center;
       display: flex;
+    }
+
+    &-controls {
+      justify-content: center;
+    }
+
+    &-operation {
+      justify-content: flex-end;
     }
 
     &-controls .menu {

@@ -1,7 +1,8 @@
-import React, { Component } from 'react';
-import { withRouter } from 'react-router-dom'
+import React, {Component} from 'react';
+import {withRouter} from 'react-router-dom'
 import cl from "classnames";
 import './LogoutButton.scss';
+import Button from "@mui/material/Button";
 
 class LogoutButton extends Component {
 
@@ -12,12 +13,13 @@ class LogoutButton extends Component {
 
     render() {
         return (
-            <button
-                className={cl('logout-btn', 'btn', 'blue')}
-                onClick={ () => this.logout() }
+            <Button
+                className={cl('logout-btn', 'btn')}
+                onClick={() => this.logout()}
+                variant="contained"
             >
                 Выйти
-            </button>
+            </Button>
         );
     }
 }
