@@ -5,7 +5,7 @@ import './CourseProgram.scss';
 import {AiOutlineArrowLeft, AiOutlineMenu, AiOutlinePlus} from "react-icons/ai";
 import {useEffect, useState} from "react";
 import {BiTask} from "react-icons/bi";
-import {BsFillJournalBookmarkFill} from "react-icons/bs";
+import {BsFillJournalBookmarkFill, BsPencilFill} from "react-icons/bs";
 import Module from "./Module/Module";
 import {getCourseModules} from "../../api/CoursesAPI";
 import Course from "./Course/Course";
@@ -70,9 +70,9 @@ function CourseProgram({courseId = '6218b1a428160b846e6f30d2'}) {
                         title="Закрыть меню"
                     />
                     <MenuItem
-                        icon={<AiOutlinePlus/>}
+                        icon={course ? <BsPencilFill/> : <AiOutlinePlus/>}
                         onClick={() => setState(createStates.courseCreate)}
-                        title="Создать курс"
+                        title={course ? 'Редактировать курс' : 'Создать курс'}
                     >
                         {
                             course ? 'Редактировать курс' : 'Создать курс'
