@@ -10,6 +10,8 @@ import Module from "./Module/Module";
 import {getCourseModules} from "../../api/CoursesAPI";
 import Course from "./Course/Course";
 import Task from "./Task/Task";
+import {RadioButton, RadioGroup} from "react-radio-buttons";
+import Test from "./Test/Test";
 
 const createStates = {
     courseCreate: 'course-create',
@@ -19,6 +21,11 @@ const createStates = {
     taskRedact: 'task-redact',
 }
 
+const taskTypes = {
+    task: 'task',
+    test: 'test'
+}
+
 function CourseProgram({courseId = '6218b1a428160b846e6f30d2'}) {
     const [isCollapsed, setIsCollapsed] = useState(false);
     const [state, setState] = useState(createStates.taskCreate);
@@ -26,6 +33,7 @@ function CourseProgram({courseId = '6218b1a428160b846e6f30d2'}) {
     const [tasks, setTasks] = useState([]);
     const [module, setModule] = useState(null);
     const [course, setCourse] = useState(null);
+    const [taskType, setTaskType] = useState(null);
 
     function handleModuleDelete(id) {
         console.log('delete module', id);
@@ -35,7 +43,15 @@ function CourseProgram({courseId = '6218b1a428160b846e6f30d2'}) {
         let modules = await getCourseModules(courseId);
         console.log('modules', modules);
         setModules(modules);
-    }, [])
+
+        let items = document.querySelector('.radio-group')?.childNodes;
+
+        if (items) {
+            items.forEach(item => {
+                item.childNodes[0].childNodes[1].classList.add('item');
+            });
+        }
+    }, [taskType])
 
     return (
         <section className={cl('course-program')}>
@@ -99,7 +115,10 @@ function CourseProgram({courseId = '6218b1a428160b846e6f30d2'}) {
                             </MenuItem>
                             <MenuItem
                                 icon={<AiOutlinePlus/>}
-                                onClick={() => setState(createStates.taskCreate)}
+                                onClick={() => {
+                                    setState(createStates.taskCreate);
+                                    setTaskType(null);
+                                }}
                             >
                                 Создать задание
                             </MenuItem>
@@ -121,8 +140,23 @@ function CourseProgram({courseId = '6218b1a428160b846e6f30d2'}) {
                     <Module module={module || undefined} order={module.order}/>
                 }
                 {
-                    state === createStates.taskCreate &&
+                    state === createStates.taskCreate && !taskType &&
+                    <RadioGroup className="create-task radio-group" onChange={setTaskType} vertical="true">
+                        <RadioButton rootColor={'#aeaeae'} value={taskTypes.task}>
+                            Задача
+                        </RadioButton>
+                        <RadioButton rootColor={'#aeaeae'} value={taskTypes.test}>
+                            Тест
+                        </RadioButton>
+                    </RadioGroup>
+                }
+                {
+                    state === createStates.taskCreate && taskType === taskTypes.task &&
                     <Task />
+                }
+                {
+                    state === createStates.taskCreate && taskType === taskTypes.test &&
+                    <Test />
                 }
             </div>
         </section>

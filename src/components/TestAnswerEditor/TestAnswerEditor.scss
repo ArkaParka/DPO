@@ -37,3 +37,11 @@
 legend {
   font-size: inherit;
 }
+
+.test-answer {
+  .radio-group {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-column-gap: 10px;
+  }
+}

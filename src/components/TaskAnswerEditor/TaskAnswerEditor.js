@@ -7,7 +7,7 @@ import './TaskAnswerEditor.scss';
 const answerTypes = {
     text: 'text',
     file: 'file',
-    multyfile: 'multyfile'
+    multifile: 'multifile'
 }
 
 const TaskAnswerEditor = ({value, setValue, title}) => {
@@ -15,11 +15,13 @@ const TaskAnswerEditor = ({value, setValue, title}) => {
     const [answerType, setAnswerType] = useState(answerTypes.text);
 
     useEffect(() => {
-        let items = document.querySelector('.radio-group').childNodes;
+        let items = document.querySelector('.radio-group')?.childNodes;
 
-        items.forEach(item => {
-            item.childNodes[0].childNodes[1].classList.add('item');
-        })
+        if (items) {
+            items.forEach(item => {
+                item.childNodes[0].childNodes[1].classList.add('item');
+            });
+        }
 
     }, []);
 
@@ -51,13 +53,13 @@ const TaskAnswerEditor = ({value, setValue, title}) => {
                             Тип ответа:
                         </legend>
                         <RadioGroup className="radio-group" onChange={setAnswerType} vertical="true">
-                            <RadioButton value="text" checked={answerType === answerTypes.text}>
+                            <RadioButton rootColor={'#aeaeae'} value={answerTypes.text} checked={answerType === answerTypes.text}>
                                 Текст
                             </RadioButton>
-                            <RadioButton value="file" checked={answerType === answerTypes.file}>
+                            <RadioButton rootColor={'#aeaeae'} value={answerTypes.file} checked={answerType === answerTypes.file}>
                                 Файл
                             </RadioButton>
-                            <RadioButton value="multyfile" checked={answerType === answerTypes.multyfile}>
+                            <RadioButton rootColor={'#aeaeae'} value={answerTypes.multifile} checked={answerType === answerTypes.multifile}>
                                 Несколько файлов
                             </RadioButton>
                         </RadioGroup>
