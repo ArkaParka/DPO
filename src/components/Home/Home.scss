@@ -1,7 +1,9 @@
 @import "../../variables";
+@import url('https://fonts.googleapis.com/css2?family=Comfortaa&display=swap');
 
 .home-page {
-  background: url("../../imgs/1.jpg");
+  background: url("https://static.vecteezy.com/system/resources/previews/002/849/000/non_2x/modern-dark-background-with-gradient-geometric-shape-themes-vector.jpg");
+  //background: url("../../imgs/brain.jpg");
   background-size: cover;
   height: 100%;
 
@@ -14,10 +16,9 @@
     height: calc(100vh - 6rem);
     width: 100%;
     display: flex;
-    text-transform: uppercase;
 
     .title {
-      font-size: 20px;
+      font-family: 'Comfortaa', cursive;
       font-weight: 700;
       line-height: 73px;
       flex-direction: column;
@@ -25,6 +26,10 @@
       text-align: left;
       width: 50%;
       color: $white;
+
+      h1 {
+        font-size: 40px;
+      }
     }
   }
 }
