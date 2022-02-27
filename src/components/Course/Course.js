@@ -1,9 +1,8 @@
 import React, {useEffect, useState} from "react";
 import cl from "classnames";
-import './Course.scss';
-import CardStats from "../Courses/CoursesCard/CardStats/CardStats";
 import {course_3} from "../../App.const";
 import {setSelectedOption} from "../../App.utils";
+import './Course.scss';
 
 
 function Course({location}) {
@@ -20,9 +19,6 @@ function Course({location}) {
                     <div className={cl('page-fragment')}>
                         <div className={cl('name')}>
                             {courseData.name}
-                        </div>
-                        <div className={cl('stats')}>
-                            <CardStats courseStats={courseData.stats}/>
                         </div>
                     </div>
                 </div>

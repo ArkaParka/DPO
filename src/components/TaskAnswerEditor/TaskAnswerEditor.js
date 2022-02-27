@@ -50,7 +50,7 @@ const TaskAnswerEditor = ({value, setValue, title}) => {
                             title="Как учащиеся могу прислать ответ: прямо в поле ввода в задании или прикрепить файл c текстом ответа">
                             Тип ответа:
                         </legend>
-                        <RadioGroup className="radio-group" onChange={setAnswerType} vertical={true}>
+                        <RadioGroup className="radio-group" onChange={setAnswerType} vertical="true">
                             <RadioButton value="text" checked={answerType === answerTypes.text}>
                                 Текст
                             </RadioButton>
