@@ -110,6 +110,7 @@ function CourseProgram({courseId = '6218b1a428160b846e6f30d2'}) {
                             <MenuItem
                                 icon={<AiOutlinePlus/>}
                                 onClick={() => setState(createStates.moduleCreate)}
+                                title="Создать модуль"
                             >
                                 Создать модуль
                             </MenuItem>
@@ -119,6 +120,7 @@ function CourseProgram({courseId = '6218b1a428160b846e6f30d2'}) {
                                     setState(createStates.taskCreate);
                                     setTaskType(null);
                                 }}
+                                title="Создать задание"
                             >
                                 Создать задание
                             </MenuItem>
