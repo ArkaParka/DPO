@@ -1,6 +1,10 @@
 @import "variables";
 @import "~bootstrap/scss/bootstrap";
 
+pre {
+  white-space: normal;
+}
+
 html,
 body {
   height: 100%;
