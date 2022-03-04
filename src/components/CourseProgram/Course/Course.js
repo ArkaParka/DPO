@@ -4,9 +4,10 @@ import NumericInput from 'react-numeric-input';
 import Button from '@mui/material/Button';
 import {IconButton} from "@mui/material";
 import PhotoCamera from '@mui/icons-material/PhotoCamera';
-import {useState} from "react";
+import {useState, useEffect} from "react";
 import './Course.scss';
 import {CgAsterisk} from "react-icons/cg";
+import {createCourse, getCourse, updateCourse} from "../../../api/CoursesAPI";
 
 function Course(
     {
@@ -19,7 +20,8 @@ function Course(
             hours: 0,
             contentImage: ''
         },
-        setCourse
+        setCourse,
+        setCourseId
     }) {
     const [name, setName] = useState(course.name);
     const [description, setDescription] = useState(course.description);
@@ -27,26 +29,40 @@ function Course(
     const [hours, setHours] = useState(course.hours);
     const [contentImage, setContentImage] = useState(course.contentImage);
 
+    useEffect(  () => {
+        if (course.id) {
+            setName(course.name);
+            setDescription(course.description);
+            setSpeciality(course.speciality);
+            setHours(course.hours);
+            setContentImage(course.contentImage);
+        }
+    }, [course]);
+
     async function handleCourseCreate() {
         if (!name.trim() || !description.trim()) {
             alert('Поле не может быть пустым');
             return;
         }
 
-        let newCourse = {
+        let newCourse = Object.assign(course, {
             name: name,
             description: description,
             speciality: speciality,
             professor: professorID,
             hours: hours,
             contentImage: contentImage
-        }
+        });
 
-        console.log(newCourse);
-        setCourse(newCourse);
+        console.log('newCourse', newCourse)
         if (isNewCourse) {
-            // let resp = await createCourse(newCourse);
-            // console.log('resp', resp);
+            let response = await createCourse(newCourse);
+            setCourse(JSON.stringify(response));
+            setCourseId(response.id);
+            localStorage.setItem('courseId', response.id);
+        } else {
+            let response = await updateCourse(newCourse);
+            setCourse(JSON.stringify(response));
         }
     }
 
@@ -118,7 +134,9 @@ function Course(
                 onClick={handleCourseCreate}
                 variant="contained"
             >
-                Создать курс
+                {
+                    course.id ? 'Сохранить изменения' : 'Создать курс'
+                }
             </Button>
         </div>
     );

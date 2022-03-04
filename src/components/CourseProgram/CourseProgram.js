@@ -7,7 +7,7 @@ import {useEffect, useState} from "react";
 import {BiTask} from "react-icons/bi";
 import {BsFillJournalBookmarkFill, BsPencilFill} from "react-icons/bs";
 import Module from "./Module/Module";
-import {getCourseModules} from "../../api/CoursesAPI";
+import {createCourse, getCourse, getCourseModules} from "../../api/CoursesAPI";
 import Course from "./Course/Course";
 import Task from "./Task/Task";
 import {RadioButton, RadioGroup} from "react-radio-buttons";
@@ -26,24 +26,34 @@ const taskTypes = {
     test: 'test'
 }
 
-function CourseProgram({courseId = '6218b1a428160b846e6f30d2'}) {
+function CourseProgram({}) {
     const [isCollapsed, setIsCollapsed] = useState(false);
-    const [state, setState] = useState(createStates.taskCreate);
+    const [state, setState] = useState(createStates.courseCreate);
     const [modules, setModules] = useState([]);
     const [tasks, setTasks] = useState([]);
     const [module, setModule] = useState(null);
     const [course, setCourse] = useState(null);
     const [taskType, setTaskType] = useState(null);
+    const [courseId, setCourseId] = useState(localStorage.getItem('courseId') || '');
 
     function handleModuleDelete(id) {
         console.log('delete module', id);
     }
 
     useEffect(async () => {
-        let modules = await getCourseModules(courseId);
-        console.log('modules', modules);
-        setModules(modules);
+        if (courseId) {
+            let courseResponse = await getCourse(courseId);
+            setCourse(JSON.stringify(courseResponse));
 
+            let modules = await getCourseModules(courseId);
+            console.log('modules', modules);
+            setModules(modules);
+        }
+
+        setStyleClass();
+    }, [taskType, courseId])
+
+    function setStyleClass() {
         let items = document.querySelector('.radio-group')?.childNodes;
 
         if (items) {
@@ -51,7 +61,7 @@ function CourseProgram({courseId = '6218b1a428160b846e6f30d2'}) {
                 item.childNodes[0].childNodes[1].classList.add('item');
             });
         }
-    }, [taskType])
+    }
 
     return (
         <section className={cl('course-program')}>
@@ -72,10 +82,10 @@ function CourseProgram({courseId = '6218b1a428160b846e6f30d2'}) {
                     <MenuItem
                         icon={course ? <BsPencilFill/> : <AiOutlinePlus/>}
                         onClick={() => setState(createStates.courseCreate)}
-                        title={course ? 'Редактировать курс' : 'Создать курс'}
+                        title={courseId ? 'Редактировать курс' : 'Создать курс'}
                     >
                         {
-                            course ? 'Редактировать курс' : 'Создать курс'
+                            courseId ? 'Редактировать курс' : 'Создать курс'
                         }
                     </MenuItem>
                     <SubMenu title="Модули" icon={<BsFillJournalBookmarkFill/>}>
@@ -105,7 +115,7 @@ function CourseProgram({courseId = '6218b1a428160b846e6f30d2'}) {
                         }
                     </SubMenu>
                     {
-                        course &&
+                        courseId &&
                         <>
                             <MenuItem
                                 icon={<AiOutlinePlus/>}
@@ -131,15 +141,29 @@ function CourseProgram({courseId = '6218b1a428160b846e6f30d2'}) {
             <div className="course-program-content">
                 {
                     state === createStates.courseCreate &&
-                    <Course course={course || undefined} isNewCourse={!course} setCourse={setCourse}/>
+                    <Course
+                        courseId={courseId}
+                        setCourseId={setCourseId}
+                        isNewCourse={!courseId}
+                        course={JSON.parse(course) || undefined}
+                        setCourse={setCourse}
+                    />
                 }
                 {
                     state === createStates.moduleCreate &&
-                    <Module isNewModule order={modules.length}/>
+                    <Module
+                        isNewModule
+                        order={modules.length}
+                        courseId={courseId}
+                    />
                 }
                 {
                     state === createStates.moduleRedact &&
-                    <Module module={module || undefined} order={module.order}/>
+                    <Module
+                        module={module || undefined}
+                        order={module.order}
+                        courseId={courseId}
+                    />
                 }
                 {
                     state === createStates.taskCreate && !taskType &&

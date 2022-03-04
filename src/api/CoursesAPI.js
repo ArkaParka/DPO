@@ -22,10 +22,43 @@ const updatedCourse = {
 
 const module = {
     "courseId": "6220a96e28160b846e6f3108",
+    "id": "6218b1a528160b846e6f30e9",
     "name": "NEW COURSE",
     "description": "NEW DESCRIPTION",
     "order": 0
-}
+};
+
+const task = {
+    "moduleId": "6218b1a528160b846e6f30e9",
+    "id": "6221c44e28160b846e6f3117",
+    "name": "new task",
+    "shortDescription": "string",
+    "order": 0
+};
+
+const test = {
+    "moduleId": "6218b1a528160b846e6f30e9",
+    "id": "6221c4ec28160b846e6f3118",
+    "name": "newTest",
+    "description": "string",
+    "order": 0
+};
+
+const testQuestions = {
+    "testId": "6221c4ec28160b846e6f3118",
+    "questions": [
+        {
+            "question": "string",
+            "anwsers": [
+                {
+                    "anwser": "string",
+                    "isCorrect": true
+                }
+            ],
+            "multipleAnwsers": true
+        }
+    ]
+};
 
 export const APIs = {
     announcement: {},
@@ -41,9 +74,24 @@ export const APIs = {
     },
     module: {
         create: '/api/Module/Create',
+        get: '/api/Module/Get/',
+        update: '/api/Module/Update',
+        delete: '/api/Module/Delete/'
     },
-    task: {},
-    test: {},
+    task: {
+        create: '/api/Task/Create',
+        get: '/api/Task/Get/',
+        update: '/api/Task/Update',
+        delete: '/api/Task/Delete/'
+    },
+    test: {
+        create: '/api/Test/Create',
+        get: '/api/Test/Get/',
+        update: '/api/Test/Update',
+        delete: '/api/Test/Delete/',
+        setQuestions: '/api/Test/SetQuestions',
+        getQuestionsWithAnswers: '/api/Test/GetQuestionsWithAnwsers?testId='
+    },
 };
 
 export function requestHeader(method, data = {}) {
@@ -75,11 +123,10 @@ export function requestHeader(method, data = {}) {
 }
 
 export function sendRequest(url, method, data) {
-    console.log(requestHeader(method, data));
     return fetch(url, requestHeader(method, data))
         .then(response => {
             if (response.status === 200 || response.status === 201) {
-                return response.json();
+                return response.clone().json();
             }
             else
                 return { status: response.status, message: response.statusText }
@@ -88,7 +135,8 @@ export function sendRequest(url, method, data) {
             return {response: json};
         })
         .catch(err => {
-            return {response: err.toString()}
+            let isDeleteApi = err.toString() === "SyntaxError: Unexpected end of JSON input";
+            return {response: isDeleteApi ? "the deletion was successful" : err.toString()}
         });
 }
 
@@ -122,13 +170,80 @@ export async function getCourseCatalogById(id = '6220a96e28160b846e6f3108') {
     return response;
 }
 
-export async function createModule(courseId, module) {
+export async function createModule(module) {
     let response = (await sendRequest(APIs.course.create, 'POST', module)).response;
     return response;
 }
 
-export async function getCourseModules(courseId) {
-    let response = (await getCourse(courseId)).response;
+export async function getModule(id) {
+    let response = (await sendRequest(APIs.module.get + id, 'GET')).response;
+    return response;
+}
+
+export async function updateModule(module) {
+    let response = (await sendRequest(APIs.module.update, 'POST', module)).response;
+    return response;
+}
+
+export async function deleteModule(id) {
+    let response = (await sendRequest(APIs.module.delete + id, 'DELETE')).response;
+    return response;
+}
+
+export async function createTask(task) {
+    let response = (await sendRequest(APIs.task.create, 'POST', task)).response;
+    return response;
+}
+
+export async function getTask(id) {
+    let response = (await sendRequest(APIs.task.get + id, 'GET')).response;
+    return response;
+}
+
+export async function updateTask(task) {
+    let response = (await sendRequest(APIs.task.update, 'POST', task)).response;
+    return response;
+}
+
+export async function deleteTask(id) {
+    let response = (await sendRequest(APIs.task.delete + id, 'DELETE')).response;
+    return response;
+}
+
+export async function createTest(test) {
+    let response = (await sendRequest(APIs.test.create, 'POST', test)).response;
+    return response;
+}
+
+export async function getTest(id) {
+    let response = (await sendRequest(APIs.test.get + id, 'GET')).response;
+    return response;
+}
+
+export async function updateTest(test) {
+    let response = (await sendRequest(APIs.test.update, 'POST', test)).response;
+    return response;
+}
+
+export async function deleteTest(id) {
+    let response = (await sendRequest(APIs.test.delete + id, 'DELETE')).response;
+    return response;
+}
+
+export async function setQuestionsTest(obj) {
+    let response = (await sendRequest(APIs.test.setQuestions, 'POST', obj)).response;
+    return response;
+}
+
+export async function getQuestionsWithAnswers(id) {
+    let response = (await sendRequest(APIs.test.getQuestionsWithAnswers + id, 'POST')).response;
+    return response;
+}
+
+// --------------
+export async function getCourseModules(courseId = '6221d05728160b846e6f3120') {
+    let response = await getCourse(courseId);
+    console.log('resp', response)
     return response?.modules ? response.modules : [];
 }
 
@@ -148,12 +263,33 @@ class CoursesAPI extends Component {
         this.state = { response: null };
         this.URL = APIs;
         this.handleCleanState = this.handleCleanState.bind(this);
+        // *** COURSE ***
         this.handleCourseCreate = this.handleCourseCreate.bind(this);
         this.handleCourseGet = this.handleCourseGet.bind(this);
         this.handleCourseUpdate = this.handleCourseUpdate.bind(this);
         this.handleCourseDelete = this.handleCourseDelete.bind(this);
+        // *** COURSE CATALOG ***
         this.handleCourseCatalogGetAll = this.handleCourseCatalogGetAll.bind(this);
         this.handleCourseCatalogGet = this.handleCourseCatalogGet.bind(this);
+        // *** MODULE ***
+        this.handleModuleCreate = this.handleModuleCreate.bind(this);
+        this.handleModuleGet = this.handleModuleGet.bind(this);
+        this.handleModuleUpdate = this.handleModuleUpdate.bind(this);
+        this.handleModuleDelete = this.handleModuleDelete.bind(this);
+        // *** TASK ***
+        this.handleTaskCreate = this.handleTaskCreate.bind(this);
+        this.handleTaskGet = this.handleTaskGet.bind(this);
+        this.handleTaskUpdate = this.handleTaskUpdate.bind(this);
+        this.handleTaskDelete = this.handleTaskDelete.bind(this);
+        // *** TEST ***
+        this.handleTestCreate = this.handleTestCreate.bind(this);
+        this.handleTestGet = this.handleTestGet.bind(this);
+        this.handleTestUpdate = this.handleTestUpdate.bind(this);
+        this.handleTestDelete = this.handleTestDelete.bind(this);
+        this.handleTestSetQuestions = this.handleTestSetQuestions.bind(this);
+        this.handleTestGetQuestionsWithAnswers = this.handleTestGetQuestionsWithAnswers.bind(this);
+
+        this.handleGetCourseModules = this.handleGetCourseModules.bind(this);
     }
 
     async handleCourseCreate() {
@@ -198,6 +334,111 @@ class CoursesAPI extends Component {
         });
     }
 
+    async handleModuleCreate() {
+        let response = await createModule(module);
+        this.setState({
+            response: JSON.stringify(response)
+        });
+    }
+
+    async handleModuleGet() {
+        let response = await getModule(module.id);
+        this.setState({
+            response: JSON.stringify(response)
+        });
+    }
+
+    async handleModuleUpdate() {
+        let response = await updateModule(module);
+        this.setState({
+            response: JSON.stringify(response)
+        });
+    }
+
+    async handleModuleDelete() {
+        let response = await deleteModule('6221c10728160b846e6f3114');
+        this.setState({
+            response: JSON.stringify(response)
+        });
+    }
+
+    async handleTaskCreate() {
+        let response = await createTask(task);
+        this.setState({
+            response: JSON.stringify(response)
+        });
+    }
+
+    async handleTaskGet() {
+        let response = await getTask(task.id);
+        this.setState({
+            response: JSON.stringify(response)
+        });
+    }
+
+    async handleTaskUpdate() {
+        let response = await updateTask(task);
+        this.setState({
+            response: JSON.stringify(response)
+        });
+    }
+
+    async handleTaskDelete() {
+        let response = await deleteTask('6221c36a28160b846e6f3115');
+        this.setState({
+            response: JSON.stringify(response)
+        });
+    }
+
+    async handleTestCreate() {
+        let response = await createTest(test);
+        this.setState({
+            response: JSON.stringify(response)
+        });
+    }
+
+    async handleTestGet() {
+        let response = await getTest(test.id);
+        this.setState({
+            response: JSON.stringify(response)
+        });
+    }
+
+    async handleTestUpdate() {
+        let response = await updateTest(test);
+        this.setState({
+            response: JSON.stringify(response)
+        });
+    }
+
+    async handleTestDelete() {
+        let response = await deleteTest('6221c69328160b846e6f311a');
+        this.setState({
+            response: JSON.stringify(response)
+        });
+    }
+
+    async handleTestSetQuestions() {
+        let response = await setQuestionsTest(testQuestions);
+        this.setState({
+            response: JSON.stringify(response)
+        });
+    }
+
+    async handleTestGetQuestionsWithAnswers() {
+        let response = await getQuestionsWithAnswers(test.id);
+        this.setState({
+            response: JSON.stringify(response)
+        });
+    }
+
+    async handleGetCourseModules() {
+        let response = await getCourseModules();
+        this.setState({
+            response: JSON.stringify(response)
+        });
+    }
+
     handleCleanState() {
         this.setState({
             response: ''
@@ -208,12 +449,34 @@ class CoursesAPI extends Component {
         return (
             <div className={cl('CoursesAPI')}>
                 <button onClick={this.handleCleanState}>clean</button>
+                <hr/>
                 <button onClick={this.handleCourseCreate}>course create</button>
                 <button onClick={this.handleCourseGet}>course get</button>
                 <button onClick={this.handleCourseUpdate}>course update</button>
                 <button onClick={this.handleCourseDelete}>course delete</button>
+                <hr/>
                 <button onClick={this.handleCourseCatalogGetAll}>course catalog get all</button>
                 <button onClick={this.handleCourseCatalogGet}>course catalog get by ID</button>
+                <hr/>
+                <button onClick={this.handleModuleCreate}>module create</button>
+                <button onClick={this.handleModuleGet}>module get</button>
+                <button onClick={this.handleModuleUpdate}>module update</button>
+                <button onClick={this.handleModuleDelete}>module delete</button>
+                <hr/>
+                <button onClick={this.handleTaskCreate}>task create</button>
+                <button onClick={this.handleTaskGet}>task get</button>
+                <button onClick={this.handleTaskUpdate}>task update</button>
+                <button onClick={this.handleTaskDelete}>task delete</button>
+                <hr/>
+                <button onClick={this.handleTestCreate}>test create</button>
+                <button onClick={this.handleTestGet}>test get</button>
+                <button onClick={this.handleTestUpdate}>test update</button>
+                <button onClick={this.handleTestDelete}>test delete</button>
+                <button onClick={this.handleTestSetQuestions}>test set questions</button>
+                <button onClick={this.handleTestGetQuestionsWithAnswers}>test get questions with answers</button>
+                <hr/>
+                <button onClick={this.handleGetCourseModules}>get modules array</button>
+                <hr/>
                 <APIResponse response={this.state.response}/>
             </div>
         );

@@ -11,21 +11,21 @@ import EditorState from "draft-js/lib/EditorState";
 
 function Module(
     {
-        courseId= '6218b23a28160b846e6f30f5',
+        courseId,
         // TODO: Исправить порядок в модулях и курсах,
         // TODO: его можно взять из самого объекта модуля
         order= 0,
         module = {
             name: 'Новый модуль',
             description: '',
-            content: '<p>hi</p>'
+            content: '<p>Содержимое нового модуля</p>'
         },
         isNewModule = false
     }) {
 
     const [name, setName] = useState(module.name);
     const [description, setDescription] = useState(module.description);
-    const [content, setContent] = useState(module.content);
+    const [content, setContent] = useState(module.content || '<p>Содержимое нового модуля</p>');
 
     async function handleModuleSaveChanges() {
         if (!name.trim() || !description.trim()) {
@@ -33,19 +33,26 @@ function Module(
             return;
         }
 
-        let newModule = {
+        let newModule = Object.assign(module, {
             courseId: courseId,
             name: name,
             description: description,
             content: content,
             order: order
-        }
+        });
 
         console.log(newModule);
         if (isNewModule) {
-            let resp = await createModule(courseId, newModule);
+            let resp = await createModule(newModule);
             console.log('resp', resp);
         }
+        cleanState();
+    }
+
+    function cleanState() {
+        setName('Новый модуль');
+        setDescription('');
+        setContent('<p>Содержимое нового модуля</p>');
     }
 
     return (
@@ -72,7 +79,7 @@ function Module(
                     <TextEditor
                         setValue={setContent}
                         value={content}
-                        title='Содержимое курса'
+                        title='Содержимое модуля'
                     />
                 </Form.Group>
                 <Button
@@ -80,7 +87,9 @@ function Module(
                     onClick={handleModuleSaveChanges}
                     variant="contained"
                 >
-                    Сохранить модуль
+                    {
+                        isNewModule ? 'Сохранить модуль' : 'Сохранить изменения'
+                    }
                 </Button>
             </Form>
         </section>

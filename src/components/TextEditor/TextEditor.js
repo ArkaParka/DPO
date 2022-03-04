@@ -39,8 +39,13 @@ const TextEditor = ({value, setValue, title}) => {
     }
 
     useEffect(() => {
+        setEditorState(convertContentToEditorState(value));
+        addStyleClass();
+    }, [value]);
+
+    function addStyleClass() {
         document.querySelector('.public-DraftEditor-content').classList.add('form-control');
-    }, []);
+    }
 
     return (
         <div className="text-editor">
