@@ -9,6 +9,8 @@ import _ from 'lodash';
 import TextEditor from "../../TextEditor/TextEditor";
 import EditorState from "draft-js/lib/EditorState";
 
+const defaultContentState = '<p>Содержимое нового модуля</p>';
+
 function Module(
     {
         courseId,
@@ -18,7 +20,7 @@ function Module(
         module = {
             name: 'Новый модуль',
             description: '',
-            content: '<p>Содержимое нового модуля</p>'
+            content: defaultContentState
         },
         isNewModule = false,
         setModules,
@@ -27,7 +29,7 @@ function Module(
 
     const [name, setName] = useState(module.name);
     const [description, setDescription] = useState(module.description);
-    const [content, setContent] = useState(module.content || '<p>Содержимое нового модуля</p>');
+    const [content, setContent] = useState(module.content || defaultContentState);
 
     async function handleModuleSaveChanges() {
         if (!name.trim() || !description.trim()) {
@@ -55,8 +57,14 @@ function Module(
     function cleanState() {
         setName('Новый модуль');
         setDescription('');
-        setContent('<p>Содержимое нового модуля</p>');
+        setContent(defaultContentState);
     }
+
+    useEffect(() => {
+        setName(module.name);
+        setDescription(module.description);
+        setContent(module.content || defaultContentState);
+    }, [module])
 
     return (
         <section className={cl('module')}>

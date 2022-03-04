@@ -100,7 +100,7 @@ function CourseProgram({}) {
                                         className={cl('module')}
                                         onClick={() => {
                                             setState(createStates.moduleRedact);
-                                            setModule(module);
+                                            setModule(JSON.stringify(module));
                                         }}
                                         icon={<AiOutlinePlus onClick={() => handleModuleDelete(module)}/>}
                                     >
@@ -112,7 +112,7 @@ function CourseProgram({}) {
                     </SubMenu>
                     <SubMenu title="Задания" icon={<BiTask/>}>
                         {
-                            tasks.length ? tasks.map((module, i) => (
+                            tasks.length ? tasks.map((task, i) => (
                                     <MenuItem>Задание {i + 1}</MenuItem>
                                 )) :
                                 <MenuItem className={cl('no-tasks')}>Нет заданий</MenuItem>
@@ -166,8 +166,8 @@ function CourseProgram({}) {
                 {
                     state === createStates.moduleRedact &&
                     <Module
-                        module={module || undefined}
-                        order={module.order}
+                        module={JSON.parse(module) || undefined}
+                        order={JSON.parse(module).order}
                         courseId={courseId}
                     />
                 }
