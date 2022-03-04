@@ -125,9 +125,7 @@ export function requestHeader(method, data = {}) {
 export function sendRequest(url, method, data) {
     return fetch(url, requestHeader(method, data))
         .then(response => {
-            console.log('respppp', response.clone());
             if (response.status === 200 || response.status === 201) {
-                console.log('respppp 2222', response.clone().json());
                 return response.clone().json();
             }
             else

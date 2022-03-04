@@ -7,7 +7,7 @@ import {useEffect, useState} from "react";
 import {BiTask} from "react-icons/bi";
 import {BsFillJournalBookmarkFill, BsPencilFill} from "react-icons/bs";
 import Module from "./Module/Module";
-import {createCourse, getCourse, getCourseModules} from "../../api/CoursesAPI";
+import {createCourse, deleteModule, getCourse, getCourseModules} from "../../api/CoursesAPI";
 import Course from "./Course/Course";
 import Task from "./Task/Task";
 import {RadioButton, RadioGroup} from "react-radio-buttons";
@@ -36,8 +36,11 @@ function CourseProgram({}) {
     const [taskType, setTaskType] = useState(null);
     const [courseId, setCourseId] = useState(localStorage.getItem('courseId') || '');
 
-    function handleModuleDelete(id) {
-        console.log('delete module', id);
+    async function handleModuleDelete(module) {
+        await deleteModule(module.id);
+        let newModules = modules.slice();
+        newModules.splice(module.order, 1);
+        setModules(newModules);
     }
 
     useEffect(async () => {
@@ -99,7 +102,7 @@ function CourseProgram({}) {
                                             setState(createStates.moduleRedact);
                                             setModule(module);
                                         }}
-                                        icon={<AiOutlinePlus onClick={() => handleModuleDelete(module.id)}/>}
+                                        icon={<AiOutlinePlus onClick={() => handleModuleDelete(module)}/>}
                                     >
                                         {module.name}
                                     </MenuItem>
