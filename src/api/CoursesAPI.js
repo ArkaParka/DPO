@@ -125,7 +125,9 @@ export function requestHeader(method, data = {}) {
 export function sendRequest(url, method, data) {
     return fetch(url, requestHeader(method, data))
         .then(response => {
+            console.log('respppp', response.clone());
             if (response.status === 200 || response.status === 201) {
+                console.log('respppp 2222', response.clone().json());
                 return response.clone().json();
             }
             else
@@ -171,7 +173,7 @@ export async function getCourseCatalogById(id = '6220a96e28160b846e6f3108') {
 }
 
 export async function createModule(module) {
-    let response = (await sendRequest(APIs.course.create, 'POST', module)).response;
+    let response = (await sendRequest(APIs.module.create, 'POST', module)).response;
     return response;
 }
 

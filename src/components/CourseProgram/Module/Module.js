@@ -20,7 +20,9 @@ function Module(
             description: '',
             content: '<p>Содержимое нового модуля</p>'
         },
-        isNewModule = false
+        isNewModule = false,
+        setModules,
+        modules
     }) {
 
     const [name, setName] = useState(module.name);
@@ -44,6 +46,7 @@ function Module(
         console.log(newModule);
         if (isNewModule) {
             let resp = await createModule(newModule);
+            setModules(modules.concat(newModule));
             console.log('resp', resp);
         }
         cleanState();

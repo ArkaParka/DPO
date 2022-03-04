@@ -43,6 +43,7 @@ function CourseProgram({}) {
     useEffect(async () => {
         if (courseId) {
             let courseResponse = await getCourse(courseId);
+            console.log(courseId)
             setCourse(JSON.stringify(courseResponse));
 
             let modules = await getCourseModules(courseId);
@@ -155,6 +156,8 @@ function CourseProgram({}) {
                         isNewModule
                         order={modules.length}
                         courseId={courseId}
+                        setModules={setModules}
+                        modules={modules}
                     />
                 }
                 {
