@@ -4,10 +4,9 @@ import {Form} from "react-bootstrap";
 import "react-datepicker/dist/react-datepicker.css";
 import {useEffect, useState} from "react";
 import Button from "@mui/material/Button";
-import {createModule, updateModule} from "../../../api/CoursesAPI";
-import _ from 'lodash';
+import {createModule, deleteModule, updateModule} from "../../../api/CoursesAPI";
 import TextEditor from "../../TextEditor/TextEditor";
-import EditorState from "draft-js/lib/EditorState";
+import {createStates} from "../CourseProgram";
 
 const defaultContentState = '<p>Содержимое нового модуля</p>';
 
@@ -24,12 +23,21 @@ function Module(
         },
         isNewModule = false,
         setModules,
-        modules
+        modules,
+        setState
     }) {
 
     const [name, setName] = useState(module.name);
     const [description, setDescription] = useState(module.description);
     const [content, setContent] = useState(module.content || defaultContentState);
+
+    async function handleModuleDelete() {
+        await deleteModule(module.id);
+        let newModules = modules.slice();
+        newModules.splice(module.order, 1);
+        setModules(newModules);
+        setState(createStates.courseCreate);
+    }
 
     async function handleModuleSaveChanges() {
         if (!name.trim() || !description.trim()) {
@@ -107,6 +115,16 @@ function Module(
                         isNewModule ? 'Сохранить модуль' : 'Сохранить изменения'
                     }
                 </Button>
+                {
+                    !isNewModule &&
+                    <Button
+                        className={cl('module-delete-btn', 'btn')}
+                        onClick={handleModuleDelete}
+                        variant="contained"
+                    >
+                        Удалить модуль
+                    </Button>
+                }
             </Form>
         </section>
     );

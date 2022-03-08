@@ -4,6 +4,9 @@ import Button from '@mui/material/Button';
 import {useEffect, useState} from "react";
 import TextEditor from "../../TextEditor/TextEditor";
 import TaskAnswerEditor from "../../TaskAnswerEditor/TaskAnswerEditor";
+import {createTask, deleteTask, updateTask} from "../../../api/CoursesAPI";
+import './Task.scss';
+import {createStates} from "../CourseProgram";
 
 const defaultDescription = "Вы можете изменить условие задания в этом поле и указать настройки ниже.";
 
@@ -11,11 +14,13 @@ function Task(
     {
         isNewTask = false,
         task = {
+            id: "62275bd028160b846e6f3141",
             moduleId: "6218b1a528160b846e6f30e9",
             name: "Новое задание",
             description: defaultDescription,
             order: 0
-        }
+        },
+        setState
     }) {
     const [name, setName] = useState(task.name || '');
     const [description, setDescription] = useState(task.description || defaultDescription);
@@ -25,21 +30,29 @@ function Task(
         setDescription(task.description || defaultDescription);
     }, [task.name, task.description])
 
-    async function handleTaskCreate() {
+    async function handleTaskDelete() {
+        await deleteTask(task.id);
+        setState(createStates.courseCreate);
+    }
+
+    async function handleTaskSaveChanges() {
         if (!name.trim() || !description.trim()) {
             alert('Поле не может быть пустым');
             return;
         }
 
-        let newTask = {
+        let newTask = Object.assign(task, {
             name: name,
             description: description
-        }
+        });
 
         console.log(newTask);
         if (isNewTask) {
-            // let resp = await createCourse(newCourse);
-            // console.log('resp', resp);
+            let resp = await createTask(newTask);
+            console.log('resp', resp);
+        } else {
+            let resp = await updateTask(newTask);
+            console.log('resp', resp);
         }
     }
 
@@ -66,13 +79,23 @@ function Task(
             </Form>
             <Button
                 className={cl('task-save-btn', 'btn')}
-                onClick={handleTaskCreate}
+                onClick={handleTaskSaveChanges}
                 variant="contained"
             >
                 {
                     isNewTask ? 'Создать задание' : 'Сохранить изменения'
                 }
             </Button>
+            {
+                !isNewTask &&
+                <Button
+                    className={cl('task-delete-btn', 'btn')}
+                    onClick={handleTaskDelete}
+                    variant="contained"
+                >
+                    Удалить задание
+                </Button>
+            }
         </div>
     );
 }

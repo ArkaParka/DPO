@@ -13,7 +13,7 @@ import Task from "./Task/Task";
 import {RadioButton, RadioGroup} from "react-radio-buttons";
 import Test from "./Test/Test";
 
-const createStates = {
+export const createStates = {
     courseCreate: 'course-create',
     moduleCreate: 'module-create',
     taskCreate: 'task-create',
@@ -36,13 +36,6 @@ function CourseProgram({}) {
     const [course, setCourse] = useState(null);
     const [taskType, setTaskType] = useState(null);
     const [courseId, setCourseId] = useState(localStorage.getItem('courseId') || '');
-
-    async function handleModuleDelete(module) {
-        await deleteModule(module.id);
-        let newModules = modules.slice();
-        newModules.splice(module.order, 1);
-        setModules(newModules);
-    }
 
     useEffect(async () => {
         if (courseId) {
@@ -205,6 +198,7 @@ function CourseProgram({}) {
                         courseId={courseId}
                         setModules={setModules}
                         modules={modules}
+                        setState={setState}
                     />
                 }
                 {
@@ -228,6 +222,7 @@ function CourseProgram({}) {
                     state === createStates.taskRedact && taskType === taskTypes.task &&
                     <Task
                         task={JSON.parse(task) || undefined}
+                        setState={setState}
                     />
                 }
 
