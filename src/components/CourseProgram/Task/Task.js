@@ -1,22 +1,29 @@
 import cl from "classnames";
 import {Form} from "react-bootstrap";
 import Button from '@mui/material/Button';
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import TextEditor from "../../TextEditor/TextEditor";
 import TaskAnswerEditor from "../../TaskAnswerEditor/TaskAnswerEditor";
 
+const defaultDescription = "Вы можете изменить условие задания в этом поле и указать настройки ниже.";
+
 function Task(
     {
-        isNewTask = true,
+        isNewTask = false,
         task = {
             moduleId: "6218b1a528160b846e6f30e9",
             name: "Новое задание",
-            description: "Вы можете изменить условие задания в этом поле и указать настройки ниже.",
+            description: defaultDescription,
             order: 0
         }
     }) {
-    const [name, setName] = useState(task.name);
-    const [description, setDescription] = useState(task.description);
+    const [name, setName] = useState(task.name || '');
+    const [description, setDescription] = useState(task.description || defaultDescription);
+
+    useEffect(() => {
+        setName(task.name);
+        setDescription(task.description || defaultDescription);
+    }, [task.name, task.description])
 
     async function handleTaskCreate() {
         if (!name.trim() || !description.trim()) {
@@ -62,7 +69,9 @@ function Task(
                 onClick={handleTaskCreate}
                 variant="contained"
             >
-                Создать задание
+                {
+                    isNewTask ? 'Создать задание' : 'Сохранить изменения'
+                }
             </Button>
         </div>
     );

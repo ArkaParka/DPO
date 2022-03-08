@@ -7,7 +7,7 @@ import {useEffect, useState} from "react";
 import {BiTask} from "react-icons/bi";
 import {BsFillJournalBookmarkFill, BsPencilFill} from "react-icons/bs";
 import Module from "./Module/Module";
-import {createCourse, deleteModule, getCourse, getCourseModules} from "../../api/CoursesAPI";
+import {createCourse, deleteModule, getCourse, getCourseModules, getModuleTasks} from "../../api/CoursesAPI";
 import Course from "./Course/Course";
 import Task from "./Task/Task";
 import {RadioButton, RadioGroup} from "react-radio-buttons";
@@ -31,6 +31,7 @@ function CourseProgram({}) {
     const [state, setState] = useState(createStates.courseCreate);
     const [modules, setModules] = useState([]);
     const [tasks, setTasks] = useState([]);
+    const [task, setTask] = useState(null);
     const [module, setModule] = useState(null);
     const [course, setCourse] = useState(null);
     const [taskType, setTaskType] = useState(null);
@@ -46,11 +47,9 @@ function CourseProgram({}) {
     useEffect(async () => {
         if (courseId) {
             let courseResponse = await getCourse(courseId);
-            console.log(courseId)
             setCourse(JSON.stringify(courseResponse));
 
             let modules = await getCourseModules(courseId);
-            console.log('modules', modules);
             setModules(modules);
         }
 
@@ -65,6 +64,31 @@ function CourseProgram({}) {
                 item.childNodes[0].childNodes[1].classList.add('item');
             });
         }
+    }
+
+    async function handleModuleClick(module) {
+        setState(createStates.moduleRedact);
+        setModule(JSON.stringify(module));
+        let tasksResponse = await getModuleTasks(module.id);
+        // console.log('tasksResponse', tasksResponse)
+        // setTasks(tasksResponse);
+        setTasks([
+            {
+                "moduleId": "62220eb828160b846e6f313b",
+                "expirationDate": "0001-01-01T00:00:00Z",
+                "id": "62275bd028160b846e6f3141",
+                "name": "task 1",
+                "description": null,
+                "order": 0
+            },
+            {
+                "moduleId": "62220eb828160b846e6f313b",
+                "expirationDate": "0001-01-01T00:00:00Z",
+                "id": "62275bd028160b846e6f3141",
+                "name": "task 2",
+                "description": null,
+                "order": 1
+            }]);
     }
 
     return (
@@ -95,50 +119,60 @@ function CourseProgram({}) {
                     <SubMenu title="Модули" icon={<BsFillJournalBookmarkFill/>}>
                         {
                             modules.length ? modules.map((module, i) => (
-                                    <MenuItem
+                                    <SubMenu
                                         key={i}
-                                        className={cl('module')}
+                                        title={module.name}
                                         onClick={() => {
-                                            setState(createStates.moduleRedact);
-                                            setModule(JSON.stringify(module));
+                                            handleModuleClick(module)
                                         }}
-                                        icon={<AiOutlinePlus onClick={() => handleModuleDelete(module)}/>}
                                     >
-                                        {module.name}
-                                    </MenuItem>
+                                        {
+                                            tasks.length ? tasks.map((task, i) => (
+                                                <MenuItem
+                                                    key={i}
+                                                    onClick={(e) => {
+                                                        e.stopPropagation();
+                                                        setTask(JSON.stringify(task));
+                                                        setTaskType(taskTypes.task);
+                                                        setState(createStates.taskRedact);
+                                                        console.log('task', task)
+                                                    }}
+                                                >
+                                                    {task.name}
+                                                </MenuItem>
+                                            )) : null
+                                        }
+                                        {
+                                            !courseId &&
+                                            <MenuItem className={cl('no-tasks')}>Нет заданий</MenuItem>
+                                        }
+                                        {
+                                            courseId &&
+                                            <MenuItem
+                                                icon={<AiOutlinePlus/>}
+                                                onClick={() => {
+                                                    setState(createStates.taskCreate);
+                                                    setTaskType(null);
+                                                }}
+                                                title="Создать задание"
+                                            >
+                                                Создать задание
+                                            </MenuItem>
+                                        }
+                                    </SubMenu>
                                 )) :
                                 <MenuItem className={cl('no-modules')}>Нет модулей</MenuItem>
                         }
                     </SubMenu>
-                    <SubMenu title="Задания" icon={<BiTask/>}>
-                        {
-                            tasks.length ? tasks.map((task, i) => (
-                                    <MenuItem>Задание {i + 1}</MenuItem>
-                                )) :
-                                <MenuItem className={cl('no-tasks')}>Нет заданий</MenuItem>
-                        }
-                    </SubMenu>
                     {
                         courseId &&
-                        <>
-                            <MenuItem
-                                icon={<AiOutlinePlus/>}
-                                onClick={() => setState(createStates.moduleCreate)}
-                                title="Создать модуль"
-                            >
-                                Создать модуль
-                            </MenuItem>
-                            <MenuItem
-                                icon={<AiOutlinePlus/>}
-                                onClick={() => {
-                                    setState(createStates.taskCreate);
-                                    setTaskType(null);
-                                }}
-                                title="Создать задание"
-                            >
-                                Создать задание
-                            </MenuItem>
-                        </>
+                        <MenuItem
+                            icon={<AiOutlinePlus/>}
+                            onClick={() => setState(createStates.moduleCreate)}
+                            title="Создать модуль"
+                        >
+                            Создать модуль
+                        </MenuItem>
                     }
                 </Menu>
             </ProSidebar>
@@ -186,11 +220,20 @@ function CourseProgram({}) {
                 }
                 {
                     state === createStates.taskCreate && taskType === taskTypes.task &&
-                    <Task />
+                    <Task
+                        isNewTask
+                    />
                 }
                 {
+                    state === createStates.taskRedact && taskType === taskTypes.task &&
+                    <Task
+                        task={JSON.parse(task) || undefined}
+                    />
+                }
+
+                {
                     state === createStates.taskCreate && taskType === taskTypes.test &&
-                    <Test />
+                    <Test/>
                 }
             </div>
         </section>

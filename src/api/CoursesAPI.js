@@ -243,8 +243,12 @@ export async function getQuestionsWithAnswers(id) {
 // --------------
 export async function getCourseModules(courseId = '6221d05728160b846e6f3120') {
     let response = await getCourse(courseId);
-    console.log('resp', response)
     return response?.modules ? response.modules : [];
+}
+
+export async function getModuleTasks(moduleId = '622204a228160b846e6f3132') {
+    let response = await getModule(moduleId);
+    return response?.tasks ? response.tasks : [];
 }
 
 class APIResponse extends Component {
