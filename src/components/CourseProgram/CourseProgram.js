@@ -36,6 +36,7 @@ function CourseProgram({}) {
     const [course, setCourse] = useState(null);
     const [taskType, setTaskType] = useState(null);
     const [courseId, setCourseId] = useState(localStorage.getItem('courseId') || '');
+    const [moduleId, setModuleId] = useState('');
 
     useEffect(async () => {
         if (courseId) {
@@ -143,9 +144,11 @@ function CourseProgram({}) {
                                             courseId &&
                                             <MenuItem
                                                 icon={<AiOutlinePlus/>}
-                                                onClick={() => {
+                                                onClick={(e) => {
+                                                    e.stopPropagation();
                                                     setState(createStates.taskCreate);
                                                     setTaskType(null);
+                                                    setModuleId(module.id);
                                                 }}
                                                 title="Создать задание"
                                             >
@@ -216,6 +219,7 @@ function CourseProgram({}) {
                     state === createStates.taskCreate && taskType === taskTypes.task &&
                     <Task
                         isNewTask
+                        moduleId={moduleId}
                     />
                 }
                 {

@@ -13,6 +13,7 @@ const defaultDescription = "Вы можете изменить условие з
 function Task(
     {
         isNewTask = false,
+        moduleId,
         task = {
             id: "62275bd028160b846e6f3141",
             moduleId: "6218b1a528160b846e6f30e9",
@@ -22,7 +23,7 @@ function Task(
         },
         setState
     }) {
-    const [name, setName] = useState(task.name || '');
+    const [name, setName] = useState(task.name || "Новое задание");
     const [description, setDescription] = useState(task.description || defaultDescription);
 
     useEffect(() => {
@@ -48,12 +49,20 @@ function Task(
 
         console.log(newTask);
         if (isNewTask) {
+            console.log('moduleId', moduleId)
+            newTask.moduleId = moduleId;
             let resp = await createTask(newTask);
             console.log('resp', resp);
+            cleanState();
         } else {
             let resp = await updateTask(newTask);
             console.log('resp', resp);
         }
+    }
+
+    function cleanState() {
+        setName("Новое задание");
+        setDescription(defaultDescription);
     }
 
     return (
