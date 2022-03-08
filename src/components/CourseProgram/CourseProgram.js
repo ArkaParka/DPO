@@ -169,6 +169,8 @@ function CourseProgram({}) {
                         module={JSON.parse(module) || undefined}
                         order={JSON.parse(module).order}
                         courseId={courseId}
+                        setModules={setModules}
+                        modules={modules}
                     />
                 }
                 {

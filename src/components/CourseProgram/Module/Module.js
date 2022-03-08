@@ -4,7 +4,7 @@ import {Form} from "react-bootstrap";
 import "react-datepicker/dist/react-datepicker.css";
 import {useEffect, useState} from "react";
 import Button from "@mui/material/Button";
-import {createModule} from "../../../api/CoursesAPI";
+import {createModule, updateModule} from "../../../api/CoursesAPI";
 import _ from 'lodash';
 import TextEditor from "../../TextEditor/TextEditor";
 import EditorState from "draft-js/lib/EditorState";
@@ -49,9 +49,14 @@ function Module(
         if (isNewModule) {
             let resp = await createModule(newModule);
             setModules(modules.concat(newModule));
+            cleanState();
+        } else {
+            let resp = await updateModule(newModule);
+            let changeModules = modules.slice();
+            changeModules[module.order] = newModule;
+            setModules(changeModules);
             console.log('resp', resp);
         }
-        cleanState();
     }
 
     function cleanState() {
@@ -64,7 +69,7 @@ function Module(
         setName(module.name);
         setDescription(module.description);
         setContent(module.content || defaultContentState);
-    }, [module])
+    }, [module.name, module.description, module.content])
 
     return (
         <section className={cl('module')}>
