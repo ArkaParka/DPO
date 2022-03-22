@@ -31,6 +31,8 @@ function CourseProgram({}) {
     const [state, setState] = useState(createStates.courseCreate);
     const [modules, setModules] = useState([]);
     const [tasks, setTasks] = useState([]);
+    const [tests, setTests] = useState([]);
+    const [test, setTest] = useState([]);
     const [task, setTask] = useState(null);
     const [module, setModule] = useState(null);
     const [course, setCourse] = useState(null);
@@ -83,6 +85,20 @@ function CourseProgram({}) {
                 "description": null,
                 "order": 1
             }]);
+        setTests([
+            {
+                "moduleId": "62220eb828160b846e6f313b",
+                "name": "test 1",
+                "description": "string 1",
+                "order": 0
+            },
+            {
+                "moduleId": "62220eb828160b846e6f313b",
+                "name": "test 2",
+                "description": "string 2",
+                "order": 1
+            }
+        ]);
     }
 
     return (
@@ -133,6 +149,22 @@ function CourseProgram({}) {
                                                     }}
                                                 >
                                                     {task.name}
+                                                </MenuItem>
+                                            )) : null
+                                        }
+                                        {
+                                            tests.length ? tests.map((test, i) => (
+                                                <MenuItem
+                                                    key={i}
+                                                    onClick={(e) => {
+                                                        e.stopPropagation();
+                                                        setTest(JSON.stringify(test));
+                                                        setTaskType(taskTypes.test);
+                                                        setState(createStates.taskRedact);
+                                                        console.log('task', test)
+                                                    }}
+                                                >
+                                                    {test.name}
                                                 </MenuItem>
                                             )) : null
                                         }
@@ -232,7 +264,17 @@ function CourseProgram({}) {
 
                 {
                     state === createStates.taskCreate && taskType === taskTypes.test &&
-                    <Test/>
+                    <Test
+                        isNewTest
+                        moduleId={moduleId}
+                    />
+                }
+                {
+                    state === createStates.taskRedact && taskType === taskTypes.test &&
+                    <Test
+                        test={JSON.parse(test) || undefined}
+                        setState={setState}
+                    />
                 }
             </div>
         </section>

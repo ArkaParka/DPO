@@ -49,14 +49,11 @@ function Task(
 
         console.log(newTask);
         if (isNewTask) {
-            console.log('moduleId', moduleId)
             newTask.moduleId = moduleId;
             let resp = await createTask(newTask);
-            console.log('resp', resp);
             cleanState();
         } else {
             let resp = await updateTask(newTask);
-            console.log('resp', resp);
         }
     }
 
