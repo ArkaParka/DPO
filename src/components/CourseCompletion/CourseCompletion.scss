@@ -1,0 +1,20 @@
+@import "../../variables";
+
+.course-program-content {
+  height: auto;
+}
+
+.pro-sub-menu .pro-icon {
+  color: $yellow-light-color;
+}
+
+.name {
+  text-align: center;
+  position: relative;
+  font-size: 20px;
+  margin: 60px 0;
+}
+
+.description {
+  white-space: break-spaces;
+}

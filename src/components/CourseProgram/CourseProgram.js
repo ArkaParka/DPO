@@ -21,7 +21,7 @@ export const createStates = {
     taskRedact: 'task-redact',
 }
 
-const taskTypes = {
+export const taskTypes = {
     task: 'task',
     test: 'test'
 }
@@ -50,7 +50,7 @@ function CourseProgram({}) {
         }
 
         setStyleClass();
-    }, [taskType, courseId])
+    }, [taskType, courseId]);
 
     function setStyleClass() {
         let items = document.querySelector('.radio-group')?.childNodes;

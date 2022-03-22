@@ -23,7 +23,7 @@ const updatedCourse = {
 const module = {
     "courseId": "6220a96e28160b846e6f3108",
     "id": "6218b1a528160b846e6f30e9",
-    "name": "NEW COURSE",
+    "name": "NEW MODULE",
     "description": "NEW DESCRIPTION",
     "order": 0
 };

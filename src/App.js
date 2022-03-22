@@ -8,6 +8,7 @@ import Profile from "./components/Profile/Profile";
 import CoursesAPI from "./api/CoursesAPI";
 import './App.scss';
 import CourseProgram from "./components/CourseProgram/CourseProgram";
+import CourseCompletion from "./components/CourseCompletion/CourseCompletion";
 // web.local.dev/bff/auth/getuser
 
 function App() {
@@ -18,6 +19,7 @@ function App() {
             <Route exact path='/courses' component={Courses} />
             <Route exact path='/courses/course' component={Course} />
             <Route exact path='/create-course-program' component={CourseProgram} />
+            <Route exact path='/course-completion' component={CourseCompletion} />
             <Route exact path='/account' component={Profile} />
             <Route exact path='/courses-api' component={CoursesAPI} />
         </Layout>
