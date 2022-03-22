@@ -8,6 +8,19 @@ import { EditorState, ContentState } from 'draft-js';
 import htmlToDraft from 'html-to-draftjs';
 import './TextEditor.scss';
 
+export function convertContentToHTML(editor) {
+    let currentContentAsHTML = convertToHTML(editor.getCurrentContent());
+    return currentContentAsHTML;
+}
+
+export function convertContentToEditorState(html) {
+    const blocks = htmlToDraft(html);
+    const { contentBlocks, entityMap } = blocks;
+    const content = ContentState.createFromBlockArray(contentBlocks, entityMap);
+    let currentContentAsEditorState = EditorState.createWithContent(content);
+    return currentContentAsEditorState;
+}
+
 const TextEditor = ({value, setValue, title}) => {
     const [editorState, setEditorState] = useState(
         value ? () => convertContentToEditorState(value) : () => EditorState.createEmpty(),
@@ -17,19 +30,6 @@ const TextEditor = ({value, setValue, title}) => {
         setEditorState(state);
         let html = convertContentToHTML(state);
         setValue(html);
-    }
-
-    function convertContentToHTML(editor) {
-        let currentContentAsHTML = convertToHTML(editor.getCurrentContent());
-        return currentContentAsHTML;
-    }
-
-    function convertContentToEditorState(html) {
-        const blocks = htmlToDraft(html);
-        const { contentBlocks, entityMap } = blocks;
-        const content = ContentState.createFromBlockArray(contentBlocks, entityMap);
-        let currentContentAsEditorState = EditorState.createWithContent(content);
-        return currentContentAsEditorState;
     }
 
     const createMarkup = (html) => {

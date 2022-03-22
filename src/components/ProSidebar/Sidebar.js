@@ -19,11 +19,10 @@ function Sidebar({data}) {
     const [isCollapsed, setIsCollapsed] = useState(false);
 
     useEffect(() => {
-        // console.log('course', course)
         console.log('modules', modules)
         console.log('tasks', tasks)
         console.log('tests', tests)
-    })
+    }, [modules])
 
     return (
         <ProSidebar collapsed={isCollapsed}>

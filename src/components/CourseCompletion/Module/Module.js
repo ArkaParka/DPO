@@ -4,12 +4,24 @@ import './Module.scss';
 function Module({module = {name: '', description: ''}}) {
     return (
         <section className={cl('module')}>
-            <div className="name">
-                {module.name}
-            </div>
-            <div className="description">
-                {module.description}
-            </div>
+            {
+                !module.content &&
+                <div className="name">
+                    {module.name}
+                </div>
+            }
+            {
+                module.description &&
+                <div className="description">
+                    {module.description}
+                </div>
+            }
+            {
+                module.content &&
+                <div className="default-styles" dangerouslySetInnerHTML={{__html: module.content}}>
+                    {/*{module.content}*/}
+                </div>
+            }
         </section>
     );
 }
