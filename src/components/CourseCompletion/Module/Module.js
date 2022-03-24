@@ -18,7 +18,7 @@ function Module({module = {name: '', description: ''}}) {
             }
             {
                 module.content &&
-                <div className="default-styles" dangerouslySetInnerHTML={{__html: module.content}}>
+                <div className="module-content default-styles" dangerouslySetInnerHTML={{__html: module.content}}>
                     {/*{module.content}*/}
                 </div>
             }

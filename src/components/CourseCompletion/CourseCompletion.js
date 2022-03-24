@@ -1,11 +1,15 @@
 import './CourseCompletion.scss';
 import Sidebar from "../ProSidebar/Sidebar";
 import cl from "classnames";
-import {useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import {getCourse, getCourseModules, getModuleTasks} from "../../api/CoursesAPI";
 import {taskTypes} from "../CourseProgram/CourseProgram";
 import Module from "./Module/Module";
 import Task from "./Task/Task";
+import Test from "./Test/Test";
+import Button from "@mui/material/Button";
+import {focusOnNextMenuItem} from "react-burger-menu/lib/helpers/dom";
+import {getNextActiveElement} from "bootstrap/js/src/util";
 
 export const completionStates = {
     module: 'module-completion',
@@ -18,7 +22,7 @@ function CourseCompletion({}) {
     const [courseId, setCourseId] = useState('');
 
     const [module, setModule] = useState(null);
-    const [test, setTest] = useState([]);
+    const [test, setTest] = useState(null);
     const [task, setTask] = useState(null);
 
     const [modules, setModules] = useState([]);
@@ -33,6 +37,9 @@ function CourseCompletion({}) {
 
         let modulesResponse = await getCourseModules(courseId);
         setModules(modulesResponse);
+        if (modulesResponse.length) {
+            setModule(JSON.stringify(modulesResponse[0]));
+        }
 
         let allTasks = {};
         modulesResponse.forEach((async (module) => {
@@ -42,6 +49,61 @@ function CourseCompletion({}) {
             setTasks(allTasks);
         }))
     }, [taskType, courseId]);
+
+    function goToTheNextPage() {
+        const moduleID = JSON.parse(module).id;
+        const nextTaskOrder = JSON.parse(task)?.order + 1 || 0;
+        const nextTestOrder = JSON.parse(test)?.order + 1 || 0;
+        const nextModuleOrder = JSON.parse(module)?.order + 1 || 0;
+
+        const firstTask = tasks[moduleID][0];
+        const lastTask = JSON.stringify(tasks[moduleID][tasks[moduleID].length-1]);
+        const firstTest = tests[moduleID][0];
+        const lastTest = JSON.stringify(tests[moduleID][tests[moduleID].length-1]);
+
+
+        const nextTask = tasks[moduleID][nextTaskOrder];
+        const nextTest = tests[moduleID][nextTestOrder];
+        const nextModule = modules[nextModuleOrder];
+
+        // console.log('task', task, firstTask, nextTask)
+        const isModuleOpen = state === completionStates.module;
+        const isTaskOpen = state === completionStates.task && taskTypes.task;
+        const isTestOpen = state === completionStates.task && taskTypes.test;
+
+        console.log('go to module', test, ' ', lastTest, isTestOpen)
+        // console.log('task === lastTask', task === lastTask, task, lastTask)
+        if (((isModuleOpen && task !== lastTask) || isTaskOpen) && nextTask) {
+            setTask(JSON.stringify(nextTask));
+            setState(completionStates.task);
+            setTaskType(taskTypes.task);
+        } else if (task === lastTask && isTaskOpen) {
+            setTest(JSON.stringify(firstTest));
+            setState(completionStates.task);
+            setTaskType(taskTypes.test);
+        } else if (isTestOpen && nextTest) {
+            console.log('next test')
+            setTest(JSON.stringify(nextTest));
+            setState(completionStates.task);
+            setTaskType(taskTypes.test);
+        } else if (test === lastTest && isTestOpen) {
+            console.log('go to module', test, lastTest, isTestOpen)
+            setModule(JSON.stringify(nextModule));
+            setState(completionStates.module);
+        } else if (((isModuleOpen && task === lastTask) || isTaskOpen) && !nextTask) {
+            setTask(JSON.stringify(firstTask));
+            setState(completionStates.task);
+            setTaskType(taskTypes.task);
+        }
+
+        // if (nextTask) {
+        //     setTask(JSON.stringify(nextTask));
+        // }  else if (nextTest) {
+        //     setTest(JSON.stringify(nextTest));
+        // } else if (nextModule) {
+        //     setModule(JSON.stringify(nextModule));
+        // }
+    }
 
     function setDefaultData() {
         setModules([
@@ -103,7 +165,7 @@ function CourseCompletion({}) {
             '1': [
                 {
                     "moduleId": "1",
-                    "name": "test 1",
+                    "name": "React Quiz Component Demo",
                     "description": "string 1",
                     "order": 0
                 },
@@ -111,7 +173,7 @@ function CourseCompletion({}) {
                     "moduleId":
                         "1",
                     "name":
-                        "test 2",
+                        "Simple Quiz",
                     "description":
                         "string 2",
                     "order":
@@ -119,10 +181,13 @@ function CourseCompletion({}) {
                 }
             ]
         });
+        if (modules.length) {
+            setModule(JSON.stringify(modules[0]));
+        }
     }
 
     return (
-        <section className={cl('course-program')}>
+        <section className={cl('course-program', 'course-completion')}>
             <Sidebar data={
                 {
                     setState,
@@ -138,16 +203,25 @@ function CourseCompletion({}) {
             <div className="course-program-content">
                 {
                     state === completionStates.module &&
-                    <Module module={JSON.parse(module) || undefined} />
+                    <Module module={JSON.parse(module) || undefined}/>
                 }
                 {
                     state === completionStates.task && taskType == taskTypes.task &&
-                    <Task task={JSON.parse(task) || undefined} />
+                    <Task task={JSON.parse(task) || undefined}/>
                 }
                 {
                     state === completionStates.task && taskType == taskTypes.test &&
-                    'Test'
+                    <Test test={JSON.parse(test) || undefined}/>
                 }
+                <div className="course-program-content_footer">
+                    <Button
+                        className={cl('next-btn', 'btn')}
+                        onClick={goToTheNextPage}
+                        variant="contained"
+                    >
+                        Дальше
+                    </Button>
+                </div>
             </div>
         </section>
     );

@@ -19,9 +19,6 @@ function Sidebar({data}) {
     const [isCollapsed, setIsCollapsed] = useState(false);
 
     useEffect(() => {
-        console.log('modules', modules)
-        console.log('tasks', tasks)
-        console.log('tests', tests)
     }, [modules])
 
     return (
@@ -59,7 +56,6 @@ function Sidebar({data}) {
                                                 setTask(JSON.stringify(task));
                                                 setTaskType(taskTypes.task);
                                                 setState(completionStates.task);
-                                                console.log('task', task)
                                             }}
                                         >
                                             {task.name}
@@ -75,7 +71,6 @@ function Sidebar({data}) {
                                                 setTest(JSON.stringify(test));
                                                 setTaskType(taskTypes.test);
                                                 setState(completionStates.task);
-                                                console.log('task', test)
                                             }}
                                         >
                                             {test.name}

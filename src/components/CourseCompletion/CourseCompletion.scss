@@ -4,7 +4,7 @@
   height: auto;
 }
 
-.pro-sub-menu .pro-icon {
+.course-completion .pro-sub-menu .pro-icon {
   color: $yellow-light-color;
 }
 
@@ -25,4 +25,13 @@
 
 .send-answer-btn {
   margin-top: 1em !important;
+}
+
+.course-program-content_footer {
+  margin-top: 3em;
+  text-align: right;
+}
+
+.react-quiz-container {
+  width: auto;
 }
