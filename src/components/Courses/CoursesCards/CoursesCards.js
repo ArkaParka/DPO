@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import cl from "classnames";
 import {courses as coursesList} from "../../../App.const";
 import {SortByFilters} from "../../../App.utils";
@@ -6,14 +6,25 @@ import {Card} from "react-bootstrap";
 import Button from '@mui/material/Button';
 import courseImg from '../../../imgs/brain.jpg';
 import './CoursesCards.scss';
+import {getCourseCatalogAll} from "../../../api/CoursesAPI";
 
 function CoursesCards({filters}) {
-    let courses = SortByFilters(coursesList, filters);
+    const [courses, setCourses] = useState([]);
+    // let courses = SortByFilters(coursesList, filters);
+
+    useEffect(async () => {
+        const coursesResponse = await getCourseCatalogAll();
+        if (Array.isArray(coursesResponse)) {
+            setCourses(coursesResponse);
+            console.log('courses1', coursesResponse);
+        }
+        console.log('courses2', coursesResponse);
+    }, []);
 
     return (
         <div className={cl('courses-cards')}>
             {
-                courses
+                SortByFilters(courses, filters)
                     .map((course, i) => {
                             let name = course.name || 'Card Title';
                             let description = course.description || `Some quick example text to build on the card title and make up the bulk of

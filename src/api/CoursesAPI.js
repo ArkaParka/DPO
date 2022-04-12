@@ -21,7 +21,7 @@ const updatedCourse = {
 };
 
 const module = {
-    "courseId": "6220a96e28160b846e6f3108",
+    "courseId": "6255355588502df5ef380a05",
     "id": "6218b1a528160b846e6f30e9",
     "name": "NEW MODULE",
     "description": "NEW DESCRIPTION",
@@ -69,7 +69,7 @@ export const APIs = {
         delete: 'api/Course/Delete/'
     },
     сourseCatalog: {
-        getAll: 'api/CourseCatalog/GetAll',
+        getAll: 'api/Catalog/Get',
         get: 'api/CourseCatalog/Get?id='
     },
     module: {
@@ -162,7 +162,7 @@ export async function deleteCourse(id = '6220a50228160b846e6f30fe') {
 
 export async function getCourseCatalogAll() {
     let response = (await sendRequest(APIs.сourseCatalog.getAll, 'GET')).response;
-    return response;
+    return response?.courses?.value;
 }
 
 export async function getCourseCatalogById(id = '6220a96e28160b846e6f3108') {
