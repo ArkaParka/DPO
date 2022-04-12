@@ -11,6 +11,7 @@
   }
 
   &-search {
+    align-items: center;
     position: relative;
     display: flex;
     padding: 14px 16px;
@@ -24,6 +25,7 @@
     }
 
     .btn {
+      height: fit-content;
       padding: 9px 25px;
       font-size: 14px;
     }

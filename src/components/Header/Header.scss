@@ -63,24 +63,24 @@
         color: $white;
       }
 
-      &-item a:before {
-        background-color: $blue-color;
-        bottom: 0.1rem;
-        content: "";
-        height: 1.5px;
-        left: 50%;
-        opacity: 0;
-        position: absolute;
-        transform: translateX(-50%);
-        transition: .3s ease-in-out;
-        width: 110%;
-      }
+      //&-item a:before {
+      //  background-color: $blue-color;
+      //  bottom: 0.1rem;
+      //  content: "";
+      //  height: 1.5px;
+      //  left: 50%;
+      //  opacity: 0;
+      //  position: absolute;
+      //  transform: translateX(-50%);
+      //  transition: .3s ease-in-out;
+      //  width: 110%;
+      //}
 
       &-item.active a {
         color: $white;
-        &:before {
-          opacity: .99;
-        }
+        //&:before {
+        //  opacity: .99;
+        //}
       }
     }
   }
