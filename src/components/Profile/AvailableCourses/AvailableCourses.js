@@ -7,8 +7,8 @@ import NoCourses from "../../Stubs/NoCourses";
 import React, {useState} from "react";
 import {courses} from "../../../App.const";
 
-function AvailableCourses() {
-    const [availableCourses, setAvailableCourses] = useState([]);
+function AvailableCourses({isTeacher}) {
+    const [availableCourses, setAvailableCourses] = useState(courses);
 
     return (
         <div className="available-courses">
@@ -20,35 +20,42 @@ function AvailableCourses() {
                                             the card's content.`;
 
                                 return (
-                                    <Card key={i}>
-                                        <div className="card-image">
-                                            <Link
-                                                id='image'
-                                                to='/courses/course'
-                                                // onClick={handleCourseImageClick}
-                                            >
+                                    <Link
+                                        id='image'
+                                        to={isTeacher ? '/create-course-program' : '/course-completion'}
+                                    >
+                                        <Card key={i}>
+                                            <div className="card-image">
+                                                {/*<Link*/}
+                                                {/*    id='image'*/}
+                                                {/*    to={isTeacher ? '/create-course-program' : '/course-completion'}*/}
+                                                {/*>*/}
                                                 <Card.Img variant="top" src={courseImg}/>
-                                            </Link>
-                                        </div>
-                                        <Card.Body>
-                                            <div className="card-content">
-                                                <Card.Title>{name}</Card.Title>
-                                                <Card.Text>
-                                                    {description}
-                                                </Card.Text>
+                                                {/*</Link>*/}
                                             </div>
-                                            <Button
-                                                className={cl('course-sign-out-btn', 'btn')}
-                                                variant="contained"
-                                            >
-                                                Покинуть курс
-                                            </Button>
-                                        </Card.Body>
-                                    </Card>
+                                            <Card.Body>
+                                                <div className="card-content">
+                                                    <Card.Title>{name}</Card.Title>
+                                                    <Card.Text>
+                                                        {description}
+                                                    </Card.Text>
+                                                </div>
+                                                {
+                                                    !isTeacher &&
+                                                    <Button
+                                                        className={cl('course-sign-out-btn', 'btn')}
+                                                        variant="contained"
+                                                    >
+                                                        Покинуть курс
+                                                    </Button>
+                                                }
+                                            </Card.Body>
+                                        </Card>
+                                    </Link>
                                 )
                             }
                         ) :
-                    <NoCourses withBtn />
+                    <NoCourses withBtn/>
             }
         </div>
     );

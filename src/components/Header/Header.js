@@ -11,67 +11,47 @@ export const Header = () => {
     // const {isAuthenticated, keycloak} = useAuth();
     const {isAuthenticated, keycloak} = {isAuthenticated: true, keycloak: null};
 
-    const [isActive, setIsActive] = useState({
-        home: false,
-        courses: false,
-    });
+    const [isHomeActive, setIsHomeActive] = useState(false);
+    const [isCoursesActive, setIsCoursesActive] = useState(false);
 
     // TODO: Продумать логику переключения в личный кабинет и др.
     // TODO: Убирать из localhost
-    function handleLinkClick(e) {
-        const homeActive = {
-            home: true,
-            courses: false,
-        };
-        const coursesActive = {
-            home: false,
-            courses: true,
-        };
-
-        switch (e.target.id) {
-            case 'home':
-                setIsActive(homeActive);
-                localStorage.setItem('isActive', JSON.stringify(homeActive));
-                break;
-            case 'courses':
-                setIsActive(coursesActive);
-                localStorage.setItem('isActive', JSON.stringify(coursesActive));
-                break;
-        }
+    function handleLinkClick() {
+        setIsHomeActive(window.location.href === 'http://localhost:3001/');
+        setIsCoursesActive(window.location.href === 'http://localhost:3001/courses');
+        console.log(window.location.href)
     }
 
     useEffect(() => {
-        if (localStorage.getItem('isActive'))
-            setIsActive(JSON.parse(localStorage.getItem('isActive')));
-    }, []);
+    });
 
     return (
         <header className={cl('section-header')}>
             <div className={cl('section-inner', 'header')}>
                 <div className={cl('header-logo')}>
-                    <Link className={cl('logo')} to='/' onClick={handleLinkClick}>
+                    <Link className={cl('logo')} to='/'>
                         <FaRegFontAwesomeLogoFull id='home'/>
                     </Link>
                 </div>
                 <div className={cl('header-controls')}>
                     <nav className={cl('header-controls-links')}>
                         <ul className={cl('menu')}>
-                            <li className={cl('menu-item', {active: isActive.home})}>
+                            <li className={cl('menu-item', {active: isHomeActive})}>
                                 <Link
                                     id='home'
                                     className={cl('item')}
                                     to='/'
-                                    onClick={handleLinkClick}
+                                    // onClick={handleLinkClick}
                                 >
                                     Главная
                                 </Link>
                             </li>
-                            <li className={cl('menu-item', {active: isActive.courses})}>
+                            <li className={cl('menu-item', {active: isCoursesActive})}>
                                 <Link
                                     id='courses'
                                     className={cl('item')}
                                     to='/courses'
-                                    onClick={handleLinkClick}
+                                    // onClick={handleLinkClick}
                                 >
                                     Курсы
                                 </Link>

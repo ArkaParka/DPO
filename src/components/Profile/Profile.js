@@ -8,16 +8,25 @@ import {BsFillJournalBookmarkFill} from "react-icons/bs";
 import {ProSidebar, Menu, MenuItem} from 'react-pro-sidebar';
 import userDefaultAvatar from '../../imgs/default-avatar.jpg';
 import AvailableCourses from "./AvailableCourses/AvailableCourses";
+import {Card} from "react-bootstrap";
+import courseImg from "../../imgs/brain.jpg";
+import {Link} from "react-router-dom";
 
-const pageStates = {
+const page = {
     availableCourses: "AvailableCourses",
     profileSettings: "ProfileSettings"
 };
 
+const user = {
+    student: "student",
+    teacher: "teacher"
+}
+
 function Profile() {
     const [userInfo, setUserInfo] = useState({name: 'Антон Антонов', email: 'default@mail.ru'});
     // const {keycloak} = useAuth();
-    const [pageState, setPageState] = useState(pageStates.availableCourses);
+    const [pageState, setPageState] = useState(page.availableCourses);
+    const [userState, setUserState] = useState(user.student);
 
     useEffect(() => {
         // if (keycloak) {
@@ -26,10 +35,6 @@ function Profile() {
         //     });
         // }
     }, [])
-
-    function goToCreateCoursePage() {
-        window.location.href = '/create-course-program';
-    }
 
     return (
         <section className={cl('profile-page')}>
@@ -49,23 +54,32 @@ function Profile() {
                     <MenuItem
                         className={cl('available-courses')}
                         icon={<BsFillJournalBookmarkFill/>}
-                        onClick={() => setPageState(pageStates.availableCourses)}
-                        title="Доступные курсы"
+                        onClick={() => setPageState(page.availableCourses)}
+                        title="Мои курсы"
                     >
-                        Доступные курсы
+                        Мои курсы
                     </MenuItem>
-                    <MenuItem
-                        className={cl('create-course')}
-                        icon={<AiOutlinePlus/>}
-                        onClick={() => goToCreateCoursePage()}
-                        title="Создать новый курс"
-                    >
-                        Создать новый курс
-                    </MenuItem>
+                    {
+                        userState === user.teacher &&
+                        <>
+                            <MenuItem
+                                className={cl('create-course')}
+                                icon={<AiOutlinePlus/>}
+                                title="Создать новый курс"
+                            >
+                                <Link
+                                    id='new-course'
+                                    to='/create-course-program'
+                                >
+                                    Создать новый курс
+                                </Link>
+                            </MenuItem>
+                        </>
+                    }
                     <MenuItem
                         className={cl('profile-settings')}
                         icon={<FiSettings/>}
-                        onClick={() => setPageState(pageStates.profileSettings)}
+                        onClick={() => setPageState(page.profileSettings)}
                         title="Настойки пользователя"
                     >
                         Настойки пользователя
@@ -74,11 +88,11 @@ function Profile() {
             </ProSidebar>
             <div className="profile-content">
                 {
-                    pageState === pageStates.availableCourses &&
-                    <AvailableCourses/>
+                    pageState === page.availableCourses &&
+                    <AvailableCourses isTeacher={userState === user.teacher}/>
                 }
                 {
-                    pageState === pageStates.profileSettings &&
+                    pageState === page.profileSettings &&
                     "settings"
                 }
             </div>

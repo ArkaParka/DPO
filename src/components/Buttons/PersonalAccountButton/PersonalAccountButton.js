@@ -14,6 +14,7 @@ function PersonalAccountButton({keycloak}) {
             <Link to='/account'>
                 <Dropdown.Item href="#/action-1">Профиль</Dropdown.Item>
             </Link>
+            <Dropdown.Divider />
             <Link to='/'>
                 <Dropdown.Item
                     onClick={() => {keycloak.logout()}}

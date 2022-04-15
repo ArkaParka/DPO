@@ -28,6 +28,11 @@ ul {
   padding: 0;
 }
 
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
 .App {
   min-height: 100vh;
   background-color: $app-bgc-color;

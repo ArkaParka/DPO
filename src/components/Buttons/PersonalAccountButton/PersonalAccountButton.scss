@@ -9,15 +9,25 @@
   }
 
   button {
-    background-image: url("../../../imgs/user.png") !important;
-    background-size: contain;
+    background-image: url("../../../imgs/default-avatar.jpg") !important;
+    background-repeat: no-repeat;
+    background-size: cover;
     padding: 0;
     border-radius: 50%;
+    border: none;
     width: 40px;
     height: 40px;
 
     &::after {
       display: none;
+    }
+  }
+
+  .dropdown-menu.show {
+    a,
+    .dropdown-divider {
+      width: 100%;
+      text-align: center;
     }
   }
 }
