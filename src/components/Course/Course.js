@@ -14,7 +14,7 @@ function Course({location}) {
 
     return (
         <section className={cl('section-outer')}>
-            <div className={cl('course')}>
+            <div className={cl('courses-course')}>
                 <div className={cl('course-title')}>
                     <div className={cl('page-fragment')}>
                         <div className={cl('name')}>

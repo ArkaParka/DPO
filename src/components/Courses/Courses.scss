@@ -5,6 +5,7 @@
   padding: 0 2em;
 
   &-content {
+    overflow: hidden;
     grid-gap: 1.5rem;
     padding-bottom: 4rem;
     display: grid;

@@ -1,0 +1,16 @@
+.no-courses {
+  &_img {
+    width: 500px;
+    opacity: .2;
+  }
+
+  &_text {
+    font-family: 'Comfortaa', cursive;
+    position: absolute;
+    margin-top: -280px;
+    font-size: 25px;
+    font-weight: 800;
+    color: #24252e;
+    margin-left: 42%;
+  }
+}

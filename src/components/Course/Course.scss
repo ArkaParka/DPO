@@ -1,7 +1,7 @@
 @import "../../variables";
 
-.course {
-  display: grid;
+.courses-course {
+  display: grid !important;
   grid-template-columns: 2fr 4fr;
   letter-spacing: .3px;
 
@@ -43,14 +43,14 @@
 
     .content-block {
       background-color: $white;
-      font-size: 1.3em;
+      font-size: 1.1em;
       padding: 0 8em 0 3em;
       margin: 1em 0;
 
       h2 {
         color: $light-black;
         margin: 0 0 0.5em;
-        font-size: 34px;
+        font-size: 25px;
         font-weight: 400;
         line-height: normal;
         letter-spacing: .2px;

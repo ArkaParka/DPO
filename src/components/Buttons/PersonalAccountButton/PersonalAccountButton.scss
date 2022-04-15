@@ -1,7 +1,23 @@
 @import "../../../variables";
 
 .personal-account-btn {
-  margin-left: 1em;
-  padding: 0.5rem 1.5rem;
-  font-size: 14px;
+  padding: 0 !important;
+  margin-right: -25px !important;
+
+  a {
+    text-decoration: none;
+  }
+
+  button {
+    background-image: url("../../../imgs/user.png") !important;
+    background-size: contain;
+    padding: 0;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+
+    &::after {
+      display: none;
+    }
+  }
 }

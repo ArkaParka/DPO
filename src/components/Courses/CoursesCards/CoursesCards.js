@@ -1,39 +1,43 @@
 import React, {useEffect, useState} from 'react';
 import cl from "classnames";
-import {courses as coursesList} from "../../../App.const";
 import {SortByFilters} from "../../../App.utils";
 import {Card} from "react-bootstrap";
+import { Link } from 'react-router-dom';
 import Button from '@mui/material/Button';
 import courseImg from '../../../imgs/brain.jpg';
 import './CoursesCards.scss';
 import {getCourseCatalogAll} from "../../../api/CoursesAPI";
+import NoCourses from "../../Stubs/NoCourses";
 
 function CoursesCards({filters}) {
     const [courses, setCourses] = useState([]);
-    // let courses = SortByFilters(coursesList, filters);
 
     useEffect(async () => {
         const coursesResponse = await getCourseCatalogAll();
         if (Array.isArray(coursesResponse)) {
             setCourses(coursesResponse);
-            console.log('courses1', coursesResponse);
         }
-        console.log('courses2', coursesResponse);
     }, []);
 
     return (
-        <div className={cl('courses-cards')}>
+        <div className={cl('courses-cards', {'empty': !courses.length})}>
             {
-                SortByFilters(courses, filters)
+                courses.length ? SortByFilters(courses, filters)
                     .map((course, i) => {
                             let name = course.name || 'Card Title';
                             let description = course.description || `Some quick example text to build on the card title and make up the bulk of
                                             the card's content.`;
 
                             return (
-                                <Card key={i} >
+                                <Card key={i}>
                                     <div className="card-image">
-                                        <Card.Img variant="top" src={courseImg}/>
+                                        <Link
+                                            id='image'
+                                            to='/courses/course'
+                                            // onClick={handleCourseImageClick}
+                                        >
+                                            <Card.Img variant="top" src={courseImg}/>
+                                        </Link>
                                     </div>
                                     <Card.Body>
                                         <div className="card-content">
@@ -52,7 +56,8 @@ function CoursesCards({filters}) {
                                 </Card>
                             )
                         }
-                    )
+                    ) :
+                    <NoCourses />
             }
         </div>
     );

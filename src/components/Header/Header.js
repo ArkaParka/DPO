@@ -4,7 +4,6 @@ import { useAuth } from "../../context/AuthContext";
 import { FaRegFontAwesomeLogoFull } from "react-icons/fa";
 import AuthorizationButton from "../Buttons/AuthorizationButton/AuthorizationButton";
 import PersonalAccountButton from "../Buttons/PersonalAccountButton/PersonalAccountButton";
-import LogoutButton from "../Buttons/LogoutButton/LogoutButton";
 import cl from "classnames";
 import './Header.scss';
 
@@ -47,7 +46,7 @@ export const Header = () => {
     }, []);
 
     return (
-        <header className={cl('section-outer', 'section-header')}>
+        <header className={cl('section-header')}>
             <div className={cl('section-inner', 'header')}>
                 <div className={cl('header-logo')}>
                     <Link className={cl('logo')} to='/' onClick={handleLinkClick}>
@@ -83,12 +82,7 @@ export const Header = () => {
                 <div className={cl('header-operation')}>
                     {
                         isAuthenticated ?
-                            (
-                                <>
-                                    <PersonalAccountButton/>
-                                    <LogoutButton keycloak={keycloak} />
-                                </>
-                            ) :
+                            <PersonalAccountButton keycloak={keycloak}/> :
                             <AuthorizationButton />
                     }
                 </div>

@@ -1,6 +1,7 @@
 @import "../../variables";
 
 .section-header {
+  display: flex;
   background-color: $black-grey-color;
   justify-content: center;
   height: 50px;

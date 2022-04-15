@@ -1,27 +1,105 @@
 @import "../../variables";
 
 .profile-page {
+  height: -webkit-fill-available;
   display: flex;
-  flex-direction: column;
-  width: 100%;
 
-  &-header {
-    //background-color: $blue-color;
-    height: 13em;
-    padding: 2em 0;
+  .pro-sidebar {
+    height: inherit;
+    width: 320px;
+
+    .pro-inner-item {
+      margin-bottom: 1em;
+      padding: 8px 35px !important;
+    }
+  }
+
+  &_avatar {
+    text-align: center;
+    padding: 3em 0;
+
+    img {
+      width: 100%;
+    }
+
+    .name {
+      margin: 0.8em 0 0.3em 0;
+      color: white;
+      font-size: 22px !important;
+    }
+
+    .load-avatar {
+      font-size: 14px;
+      opacity: .4;
+    }
+  }
+
+  .profile-content {
     display: flex;
-    max-width: 100%;
-  }
+    flex-direction: column;
+    flex: 1;
+    padding: 2em;
 
-  &-content {
-    height: 100%;
+    .available-courses {
+      width: 100%;
+    }
+
+    .card {
+      margin-bottom: 2em;
+      flex-direction: row;
+      min-height: 202px;
+      border-radius: 0.4em;
+
+      &-image {
+        min-width: 200px;
+        flex-shrink: 3;
+        border-radius: 0.4em;
+      }
+
+      .course-sign-out-btn {
+        align-self: flex-end;
+      }
+    }
+
+    .no-courses {
+      position: fixed;
+      margin: 6% auto 0 15%;
+    }
   }
 }
 
-.content {
-  display: flex;
-  flex-direction: row;
-  font-size: 2em;
-  height: 100%;
-  padding: 1em 0;
+.avatar {
+  margin: 0 auto;
+  border-radius: 50%;
+  overflow: hidden;
+  width: 150px;
+  height: 150px;
 }
+
+//.profile-page {
+//  max-width: 1000px;
+//  margin: 0 auto;
+//  display: flex;
+//  flex-direction: column;
+//  width: 100%;
+//
+//  &-header {
+//    //background-color: $blue-color;
+//    height: 13em;
+//    padding: 2em 0;
+//    display: flex;
+//    max-width: 100%;
+//  }
+//
+//  &-content {
+//    height: 100%;
+//  }
+//}
+//
+//.content {
+//  display: flex;
+//  flex-direction: row;
+//  font-size: 2em;
+//  height: 100%;
+//  padding: 1em 0;
+//}
