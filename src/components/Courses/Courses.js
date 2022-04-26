@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import cl from "classnames";
 import './Courses.scss';
 import CoursesCards from "./CoursesCards/CoursesCards";

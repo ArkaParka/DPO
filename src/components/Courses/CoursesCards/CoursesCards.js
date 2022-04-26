@@ -41,7 +41,16 @@ function CoursesCards({filters}) {
                                     </div>
                                     <Card.Body>
                                         <div className="card-content">
-                                            <Card.Title>{name}</Card.Title>
+                                            <Link
+                                                id='title'
+                                                to='/courses/course'
+                                            >
+                                                <Card.Title
+                                                    onClick={() => localStorage.setItem('courseId', course.id)}
+                                                >
+                                                    {name}
+                                                </Card.Title>
+                                            </Link>
                                             <Card.Text>
                                                 {description}
                                             </Card.Text>

@@ -1,15 +1,24 @@
 import React, {useEffect, useState} from "react";
 import cl from "classnames";
-import {course_3} from "../../App.const";
-import {setSelectedOption} from "../../App.utils";
 import './Course.scss';
-
+import {getCourse} from "../../api/CoursesAPI";
+import ModulePreview from "../ModulePreview/ModulePreview";
+import courseImg from './../../imgs/brain.jpg';
+import {GiDiploma} from "react-icons/gi";
+import {BiTimeFive} from "react-icons/bi";
+import {IoTime} from "react-icons/io5";
 
 function Course({location}) {
-    const [courseData, setCourseData] = useState(course_3);
+    const [course, setCourse] = useState({});
 
     useEffect(() => {
-        setSelectedOption(location, setCourseData);
+        let courseId = localStorage.getItem('courseId');
+
+        if (courseId) {
+            getCourse(courseId).then(setCourse);
+        }
+
+        // setSelectedOption(location, setCourse);
     }, []);
 
     return (
@@ -17,8 +26,16 @@ function Course({location}) {
             <div className={cl('courses-course')}>
                 <div className={cl('course-title')}>
                     <div className={cl('page-fragment')}>
-                        <div className={cl('name')}>
-                            {courseData.name}
+                        <div className={cl('course-title_name')}>
+                            {course.name}
+                        </div>
+                        <div className={cl('course-title_certificate', 'icon')}>
+                            <GiDiploma fontSize="2.3em" />
+                            <span>Сертификат FontAwesome</span>
+                        </div>
+                        <div className={cl('course-title_time', 'icon')}>
+                            <IoTime fontSize="2.3em" />
+                            <span>5 - 15 часов в неделю</span>
                         </div>
                     </div>
                 </div>
@@ -28,10 +45,27 @@ function Course({location}) {
                             <h2>О курсе</h2>
                         </div>
                         <div className={cl('content-block')}>
-                            {courseData.text}
+                            {course.description}
                         </div>
                         <div className={cl('content-block')}>
-                            {courseData.text}
+                            {course.content}
+                        </div>
+                        <div className={cl('content-block', 'modules-list')}>
+                            {
+                                course.modules ?
+                                    <>
+                                        <h2>Программа курса</h2>
+                                        {
+                                            course.modules
+                                                .map(module => (
+                                                    <ModulePreview
+                                                        key={module.id}
+                                                        module={module}
+                                                    />
+                                                ))
+                                        }
+                                    </> : null
+                            }
                         </div>
                     </div>
                 </div>

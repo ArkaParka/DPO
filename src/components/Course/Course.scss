@@ -2,58 +2,84 @@
 
 .courses-course {
   display: grid !important;
-  grid-template-columns: 2fr 4fr;
+  grid-template-columns: 2fr 6fr;
   letter-spacing: .3px;
 
-  &-title {
-    background-color: $blue-color;
-    padding: 70px 48px 48px 48px;
-    color: $white;
+  .course {
+    &-title {
+      padding: 50px 48px 48px 48px;
+      color: $white;
 
-    position: relative;
-    width: 100%;
-    font-weight: 500;
-    display: flex;
-    align-items: baseline;
-
-    .name {
-      margin: 0 0 16px;
-      font-size: 34px;
-    }
-
-    .year {
-      margin: 0 .5em;
-      font-size: 1.5em;
-      white-space: nowrap;
-    }
-
-    .stats {
-      margin: 0 0 16px;
       position: relative;
-      top: .5em;
+      width: 100%;
+      font-weight: 500;
+      display: flex;
+      align-items: baseline;
 
-      .stat {
-        color: $white;
+      background-image: linear-gradient(to right, rgba(0,0,0, 0.7) 0 100%), url("./../../imgs/brain.jpg");
+      background-size: cover;
+
+      &_name {
+        margin: 0 0 35px;
+        font-size: 30px;
+      }
+
+      &_certificate {
+        span {
+          font-size: 15px;
+        }
+      }
+
+      .icon {
+        margin-bottom: .9em;
+
+        svg {
+          margin-right: .3em;
+        }
+      }
+
+      .year {
+        margin: 0 .5em;
+        font-size: 1.5em;
+        white-space: nowrap;
+      }
+
+      .stats {
+        margin: 0 0 16px;
+        position: relative;
+        top: .5em;
+
+        .stat {
+          color: $white;
+        }
       }
     }
-  }
 
-  &-description {
-    padding-top: 50px;
+    &-description {
+      padding-top: 50px;
 
-    .content-block {
-      background-color: $white;
-      font-size: 1.1em;
-      padding: 0 8em 0 3em;
-      margin: 1em 0;
+      .content-block {
+        background-color: $white;
+        font-size: 1.1em;
+        padding: 0 8em 0 3em;
+        margin: 1em 0;
 
-      h2 {
-        color: $light-black;
-        margin: 0 0 0.5em;
-        font-size: 25px;
-        font-weight: 400;
-        line-height: normal;
-        letter-spacing: .2px;
+        h2 {
+          color: $light-black;
+          margin: 0 0 0.5em;
+          font-size: 25px;
+          font-weight: 400;
+          line-height: normal;
+          letter-spacing: .2px;
+        }
+      }
+
+      .modules-list {
+        margin-top: 2em;
+
+        h2 {
+          margin-bottom: 1em;
+        }
       }
     }
   }

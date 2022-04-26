@@ -64,9 +64,9 @@ export const APIs = {
     announcement: {},
     course: {
         create: '/api/Course/Create',
-        get: 'api/Course/Get/',
-        update: 'api/Course/Update',
-        delete: 'api/Course/Delete/'
+        get: '/api/Course/Get/',
+        update: '/api/Course/Update',
+        delete: '/api/Course/Delete/'
     },
     сourseCatalog: {
         getAll: 'api/Catalog/Get',
