@@ -7,6 +7,7 @@ import courseImg from './../../imgs/brain.jpg';
 import {GiDiploma} from "react-icons/gi";
 import {BiTimeFive} from "react-icons/bi";
 import {IoTime} from "react-icons/io5";
+import Button from "@mui/material/Button";
 
 function Course({location}) {
     const [course, setCourse] = useState({});
@@ -25,19 +26,27 @@ function Course({location}) {
         <section className={cl('section-outer')}>
             <div className={cl('courses-course')}>
                 <div className={cl('course-title')}>
-                    <div className={cl('page-fragment')}>
-                        <div className={cl('course-title_name')}>
-                            {course.name}
-                        </div>
-                        <div className={cl('course-title_certificate', 'icon')}>
-                            <GiDiploma fontSize="2.3em" />
-                            <span>Сертификат FontAwesome</span>
-                        </div>
-                        <div className={cl('course-title_time', 'icon')}>
-                            <IoTime fontSize="2.3em" />
-                            <span>5 - 15 часов в неделю</span>
+                    <div className={cl('course-title-content')}>
+                        <div className={cl('page-fragment')}>
+                            <div className={cl('course-title_name')}>
+                                {course.name}
+                            </div>
+                            <div className={cl('course-title_certificate', 'icon')}>
+                                <GiDiploma fontSize="2.3em" />
+                                <span>Сертификат FontAwesome</span>
+                            </div>
+                            <div className={cl('course-title_time', 'icon')}>
+                                <IoTime fontSize="2.3em" />
+                                <span>5 - 15 часов в неделю</span>
+                            </div>
                         </div>
                     </div>
+                    <Button
+                        className={cl('course-sign-up-btn', 'btn')}
+                        variant="contained"
+                    >
+                        Записаться на курс
+                    </Button>
                 </div>
                 <div className={cl('course-description')}>
                     <div className={cl('page-fragment')}>
