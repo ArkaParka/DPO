@@ -18,11 +18,13 @@ export const AuthProvider = ({
             .then(authenticated => {
                 setIsAuthenticated(authenticated);
                 setKeycloak(keycloak);
+                console.log('1')
             });
 
         keycloak.loadUserInfo()
             .then(userInfo => {
                 setUserInfo(userInfo);
+                console.log('2')
             });
     }
 

@@ -16,14 +16,7 @@
 
   &-btn {
     .btn{
-      background-color: $blue-color;
-      font-size: 0.9em;
-      padding: 1.3rem;
-      margin-top: 1em;
-    }
-
-    .btn:hover {
-      background-color: #2c41bc;
+      box-shadow: 0 21px 22px -8px $box-shadow-grey-dark;
     }
   }
 }

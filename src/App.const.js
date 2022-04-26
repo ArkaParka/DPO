@@ -73,6 +73,7 @@ export const statCountValue = 4;
 export const courseText = '\nГлубокая аналитика вашего портфеля\n- любое количество стратегий и портфелей\n- акции, etf, облигации, криптовалюта более 70 000 инструментов\n- идеально для долгосрочных инвесторов\n\n*Автоматическое продление бесплатного тарифа каждые 365 дней\nГлубокая аналитика вашего портфеля\n- любое количество стратегий и портфелей\n- акции, etf, облигации, криптовалюта более 70 000 инструментов\n- идеально для долгосрочных инвесторов\n\n*Автоматическое продление бесплатного тарифа каждые 365 дней';
 
 export const course_1 = {
+    id: 'id1',
     name: courseName2,
     stats: {
         hour: statHourValue,
@@ -82,6 +83,7 @@ export const course_1 = {
 }
 
 export const course_2 = {
+    id: 'id2',
     name: longCourseName,
     stats: {
         hour: statHourValue,
@@ -91,6 +93,7 @@ export const course_2 = {
 }
 
 export const course_3 = {
+    id: 'id3',
     name: courseName,
     stats: {
         hour: statHourValue,

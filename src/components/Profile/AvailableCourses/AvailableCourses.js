@@ -8,6 +8,7 @@ import React, {useState} from "react";
 import {courses} from "../../../App.const";
 
 function AvailableCourses({isTeacher}) {
+    // TODO: получать их через апишку
     const [availableCourses, setAvailableCourses] = useState(courses);
 
     return (
@@ -18,20 +19,22 @@ function AvailableCourses({isTeacher}) {
                                 let name = course.name || 'Card Title';
                                 let description = course.description || `Some quick example text to build on the card title and make up the bulk of
                                             the card's content.`;
+                                let courseId = course.id;
 
                                 return (
                                     <Link
                                         id='image'
                                         to={isTeacher ? '/create-course-program' : '/course-completion'}
                                     >
-                                        <Card key={i}>
+                                        <Card
+                                            key={i}
+                                            onClick={() => {
+                                                console.log('hi')
+                                                localStorage.setItem('courseId', courseId)
+                                            }}
+                                        >
                                             <div className="card-image">
-                                                {/*<Link*/}
-                                                {/*    id='image'*/}
-                                                {/*    to={isTeacher ? '/create-course-program' : '/course-completion'}*/}
-                                                {/*>*/}
                                                 <Card.Img variant="top" src={courseImg}/>
-                                                {/*</Link>*/}
                                             </div>
                                             <Card.Body>
                                                 <div className="card-content">

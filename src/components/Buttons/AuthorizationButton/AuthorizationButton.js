@@ -1,19 +1,26 @@
 import './AuthorizationButton.scss';
 import cl from "classnames";
+import {IconButton} from "@mui/material";
+import {BsDoorOpen} from "react-icons/bs";
+import Keycloak from "keycloak-js";
+import {useState} from "react";
 
-function AuthorizationButton({onAuthorization}) {
-    const openModal = (e) => {
-        e.preventDefault();
-        onAuthorization({isOpen: true, event: e.target.id})
-    };
+function AuthorizationButton({}) {
+    // const {isAuthenticated, keycloak} = useAuth();
+
+    function onLogin() {
+    }
 
     return (
-    <button className={cl('authorization-btn')}>
-        <div className={cl('authorization-btn-links')}>
-            <a href="#" id="modal_auth" onClick={openModal}>Вход</a>
-            <a href="#" id="modal_reg" onClick={openModal}>Регистрация</a>
-        </div>
-    </button>
+        <IconButton
+            className={cl('authorization-btn')}
+            onClick={() => onLogin()}
+            color="primary"
+            aria-label="upload picture"
+            component="span"
+        >
+            <BsDoorOpen />
+        </IconButton>
     );
 }
 

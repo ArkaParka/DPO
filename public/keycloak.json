@@ -1,10 +1,11 @@
 {
-    "realm": "EDU",
-    "auth-server-url": "https://keycloak.local.dev/auth/",
-    "ssl-required": "external",
-    "resource": "BFF",
-    "credentials": {
-        "secret": "**********"
-    },
-    "confidential-port": 0
+  "realm": "EDU",
+  "auth-server-url": "http://localhost:8080/auth/",
+  "ssl-required": "external",
+  "resource": "BFF",
+  "credentials": {
+    "secret": "**********"
+  },
+  " redirect_uri": "https://web.local.dev/",
+  "confidential-port": 0
 }

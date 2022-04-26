@@ -20,9 +20,10 @@ function CoursesCards({filters}) {
     }, []);
 
     return (
-        <div className={cl('courses-cards', {'empty': !courses.length})}>
+        <div className={cl('courses-cards')}>
             {
-                courses.length ? SortByFilters(courses, filters)
+                courses.length && SortByFilters(courses, filters).length ?
+                    SortByFilters(courses, filters)
                     .map((course, i) => {
                             let name = course.name || 'Card Title';
                             let description = course.description || `Some quick example text to build on the card title and make up the bulk of
@@ -34,7 +35,6 @@ function CoursesCards({filters}) {
                                         <Link
                                             id='image'
                                             to='/courses/course'
-                                            // onClick={handleCourseImageClick}
                                         >
                                             <Card.Img variant="top" src={courseImg}/>
                                         </Link>

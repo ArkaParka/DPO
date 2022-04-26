@@ -8,8 +8,7 @@ import cl from "classnames";
 import './Header.scss';
 
 export const Header = () => {
-    // const {isAuthenticated, keycloak} = useAuth();
-    const {isAuthenticated, keycloak} = {isAuthenticated: true, keycloak: null};
+    const {isAuthenticated, keycloak} = useAuth() ? useAuth() : {isAuthenticated: false, keycloak: null};
 
     const [isHomeActive, setIsHomeActive] = useState(false);
     const [isCoursesActive, setIsCoursesActive] = useState(false);
@@ -56,6 +55,26 @@ export const Header = () => {
                                     Курсы
                                 </Link>
                             </li>
+                            <li className={cl('menu-item', {active: isCoursesActive})}>
+                                <Link
+                                    id='faq'
+                                    className={cl('item')}
+                                    to='/faq'
+                                    // onClick={handleLinkClick}
+                                >
+                                    FAQ
+                                </Link>
+                            </li>
+                            <li className={cl('menu-item', {active: isCoursesActive})}>
+                                <Link
+                                    id='contacts'
+                                    className={cl('item')}
+                                    to='/contacts'
+                                    // onClick={handleLinkClick}
+                                >
+                                    Контакты
+                                </Link>
+                            </li>
                         </ul>
                     </nav>
                 </div>
@@ -63,7 +82,7 @@ export const Header = () => {
                     {
                         isAuthenticated ?
                             <PersonalAccountButton keycloak={keycloak}/> :
-                            <AuthorizationButton />
+                            <AuthorizationButton keycloak={keycloak}/>
                     }
                 </div>
             </div>

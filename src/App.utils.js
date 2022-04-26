@@ -71,6 +71,7 @@ export const onRegister = async (userData) => {
 };
 
 export const AddNewFilter = (filters, newFilter) => {
+    console.log(newFilter)
     return filters
         .filter(filter => filter.name !== newFilter.name)
         .concat(newFilter);
@@ -78,19 +79,32 @@ export const AddNewFilter = (filters, newFilter) => {
 
 export const SortByFilters = (courses, filters) => {
     let name;
+    let speciality = 'all';
+
     filters.forEach(f => {
         switch (f.name) {
-            case 'Специальность': name = f.value; break;
+            case 'Имя': name = f.value; break;
+            case 'Специальность': speciality = f.value; break;
         }
     });
 
-    return courses.filter(course => {
-            return (
-                ((name && course.name) ? (course.name === name || course.name.toLowerCase().includes(name.toLowerCase())) : true) &&
-                true);
-        }
-    );
+    return courses
+        .filter(course => FilterByName(name, course.name))
+        .filter(course => FilterBySpeciality(speciality, course.speciality));
 };
+
+const FilterByName = (name, courseName) => {
+    return ((name && courseName) ?
+        (courseName === name || courseName.toLowerCase().includes(name.toLowerCase())) : true) && true;
+}
+
+const FilterBySpeciality = (speciality, courseSpeciality) => {
+    if (speciality === 'all') return true;
+    if (!courseSpeciality) return false;
+
+    return ((speciality && courseSpeciality) ?
+        (courseSpeciality === speciality || courseSpeciality.toLowerCase().includes(speciality.toLowerCase())) : true) && true;
+}
 
 export const setSelectedOption = (options, callback) => {
     if (options.data) {

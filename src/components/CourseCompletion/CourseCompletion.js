@@ -21,7 +21,7 @@ function CourseCompletion({}) {
     const [taskType, setTaskType] = useState(null);
     const [courseId, setCourseId] = useState('');
 
-    const [module, setModule] = useState(null);
+    const [module, setOpenModule] = useState(null);
     const [test, setTest] = useState(null);
     const [task, setTask] = useState(null);
 
@@ -30,6 +30,13 @@ function CourseCompletion({}) {
     const [tests, setTests] = useState({});
 
     useEffect(async () => {
+        let localStorageCourseID = localStorage.getItem('courseId');
+        console.log(localStorageCourseID);
+
+        if (localStorageCourseID !== 'undefined') {
+            setCourseId(localStorageCourseID);
+        }
+
         if (!courseId) {
             setDefaultData();
             return;
@@ -37,8 +44,9 @@ function CourseCompletion({}) {
 
         let modulesResponse = await getCourseModules(courseId);
         setModules(modulesResponse);
+
         if (modulesResponse.length) {
-            setModule(JSON.stringify(modulesResponse[0]));
+            setOpenModule(JSON.stringify(modulesResponse[0]));
         }
 
         let allTasks = {};
@@ -88,7 +96,7 @@ function CourseCompletion({}) {
             setTaskType(taskTypes.test);
         } else if (test === lastTest && isTestOpen) {
             console.log('go to module', test, lastTest, isTestOpen)
-            setModule(JSON.stringify(nextModule));
+            setOpenModule(JSON.stringify(nextModule));
             setState(completionStates.module);
         } else if (((isModuleOpen && task === lastTask) || isTaskOpen) && !nextTask) {
             setTask(JSON.stringify(firstTask));
@@ -182,7 +190,7 @@ function CourseCompletion({}) {
             ]
         });
         if (modules.length) {
-            setModule(JSON.stringify(modules[0]));
+            setOpenModule(JSON.stringify(modules[0]));
         }
     }
 
@@ -192,7 +200,7 @@ function CourseCompletion({}) {
                 {
                     setState,
                     setTaskType,
-                    setModule,
+                    setModule: setOpenModule,
                     setTest,
                     setTask,
                     modules,

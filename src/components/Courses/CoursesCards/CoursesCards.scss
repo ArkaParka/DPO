@@ -6,9 +6,9 @@
   grid-template-columns: 1fr 1fr 1fr 1fr;
   padding-bottom: 4rem;
 
-  &.empty {
-    text-align: center;
-    grid-template-columns: 1fr
+  .no-courses {
+    position: absolute;
+    left: 30%;
   }
 }
 
