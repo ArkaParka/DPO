@@ -24,20 +24,20 @@ const user = {
 
 function Profile() {
     const [userInfo, setUserInfo] = useState({name: 'Антон Антонов', email: 'default@mail.ru'});
-    // const {keycloak} = useAuth();
+    const {keycloak} = useAuth();
     const [pageState, setPageState] = useState(page.availableCourses);
     const [userState, setUserState] = useState(user.student);
 
     useEffect(() => {
-        // if (keycloak) {
-        //     keycloak.loadUserInfo().then(userInfo => {
-        //         setUserInfo(userInfo);
-        //     });
-        // }
+        if (keycloak) {
+            keycloak.loadUserInfo().then(userInfo => {
+                setUserInfo(userInfo);
+            });
+        }
     }, [])
 
     return (
-        <AuthProvider>
+        // <AuthProvider>
             <section className={cl('profile-page')}>
                 <ProSidebar>
                     <Menu iconShape="square">
@@ -98,7 +98,7 @@ function Profile() {
                     }
                 </div>
             </section>
-        </AuthProvider>
+        // </AuthProvider>
     );
 }
 

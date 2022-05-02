@@ -4,12 +4,20 @@ import courseImg from "../../../imgs/brain.jpg";
 import Button from "@mui/material/Button";
 import cl from "classnames";
 import NoCourses from "../../Stubs/NoCourses";
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {courses} from "../../../App.const";
+import {getCourseCatalogAll} from "../../../api/CoursesAPI";
 
 function AvailableCourses({isTeacher}) {
     // TODO: получать их через апишку
-    const [availableCourses, setAvailableCourses] = useState(courses);
+    const [availableCourses, setAvailableCourses] = useState([]);
+
+    useEffect(async () => {
+        const coursesResponse = await getCourseCatalogAll();
+        if (Array.isArray(coursesResponse)) {
+            setAvailableCourses(coursesResponse);
+        }
+    }, []);
 
     return (
         <div className="available-courses">

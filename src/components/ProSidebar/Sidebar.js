@@ -11,7 +11,7 @@ function Sidebar({data}) {
         setTaskType,
         setTest,
         setTask,
-        modules,
+        modules = [],
         tasks,
         tests,
         setModule

@@ -1,0 +1,49 @@
+.contacts-page {
+  padding: 3em 5em 3em 5em;
+  height: 90vh;
+
+  &_title {
+    margin-bottom: 2em;
+  }
+
+  &_contacts {
+    font-family: "Comfortaa", cursive;
+    padding: 2em;
+
+    .item {
+      margin-bottom: 0.8em;
+
+      svg {
+        margin-right: .7em;
+        color: #3283d5;
+      }
+    }
+
+    .address.item {
+      margin-bottom: 1.8em;
+    }
+  }
+
+  &_main {
+    grid-gap: 2rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr ;
+    height: 30em;
+
+    .card {
+      border-radius: 50px;
+      overflow: hidden;
+    }
+
+    .bg-image {
+      height: 100%;
+
+      img {
+        height: 65%;
+        width: 100%;
+        left: 6em;
+        position: absolute;
+      }
+    }
+  }
+}
