@@ -12,14 +12,15 @@ function Sidebar({data}) {
         setTest,
         setTask,
         modules = [],
-        tasks,
-        tests,
+        tasks = {},
+        tests = {},
         setModule
     } = data;
     const [isCollapsed, setIsCollapsed] = useState(false);
 
     useEffect(() => {
-    }, [modules])
+        // console.log('modules', modules)
+    })
 
     return (
         <ProSidebar collapsed={isCollapsed}>
@@ -37,7 +38,7 @@ function Sidebar({data}) {
                     title="Закрыть меню"
                 />
                 {
-                    modules.length ? modules.map((module, i) => (
+                    modules?.length ? modules.map((module, i) => (
                             <SubMenu
                                 key={i}
                                 title={module.name}
@@ -78,7 +79,7 @@ function Sidebar({data}) {
                                     )) : null
                                 }
                                 {
-                                    (!tasks[module.id].length && !tests[module.id].length) &&
+                                    (!tasks[module.id]?.length && !tests[module.id]?.length) &&
                                     <MenuItem className={cl('no-tasks')}>Нет заданий</MenuItem>
                                 }
                             </SubMenu>

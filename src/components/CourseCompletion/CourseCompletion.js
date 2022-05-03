@@ -30,8 +30,8 @@ function CourseCompletion({}) {
     const [tests, setTests] = useState({});
 
     useEffect(async () => {
-        let localStorageCourseID = localStorage.getItem('courseId');
-        console.log(localStorageCourseID);
+        let localStorageCourseID = localStorage.getItem('courseIdOpen');
+        console.log('courseId', localStorageCourseID);
 
         if (localStorageCourseID !== 'undefined') {
             setCourseId(localStorageCourseID);
@@ -44,6 +44,7 @@ function CourseCompletion({}) {
 
         let modulesResponse = await getCourseModules(courseId);
         setModules(modulesResponse);
+        console.log('modulesResponse', modulesResponse)
 
         if (modulesResponse.length) {
             setOpenModule(JSON.stringify(modulesResponse[0]));
@@ -65,9 +66,9 @@ function CourseCompletion({}) {
         const nextModuleOrder = JSON.parse(module)?.order + 1 || 0;
 
         const firstTask = tasks[moduleID][0];
-        const lastTask = JSON.stringify(tasks[moduleID][tasks[moduleID].length-1]);
+        const lastTask = JSON.stringify(tasks[moduleID][tasks[moduleID].length - 1]);
         const firstTest = tests[moduleID][0];
-        const lastTest = JSON.stringify(tests[moduleID][tests[moduleID].length-1]);
+        const lastTest = JSON.stringify(tests[moduleID][tests[moduleID].length - 1]);
 
 
         const nextTask = tasks[moduleID][nextTaskOrder];
@@ -196,18 +197,21 @@ function CourseCompletion({}) {
 
     return (
         <section className={cl('course-program', 'course-completion')}>
-            <Sidebar data={
-                {
-                    setState,
-                    setTaskType,
-                    setModule: setOpenModule,
-                    setTest,
-                    setTask,
-                    modules,
-                    tasks,
-                    tests
+            <Sidebar
+                data={
+                    {
+                        setState,
+                        setTaskType,
+                        setModule: setOpenModule,
+                        setModules,
+                        setTest,
+                        setTask,
+                        modules,
+                        tasks,
+                        tests
+                    }
                 }
-            }/>
+            />
             <div className="course-program-content">
                 {
                     state === completionStates.module &&
@@ -221,15 +225,18 @@ function CourseCompletion({}) {
                     state === completionStates.task && taskType == taskTypes.test &&
                     <Test test={JSON.parse(test) || undefined}/>
                 }
-                <div className="course-program-content_footer">
-                    <Button
-                        className={cl('next-btn', 'btn')}
-                        onClick={goToTheNextPage}
-                        variant="contained"
-                    >
-                        Дальше
-                    </Button>
-                </div>
+                {
+                    modules?.length > 1 &&
+                    <div className="course-program-content_footer">
+                        <Button
+                            className={cl('next-btn', 'btn')}
+                            onClick={goToTheNextPage}
+                            variant="contained"
+                        >
+                            Дальше
+                        </Button>
+                    </div>
+                }
             </div>
         </section>
     );

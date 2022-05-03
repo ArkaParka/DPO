@@ -14,11 +14,12 @@ function Task(
     {
         isNewTask = false,
         moduleId,
+        order = 0,
         task = {
             id: "62275bd028160b846e6f3141",
             moduleId: "6218b1a528160b846e6f30e9",
             name: "Новое задание",
-            description: defaultDescription,
+            shortDescription: defaultDescription,
             order: 0
         },
         setState
@@ -44,13 +45,15 @@ function Task(
 
         let newTask = Object.assign(task, {
             name: name,
-            description: description
+            shortDescription: description
         });
 
-        console.log(newTask);
+        console.log('newTask', newTask);
         if (isNewTask) {
             newTask.moduleId = moduleId;
+            newTask.order = order;
             let resp = await createTask(newTask);
+            console.log('resp', resp);
             cleanState();
         } else {
             let resp = await updateTask(newTask);

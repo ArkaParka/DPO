@@ -1,26 +1,29 @@
 @import "../../variables";
 
 .course-program-content {
-  height: auto;
+  display: flex;
+  height: 93vh;
+  position: relative;
+  flex-direction: column;
 }
 
-.course-completion .pro-sub-menu .pro-icon {
-  color: $yellow-light-color;
+.course-completion {
+  .pro-sub-menu .pro-icon {
+    color: $yellow-light-color;
+  }
 }
 
 .name {
   position: relative;
   font-size: 32px !important;
-  margin: 60px 0;
+  margin: 35px 0 25px 0;
 }
 
 .description {
   white-space: break-spaces;
 }
 
-.answer {
-  margin-top: 3em;
-}
+.answer {}
 
 .send-answer-btn {
   margin-top: 1em !important;
@@ -28,6 +31,7 @@
 
 .course-program-content_footer {
   margin-top: 3em;
+  margin-bottom: 1.5em;
   text-align: right;
 }
 

@@ -26,7 +26,7 @@ function Profile() {
     const [userInfo, setUserInfo] = useState({name: 'Антон Антонов', email: 'default@mail.ru'});
     const {keycloak} = useAuth();
     const [pageState, setPageState] = useState(page.availableCourses);
-    const [userState, setUserState] = useState(user.student);
+    const [userState, setUserState] = useState(user.teacher);
 
     useEffect(() => {
         if (keycloak) {

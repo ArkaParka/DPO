@@ -37,7 +37,7 @@ function CourseProgram({}) {
     const [module, setModule] = useState(null);
     const [course, setCourse] = useState(null);
     const [taskType, setTaskType] = useState(null);
-    const [courseId, setCourseId] = useState(localStorage.getItem('courseId') || '');
+    const [courseId, setCourseId] = useState(localStorage.getItem('courseIdRedact') || '');
     const [moduleId, setModuleId] = useState('');
 
     useEffect(async () => {
@@ -66,40 +66,46 @@ function CourseProgram({}) {
         setState(createStates.moduleRedact);
         setModule(JSON.stringify(module));
         let tasksResponse = await getModuleTasks(module.id);
-        // console.log('tasksResponse', tasksResponse)
-        // setTasks(tasksResponse);
-        setTasks([
-            {
-                "moduleId": "62220eb828160b846e6f313b",
-                "expirationDate": "0001-01-01T00:00:00Z",
-                "id": "62275bd028160b846e6f3141",
-                "name": "task 1",
-                "description": null,
-                "order": 0
-            },
-            {
-                "moduleId": "62220eb828160b846e6f313b",
-                "expirationDate": "0001-01-01T00:00:00Z",
-                "id": "62275bd028160b846e6f3141",
-                "name": "task 2",
-                "description": null,
-                "order": 1
-            }]);
-        setTests([
-            {
-                "moduleId": "62220eb828160b846e6f313b",
-                "name": "test 1",
-                "description": "string 1",
-                "order": 0
-            },
-            {
-                "moduleId": "62220eb828160b846e6f313b",
-                "name": "test 2",
-                "description": "string 2",
-                "order": 1
-            }
-        ]);
+        console.log('tasksResponse', tasksResponse)
+        setTasks(tasksResponse);
+
+        let testsResponse = await getModuleTasks(module.id);
+        console.log('testsResponse', testsResponse)
+        setTests(testsResponse);
+        // setTasks([
+        //     {
+        //         "moduleId": "62220eb828160b846e6f313b",
+        //         "expirationDate": "0001-01-01T00:00:00Z",
+        //         "id": "62275bd028160b846e6f3141",
+        //         "name": "task 1",
+        //         "description": null,
+        //         "order": 0
+        //     },
+        //     {
+        //         "moduleId": "62220eb828160b846e6f313b",
+        //         "expirationDate": "0001-01-01T00:00:00Z",
+        //         "id": "62275bd028160b846e6f3141",
+        //         "name": "task 2",
+        //         "description": null,
+        //         "order": 1
+        //     }]);
+        // setTests([
+        //     {
+        //         "moduleId": "62220eb828160b846e6f313b",
+        //         "name": "test 1",
+        //         "description": "string 1",
+        //         "order": 0
+        //     },
+        //     {
+        //         "moduleId": "62220eb828160b846e6f313b",
+        //         "name": "test 2",
+        //         "description": "string 2",
+        //         "order": 1
+        //     }
+        // ]);
     }
+
+
 
     return (
         <section className={cl('course-program')}>
@@ -252,6 +258,7 @@ function CourseProgram({}) {
                     <Task
                         isNewTask
                         moduleId={moduleId}
+                        order={Object.keys(tasks).length}
                     />
                 }
                 {
@@ -267,6 +274,7 @@ function CourseProgram({}) {
                     <Test
                         isNewTest
                         moduleId={moduleId}
+                        order={Object.keys(tests).length}
                     />
                 }
                 {

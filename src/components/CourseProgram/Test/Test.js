@@ -16,6 +16,7 @@ function Test(
     {
         isNewTest = true,
         moduleId,
+        order = 0,
         test = {
             id: "62275bd028160b846e6f3141",
             moduleId: "6218b1a528160b846e6f30e9",
@@ -44,10 +45,12 @@ function Test(
             description: description
         });
 
-        console.log(newTest);
+        console.log('newTest', newTest);
         if (isNewTest) {
             newTest.moduleId = moduleId;
+            newTest.order = order;
             let resp = await createTest(newTest);
+            console.log(resp);
             cleanState();
         } else {
             let resp = await updateTest(newTest);

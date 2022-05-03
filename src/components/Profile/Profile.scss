@@ -49,8 +49,9 @@
     }
 
     .card {
+      display: grid;
+      grid-template-columns: 1fr 2fr;
       margin-bottom: 2em;
-      flex-direction: row;
       min-height: 202px;
       border-radius: 0.4em;
 

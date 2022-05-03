@@ -9,11 +9,11 @@ import CoursesAPI from "./api/CoursesAPI";
 
 ReactDOM.render(
     // <CoursesAPI />,
-    // <AuthProvider>
+    <AuthProvider>
         <BrowserRouter>
             <App />
         </BrowserRouter>,
-    // </AuthProvider>,
+    </AuthProvider>,
   document.getElementById('root')
 );
 

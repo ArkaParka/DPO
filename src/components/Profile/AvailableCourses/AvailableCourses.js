@@ -38,7 +38,9 @@ function AvailableCourses({isTeacher}) {
                                             key={i}
                                             onClick={() => {
                                                 console.log('hi')
-                                                localStorage.setItem('courseId', courseId)
+                                                isTeacher ?
+                                                localStorage.setItem('courseIdRedact', courseId) :
+                                                localStorage.setItem('courseIdOpen', courseId)
                                             }}
                                         >
                                             <div className="card-image">
