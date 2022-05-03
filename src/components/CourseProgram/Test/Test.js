@@ -6,7 +6,7 @@ import TextEditor from "../../TextEditor/TextEditor";
 import TaskAnswerEditor from "../../TaskAnswerEditor/TaskAnswerEditor";
 import Quiz from 'react-quiz-component';
 import { quiz } from './quiz';
-import TestAnswerEditor from "../../TestAnswerEditor/TestAnswerEditor";
+import TestAnswerEditor, {answerTypes} from "../../TestAnswerEditor/TestAnswerEditor";
 import {createTask, createTest, deleteTask, deleteTest, updateTask, updateTest} from "../../../api/CoursesAPI";
 import {createStates} from "../CourseProgram";
 
@@ -28,6 +28,24 @@ function Test(
     }) {
     const [name, setName] = useState(test.name);
     const [description, setDescription] = useState(test.description);
+    const [testAnswers, setTestAnswers] = useState([
+        {
+            id: 0,
+            answer: "",
+            isCorrect: true
+        },
+        {
+            id: 1,
+            answer: "string",
+            isCorrect: false
+        },
+        {
+            id: 2,
+            answer: "string",
+            isCorrect: false
+        },
+    ]);
+    const [answerType, setAnswerType] = useState(answerTypes.one);
 
     async function handleTestDelete() {
         await deleteTest(test.id);
@@ -42,7 +60,7 @@ function Test(
 
         let newTest = Object.assign(test, {
             name: name,
-            description: description
+            description: description,
         });
 
         console.log('newTest', newTest);
@@ -50,6 +68,16 @@ function Test(
             newTest.moduleId = moduleId;
             newTest.order = order;
             let resp = await createTest(newTest);
+            console.log(resp);
+
+            let questionOptions = {
+                id: '',
+                question: '',
+                variants: testAnswers,
+                multipleAnswers: answerType === answerTypes.multi
+            }
+
+            let newTestWithOptions = Object.assign(newTest, questionOptions);
             console.log(resp);
             cleanState();
         } else {
@@ -80,7 +108,13 @@ function Test(
                     />
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="test-description">
-                    <TestAnswerEditor title='Тестовая задача | Настройки' />
+                    <TestAnswerEditor
+                        testAnswers={testAnswers}
+                        setTestAnswers={setTestAnswers}
+                        answerType={answerType}
+                        setAnswerType={setAnswerType}
+                        title='Тестовая задача | Настройки'
+                    />
                 </Form.Group>
             </Form>
             <Button

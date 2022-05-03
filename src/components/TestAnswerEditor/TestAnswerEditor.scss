@@ -7,8 +7,21 @@
   margin-bottom: 10px;
 }
 
-.radio-group > div {
+.test-options-block .alert-success {
+  display: flex;
+  align-items: center;
   border-radius: 5px !important;
+  background-color: transparent;
+  border-color: rgb(140, 185, 253);
+
+  .form-control {
+    border: none;
+    margin-left: 0.5em;
+
+    &:focus {
+      box-shadow: none;
+    }
+  }
 }
 
 .radio-group > div > div {
