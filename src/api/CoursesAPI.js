@@ -69,8 +69,8 @@ export const APIs = {
         delete: '/api/Course/Delete/'
     },
     сourseCatalog: {
-        getAll: 'api/Catalog/Get',
-        get: 'api/CourseCatalog/Get?id='
+        get: 'api/Catalog/Get',
+        // get: 'api/CourseCatalog/Get?id='
     },
     module: {
         create: '/api/Module/Create',
@@ -95,13 +95,10 @@ export const APIs = {
 };
 
 export function requestHeader(method, data = {}) {
-    // if(!this.props.keycloak) return {};
-    // console.log('this.props.keycloak.token', this.props.keycloak.token);
     switch (method) {
         case 'GET': return {
             method: method,
             headers: {
-                // "Authorization": "Bearer " + this.props.keycloak.token,
                 accept: 'text/plain',
             }
         };
@@ -160,8 +157,8 @@ export async function deleteCourse(id = '6220a50228160b846e6f30fe') {
     return response;
 }
 
-export async function getCourseCatalogAll() {
-    let response = (await sendRequest(APIs.сourseCatalog.getAll, 'GET')).response;
+export async function getCourseCatalog() {
+    let response = (await sendRequest(APIs.сourseCatalog.get, 'GET')).response;
     return response?.courses?.value;
 }
 
@@ -251,6 +248,11 @@ export async function getModuleTasks(moduleId = '622204a228160b846e6f3132') {
     return response?.tasks ? response.tasks : [];
 }
 
+export async function getModuleTests(moduleId = '622204a228160b846e6f3132') {
+    let response = await getModule(moduleId);
+    return response?.tests ? response.tests : [];
+}
+
 class APIResponse extends Component {
     render() {
         if(!this.props.response)
@@ -325,7 +327,7 @@ class CoursesAPI extends Component {
     }
 
     async handleCourseCatalogGetAll() {
-        let response = await getCourseCatalogAll();
+        let response = await getCourseCatalog();
         this.setState({
             response: JSON.stringify(response)
         });
