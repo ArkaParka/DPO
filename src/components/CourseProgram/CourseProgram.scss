@@ -70,3 +70,19 @@
   width: 500px;
   margin: 30vh auto;
 }
+
+.test {
+  .options-btn {
+    margin-bottom: 2em;
+
+    &-next {
+      float: right;
+      position: relative;
+    }
+  }
+
+  &-save-btn {
+    bottom: 2em;
+    position: fixed !important;
+  }
+}
