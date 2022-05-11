@@ -6,14 +6,14 @@ import cl from "classnames";
 import NoCourses from "../../Stubs/NoCourses";
 import React, {useEffect, useState} from "react";
 import {courses} from "../../../App.const";
-import {getCourseCatalogAll} from "../../../api/CoursesAPI";
+import {getCourseCatalog} from "../../../api/CoursesAPI";
 
 function AvailableCourses({isTeacher}) {
     // TODO: получать их через апишку
     const [availableCourses, setAvailableCourses] = useState([]);
 
     useEffect(async () => {
-        const coursesResponse = await getCourseCatalogAll();
+        const coursesResponse = await getCourseCatalog();
         if (Array.isArray(coursesResponse)) {
             setAvailableCourses(coursesResponse);
         }

@@ -6,14 +6,14 @@ import { Link } from 'react-router-dom';
 import Button from '@mui/material/Button';
 import courseImg from '../../../imgs/brain.jpg';
 import './CoursesCards.scss';
-import {getCourseCatalogAll} from "../../../api/CoursesAPI";
+import {getCourseCatalog} from "../../../api/CoursesAPI";
 import NoCourses from "../../Stubs/NoCourses";
 
 function CoursesCards({filters}) {
     const [courses, setCourses] = useState([]);
 
     useEffect(async () => {
-        const coursesResponse = await getCourseCatalogAll();
+        const coursesResponse = await getCourseCatalog();
         if (Array.isArray(coursesResponse)) {
             setCourses(coursesResponse);
         }
