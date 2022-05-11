@@ -9,6 +9,11 @@ import './Task.scss';
 import {createStates} from "../CourseProgram";
 
 const defaultDescription = "Вы можете изменить условие задания в этом поле и указать настройки ниже.";
+export const answerTypes = {
+    text: 'Text',
+    file: 'File',
+    files: 'Files'
+}
 
 function Task(
     {
@@ -20,12 +25,14 @@ function Task(
             moduleId: "6218b1a528160b846e6f30e9",
             name: "Новое задание",
             shortDescription: defaultDescription,
+            answerType: answerTypes.text,
             order: 0
         },
         setState
     }) {
     const [name, setName] = useState(task.name || "Новое задание");
     const [description, setDescription] = useState(task.description || defaultDescription);
+    const [answerType, setAnswerType] = useState(task.answerType);
 
     useEffect(() => {
         setName(task.name);
@@ -45,7 +52,8 @@ function Task(
 
         let newTask = Object.assign(task, {
             name: name,
-            shortDescription: description
+            shortDescription: description,
+            answerType: answerType
         });
 
         console.log('newTask', newTask);
@@ -83,7 +91,11 @@ function Task(
                     />
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="task-description">
-                    <TaskAnswerEditor title='Текстовая задача | Настройки' />
+                    <TaskAnswerEditor
+                        title='Текстовая задача | Настройки'
+                        value={answerType}
+                        setValue={setAnswerType}
+                    />
                 </Form.Group>
             </Form>
             <Button
