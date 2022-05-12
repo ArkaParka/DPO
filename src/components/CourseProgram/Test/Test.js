@@ -1,13 +1,21 @@
 import cl from "classnames";
 import {Carousel, Form} from "react-bootstrap";
 import Button from '@mui/material/Button';
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import TextEditor from "../../TextEditor/TextEditor";
 import TaskAnswerEditor from "../../TaskAnswerEditor/TaskAnswerEditor";
 import Quiz from 'react-quiz-component';
 import {quiz} from './quiz';
 import TestAnswerEditor, {answerTypes} from "../../TestAnswerEditor/TestAnswerEditor";
-import {createTask, createTest, deleteTask, deleteTest, updateTask, updateTest} from "../../../api/CoursesAPI";
+import {
+    createTask,
+    createTest,
+    deleteTask,
+    deleteTest, getQuestions,
+    setQuestionsTest,
+    updateTask,
+    updateTest
+} from "../../../api/CoursesAPI";
 import {createStates} from "../CourseProgram";
 import './Test.scss';
 import {AiOutlinePlus} from "react-icons/ai";
@@ -57,26 +65,7 @@ function Test(
     }) {
     const [name, setName] = useState(test.name);
     const [description, setDescription] = useState(test.description);
-    const [questions, setQuestions] = useState(test.questions);
-    const [question, setQuestion] = useState(null);
-    const [testAnswers, setTestAnswers] = useState([
-        {
-            id: 0,
-            answer: "Ответ 1",
-            isCorrect: true
-        },
-        {
-            id: 1,
-            answer: "Ответ 2",
-            isCorrect: false
-        },
-        {
-            id: 2,
-            answer: "Ответ 3",
-            isCorrect: false
-        },
-    ]);
-    const [answerType, setAnswerType] = useState(answerTypes.one);
+    const [questions, setQuestions] = useState([]);
     const [isTestExist, setIsTestExist] = useState(false);
 
     async function handleTestDelete() {
@@ -106,8 +95,8 @@ function Test(
             let questionOptions = {
                 id: '',
                 question: '',
-                variants: testAnswers,
-                multipleAnswers: answerType === answerTypes.multi
+                // variants: testAnswers,
+                // multipleAnswers: answerType === answerTypes.multi
             }
 
             let newTestWithOptions = Object.assign(newTest, questionOptions);
@@ -137,6 +126,24 @@ function Test(
         setName("Новый тест");
         setDescription(defaultDescription);
     }
+
+    async function onTestUpdate(newQuestionsArray) {
+        setQuestions(newQuestionsArray);
+
+        const newTestConfig = {
+            testId: test.id,
+            questions: questions
+        };
+
+        let resp = await setQuestionsTest(newTestConfig);
+        console.log(resp);
+    }
+
+    useEffect(async () => {
+        let respQuestions = await getQuestions(test.id);
+        console.log(respQuestions);
+        setQuestions(respQuestions);
+    }, [])
 
     return (
         <div className={cl('test')}>
@@ -176,7 +183,7 @@ function Test(
                                         <TestAnswerEditor
                                             questionData={question}
                                             questionsArray={questions}
-                                            setQuestions={setQuestions}
+                                            updateTest={onTestUpdate}
                                             isTestExist={isTestExist}
                                             title='Тестовая задача | Настройки'
                                         />

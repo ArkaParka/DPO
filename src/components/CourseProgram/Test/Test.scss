@@ -36,8 +36,8 @@
 
   &-new-question-btn {
     height: 100px;
-    position: relative;
-    margin: 0 auto;
+    position: relative !important;
+    margin: 0 auto !important;
     top: -40px;
   }
 }

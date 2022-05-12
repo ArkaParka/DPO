@@ -90,7 +90,7 @@ export const APIs = {
         update: '/api/Test/Update',
         delete: '/api/Test/Delete/',
         setQuestions: '/api/Test/SetQuestions',
-        getQuestionsWithAnswers: '/api/Test/GetQuestionsWithAnwsers?testId='
+        getQuestions: '/api/Test/GetQuestions/'
     },
 };
 
@@ -114,6 +114,13 @@ export function requestHeader(method, data = {}) {
             method: method,
             headers: {
                 accept: '*/*' ,
+            }
+        };
+        case 'PUT': return {
+            method: method,
+            headers: {
+                accept: 'text/plain' ,
+                'Content-Type': 'application/json',
             }
         };
     }
@@ -228,12 +235,12 @@ export async function deleteTest(id) {
 }
 
 export async function setQuestionsTest(obj) {
-    let response = (await sendRequest(APIs.test.setQuestions, 'POST', obj)).response;
+    let response = (await sendRequest(APIs.test.setQuestions, 'PUT', obj)).response;
     return response;
 }
 
-export async function getQuestionsWithAnswers(id) {
-    let response = (await sendRequest(APIs.test.getQuestionsWithAnswers + id, 'POST')).response;
+export async function getQuestions(id) {
+    let response = (await sendRequest(APIs.test.getQuestions + id, 'POST')).response;
     return response;
 }
 

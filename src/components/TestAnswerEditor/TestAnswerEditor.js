@@ -13,7 +13,7 @@ export const answerTypes = {
     multi: 'multi'
 }
 
-const TestAnswerEditor = ({title, questionData, questionsArray, setQuestions, isTestExist}) => {
+const TestAnswerEditor = ({title, questionData, questionsArray, updateTest, isTestExist}) => {
     // TODO: доделать варианты ответов и multi
     const [question, setQuestion] = useState(questionData?.question || '');
     const [isMultipleAnswers, setIsMultipleAnswers] = useState(questionData.multipleAnswers);
@@ -41,7 +41,7 @@ const TestAnswerEditor = ({title, questionData, questionsArray, setQuestions, is
 
         const newQuestionsArray = questionsArray.slice();
         newQuestionsArray[questionData.id] = newQuestion;
-        setQuestions(newQuestionsArray);
+        updateTest(newQuestionsArray);
         console.log(newQuestionsArray);
     }
 
