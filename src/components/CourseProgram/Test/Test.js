@@ -10,8 +10,28 @@ import TestAnswerEditor, {answerTypes} from "../../TestAnswerEditor/TestAnswerEd
 import {createTask, createTest, deleteTask, deleteTest, updateTask, updateTest} from "../../../api/CoursesAPI";
 import {createStates} from "../CourseProgram";
 import './Test.scss';
+import {AiOutlinePlus} from "react-icons/ai";
+import {Alert} from "reactstrap";
 
 const defaultDescription = "Вы можете изменить условие теста в этом поле и указать настройки ниже.";
+const defaultQuestionAnswers = [
+    {
+        id: 0,
+        answer: "1",
+        isCorrect: false
+    },
+    {
+        id: 1,
+        answer: "2",
+        isCorrect: false
+    },
+    {
+        id: 2,
+        answer: "0",
+        isCorrect: true
+    }
+];
+const defaultQuestionText = "Сколько ног у ламантин?";
 
 function Test(
     {
@@ -26,24 +46,8 @@ function Test(
             questions: [
                 {
                     id: 0,
-                    question: "Сколько ног у ламантин?",
-                    variants: [
-                        {
-                            id: 0,
-                            answer: "1",
-                            isCorrect: false
-                        },
-                        {
-                            id: 1,
-                            answer: "2",
-                            isCorrect: false
-                        },
-                        {
-                            id: 2,
-                            answer: "0",
-                            isCorrect: true
-                        }
-                    ],
+                    question: defaultQuestionText,
+                    variants: defaultQuestionAnswers,
                     multipleAnswers: false
                 }
             ],
@@ -114,6 +118,21 @@ function Test(
         }
     }
 
+    function addNewQuestionInTest() {
+        const newQuestion = {
+            id: questions.length,
+            question: defaultQuestionText,
+            variants: defaultQuestionAnswers,
+            multipleAnswers: false
+        };
+        console.log(newQuestion)
+
+        let newQuestions = questions.slice();
+        newQuestions.push(newQuestion);
+        setQuestions(newQuestions);
+        console.log(newQuestions)
+    }
+
     function cleanState() {
         setName("Новый тест");
         setDescription(defaultDescription);
@@ -148,12 +167,9 @@ function Test(
                             }
                         </Button>
                     </Carousel.Item>
-                    <Carousel.Item>
-
-                    </Carousel.Item>
                     {
-                        test?.questions.length &&
-                        test?.questions.map(question => {
+                        questions?.length &&
+                        questions?.map(question => {
                             return (
                                 <Carousel.Item key={question.id}>
                                     <Form.Group className="mb-3" controlId="test-description">
@@ -169,6 +185,17 @@ function Test(
                             )
                         })
                     }
+                    <Carousel.Item>
+                        <Form.Group className='test-new-question'>
+                            <Button
+                                className={cl('test-new-question-btn', 'btn')}
+                                variant="contained"
+                                onClick={addNewQuestionInTest}
+                            >
+                                <AiOutlinePlus/>  Добавить новый вопрос в тест
+                            </Button>
+                        </Form.Group>
+                    </Carousel.Item>
                 </Carousel>
             </Form>
             {

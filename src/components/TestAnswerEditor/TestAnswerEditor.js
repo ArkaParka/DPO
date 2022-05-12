@@ -34,7 +34,8 @@ const TestAnswerEditor = ({title, questionData, questionsArray, setQuestions, is
     function handleSaveOneTestQuestion() {
         const newQuestion = Object.assign(questionData, {
             question: question,
-            variants: answerVariants
+            variants: answerVariants,
+            multipleAnswers: isMultipleAnswers
         });
         console.log(newQuestion);
 
