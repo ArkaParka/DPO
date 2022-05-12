@@ -1,0 +1,30 @@
+.carousel-control-prev,
+.carousel-control-next, {
+  top: auto;
+  bottom: 90px;
+
+  &-icon {
+    background-color: black;
+  }
+}
+
+.test-form {
+  margin-bottom: 65px;
+}
+
+.test {
+  .options-btn {
+    margin-bottom: 2em;
+
+    &-next {
+      float: right;
+      position: relative;
+    }
+  }
+
+  &-save-btn {
+    bottom: 2em;
+    //position: fixed !important;
+    margin-top: 100px !important;
+  }
+}

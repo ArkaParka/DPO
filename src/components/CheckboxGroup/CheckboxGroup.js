@@ -13,7 +13,6 @@ function CheckboxGroup({answers, setAnswers}) {
     };
 
     useEffect(() => {
-        console.log(answers)
     })
 
     function handleAnswerChange(answerId, newAnswer) {

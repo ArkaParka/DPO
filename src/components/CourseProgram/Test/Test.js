@@ -1,14 +1,15 @@
 import cl from "classnames";
-import {Form} from "react-bootstrap";
+import {Carousel, Form} from "react-bootstrap";
 import Button from '@mui/material/Button';
 import {useState} from "react";
 import TextEditor from "../../TextEditor/TextEditor";
 import TaskAnswerEditor from "../../TaskAnswerEditor/TaskAnswerEditor";
 import Quiz from 'react-quiz-component';
-import { quiz } from './quiz';
+import {quiz} from './quiz';
 import TestAnswerEditor, {answerTypes} from "../../TestAnswerEditor/TestAnswerEditor";
 import {createTask, createTest, deleteTask, deleteTest, updateTask, updateTest} from "../../../api/CoursesAPI";
 import {createStates} from "../CourseProgram";
+import './Test.scss';
 
 const defaultDescription = "Вы можете изменить условие теста в этом поле и указать настройки ниже.";
 
@@ -22,30 +23,57 @@ function Test(
             moduleId: "6218b1a528160b846e6f30e9",
             name: "Новый тест",
             description: defaultDescription,
+            questions: [
+                {
+                    id: 0,
+                    question: "Сколько ног у ламантин?",
+                    variants: [
+                        {
+                            id: 0,
+                            answer: "1",
+                            isCorrect: false
+                        },
+                        {
+                            id: 1,
+                            answer: "2",
+                            isCorrect: false
+                        },
+                        {
+                            id: 2,
+                            answer: "0",
+                            isCorrect: true
+                        }
+                    ],
+                    multipleAnswers: false
+                }
+            ],
             order: 0
         },
         setState
     }) {
     const [name, setName] = useState(test.name);
     const [description, setDescription] = useState(test.description);
+    const [questions, setQuestions] = useState(test.questions);
+    const [question, setQuestion] = useState(null);
     const [testAnswers, setTestAnswers] = useState([
         {
             id: 0,
-            answer: "",
+            answer: "Ответ 1",
             isCorrect: true
         },
         {
             id: 1,
-            answer: "string",
+            answer: "Ответ 2",
             isCorrect: false
         },
         {
             id: 2,
-            answer: "string",
+            answer: "Ответ 3",
             isCorrect: false
         },
     ]);
     const [answerType, setAnswerType] = useState(answerTypes.one);
+    const [isTestExist, setIsTestExist] = useState(false);
 
     async function handleTestDelete() {
         await deleteTest(test.id);
@@ -69,6 +97,7 @@ function Test(
             newTest.order = order;
             let resp = await createTest(newTest);
             console.log(resp);
+            setIsTestExist(resp.status == 200)
 
             let questionOptions = {
                 id: '',
@@ -92,40 +121,56 @@ function Test(
 
     return (
         <div className={cl('test')}>
-            <Form>
-                <Form.Group className="mb-3" controlId="test-name">
-                    <Form.Control
-                        type="text"
-                        onChange={(e) => setName(e.target.value)}
-                        value={name}
-                    />
-                </Form.Group>
-                <Form.Group className="mb-3" controlId="test-description">
-                    <TextEditor
-                        setValue={setDescription}
-                        value={description}
-                        title='Тестовая задача | Условие'
-                    />
-                </Form.Group>
-                <Form.Group className="mb-3" controlId="test-description">
-                    <TestAnswerEditor
-                        testAnswers={testAnswers}
-                        setTestAnswers={setTestAnswers}
-                        answerType={answerType}
-                        setAnswerType={setAnswerType}
-                        title='Тестовая задача | Настройки'
-                    />
-                </Form.Group>
+            <Form className="test-form">
+                <Carousel interval={null}>
+                    <Carousel.Item>
+                        <Form.Group className="mb-3" controlId="test-name">
+                            <Form.Control
+                                type="text"
+                                onChange={(e) => setName(e.target.value)}
+                                value={name}
+                            />
+                        </Form.Group>
+                        <Form.Group className="mb-3" controlId="test-description">
+                            <TextEditor
+                                setValue={setDescription}
+                                value={description}
+                                title='Тестовая задача | Условие'
+                            />
+                        </Form.Group>
+                        <Button
+                            className={cl('test-save-btn', 'btn')}
+                            onClick={handleTestSaveChanges}
+                            variant="contained"
+                        >
+                            {
+                                isNewTest ? 'Создать тест' : 'Сохранить изменения'
+                            }
+                        </Button>
+                    </Carousel.Item>
+                    <Carousel.Item>
+
+                    </Carousel.Item>
+                    {
+                        test?.questions.length &&
+                        test?.questions.map(question => {
+                            return (
+                                <Carousel.Item key={question.id}>
+                                    <Form.Group className="mb-3" controlId="test-description">
+                                        <TestAnswerEditor
+                                            questionData={question}
+                                            questionsArray={questions}
+                                            setQuestions={setQuestions}
+                                            isTestExist={isTestExist}
+                                            title='Тестовая задача | Настройки'
+                                        />
+                                    </Form.Group>
+                                </Carousel.Item>
+                            )
+                        })
+                    }
+                </Carousel>
             </Form>
-            <Button
-                className={cl('test-save-btn', 'btn')}
-                onClick={handleTestSaveChanges}
-                variant="contained"
-            >
-                {
-                    isNewTest ? 'Создать тест' : 'Сохранить изменения'
-                }
-            </Button>
             {
                 !isNewTest &&
                 <Button

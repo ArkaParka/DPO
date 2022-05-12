@@ -3,16 +3,10 @@ import {useEffect, useState} from "react";
 import {Form} from "react-bootstrap";
 import { RadioGroup, RadioButton } from 'react-radio-buttons';
 import './TaskAnswerEditor.scss';
-
-const answerTypes = {
-    text: 'text',
-    file: 'file',
-    multifile: 'multifile'
-}
+import {answerTypes} from "../CourseProgram/Task/Task";
 
 const TaskAnswerEditor = ({value, setValue, title}) => {
     const [answer, setAnswer] = useState('');
-    const [answerType, setAnswerType] = useState(answerTypes.text);
 
     useEffect(() => {
         let items = document.querySelector('.radio-group')?.childNodes;
@@ -52,14 +46,14 @@ const TaskAnswerEditor = ({value, setValue, title}) => {
                             title="Как учащиеся могу прислать ответ: прямо в поле ввода в задании или прикрепить файл c текстом ответа">
                             Тип ответа:
                         </legend>
-                        <RadioGroup className="radio-group" onChange={setAnswerType} vertical="true">
-                            <RadioButton rootColor={'#aeaeae'} value={answerTypes.text} checked={answerType === answerTypes.text}>
+                        <RadioGroup className="radio-group" onChange={setValue} vertical="true">
+                            <RadioButton rootColor={'#aeaeae'} value={answerTypes.text} checked={value === answerTypes.text}>
                                 Текст
                             </RadioButton>
-                            <RadioButton rootColor={'#aeaeae'} value={answerTypes.file} checked={answerType === answerTypes.file}>
+                            <RadioButton rootColor={'#aeaeae'} value={answerTypes.file} checked={value === answerTypes.file}>
                                 Файл
                             </RadioButton>
-                            <RadioButton rootColor={'#aeaeae'} value={answerTypes.multifile} checked={answerType === answerTypes.multifile}>
+                            <RadioButton rootColor={'#aeaeae'} value={answerTypes.files} checked={value === answerTypes.files}>
                                 Несколько файлов
                             </RadioButton>
                         </RadioGroup>
