@@ -14,23 +14,23 @@ export const AuthProvider = ({
     const getUser = async () => {
         const keycloak = Keycloak('/keycloak.json');
 
-        keycloak.init({onLoad: 'login-required'})
+        keycloak?.init({onLoad: 'login-required'})
             .then(authenticated => {
                 setIsAuthenticated(authenticated);
                 setKeycloak(keycloak);
                 console.log('1')
-            });
-
-        keycloak.loadUserInfo()
-            .then(userInfo => {
-                setUserInfo(userInfo);
-                console.log('2')
+            })
+            .then(() => {
+                keycloak?.loadUserInfo()
+                    .then(userInfo => {
+                        setUserInfo(userInfo);
+                        console.log('2')
+                    });
             });
     }
 
     useEffect(() => {
-        // TODO: обернуть в try catch
-        getUser();
+        getUser().then(r => r);
     }, []);
 
     return (

@@ -31,6 +31,7 @@ function AvailableCourses({isTeacher}) {
 
                                 return (
                                     <Link
+                                        key={i}
                                         id='image'
                                         to={isTeacher ? '/create-course-program' : '/course-completion'}
                                     >
