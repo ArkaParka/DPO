@@ -4,7 +4,7 @@
   "ssl-required": "external",
   "resource": "BFF",
   "credentials": {
-    "secret": "**********"
+    "secret": "xgsq8APE3Y9WxigDjXBeyiCeNmaBWCnG"
   },
   " redirect_uri": "https://web.local.dev/",
   "confidential-port": 0
