@@ -81,7 +81,7 @@ function Sidebar({data}) {
                 />
                 {
                     announcements?.length ? (
-                        <MenuItem
+                        <MenuItem className='announcements'
                             icon={<MdOutlineAnnouncement/>}
                             title="Объявления"
                             onClick={() => {
