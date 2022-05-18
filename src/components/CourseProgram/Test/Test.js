@@ -5,14 +5,14 @@ import {useEffect, useState} from "react";
 import TextEditor from "../../TextEditor/TextEditor";
 import TaskAnswerEditor from "../../TaskAnswerEditor/TaskAnswerEditor";
 import Quiz from 'react-quiz-component';
-import {quiz} from './quiz';
+import {quizData} from './quizData';
 import TestAnswerEditor, {answerTypes} from "../../TestAnswerEditor/TestAnswerEditor";
 import {
     createTask,
     createTest,
     deleteTask,
-    deleteTest, getQuestions,
-    setQuestionsTest,
+    deleteTest, getTestQuestions,
+    setTestQuestions,
     updateTask,
     updateTest
 } from "../../../api/CoursesAPI";
@@ -135,12 +135,12 @@ function Test(
             questions: questions
         };
 
-        let resp = await setQuestionsTest(newTestConfig);
+        let resp = await setTestQuestions(newTestConfig);
         console.log(resp);
     }
 
     useEffect(async () => {
-        let respQuestions = await getQuestions(test.id);
+        let respQuestions = await getTestQuestions(test.id);
         console.log(respQuestions);
         if (Array.isArray(respQuestions)) {
             setQuestions(respQuestions);
