@@ -6,24 +6,18 @@ import AuthorizationButton from "../Buttons/AuthorizationButton/AuthorizationBut
 import PersonalAccountButton from "../Buttons/PersonalAccountButton/PersonalAccountButton";
 import cl from "classnames";
 import './Header.scss';
+import {getUserInfo} from "../../api/UserAPI";
 
 export const Header = () => {
-    const {isAuthenticated, keycloak} = useAuth();
-    // const {isAuthenticated, keycloak} = useAuth() ? useAuth() : {isAuthenticated: true, keycloak: null};
+    const [isAuthenticated,setIsAuthenticated] = useState(false);
 
-    const [isHomeActive, setIsHomeActive] = useState(false);
-    const [isCoursesActive, setIsCoursesActive] = useState(false);
-
-    // TODO: Продумать логику переключения в личный кабинет и др.
-    // TODO: Убирать из localhost
-    function handleLinkClick() {
-        setIsHomeActive(window.location.href === 'http://localhost:3001/');
-        setIsCoursesActive(window.location.href === 'http://localhost:3001/courses');
-        console.log(window.location.href)
-    }
-
-    useEffect(() => {
-    });
+    useEffect(async () => {
+        let response = await getUserInfo()
+        console.log(response);
+        if (!response.status) {
+            setIsAuthenticated(true);
+        }
+    }, [])
 
     return (
         <header className={cl('section-header')}>
@@ -36,42 +30,38 @@ export const Header = () => {
                 <div className={cl('header-controls')}>
                     <nav className={cl('header-controls-links')}>
                         <ul className={cl('menu')}>
-                            <li className={cl('menu-item', {active: isHomeActive})}>
+                            <li className={cl('menu-item')}>
                                 <Link
                                     id='home'
                                     className={cl('item')}
                                     to='/'
-                                    // onClick={handleLinkClick}
                                 >
                                     Главная
                                 </Link>
                             </li>
-                            <li className={cl('menu-item', {active: isCoursesActive})}>
+                            <li className={cl('menu-item')}>
                                 <Link
                                     id='courses'
                                     className={cl('item')}
                                     to='/courses'
-                                    // onClick={handleLinkClick}
                                 >
                                     Курсы
                                 </Link>
                             </li>
-                            <li className={cl('menu-item', {active: isCoursesActive})}>
+                            <li className={cl('menu-item')}>
                                 <Link
                                     id='faq'
                                     className={cl('item')}
                                     to='/faq'
-                                    // onClick={handleLinkClick}
                                 >
                                     FAQ
                                 </Link>
                             </li>
-                            <li className={cl('menu-item', {active: isCoursesActive})}>
+                            <li className={cl('menu-item')}>
                                 <Link
                                     id='contacts'
                                     className={cl('item')}
                                     to='/contacts'
-                                    // onClick={handleLinkClick}
                                 >
                                     Контакты
                                 </Link>
@@ -82,8 +72,8 @@ export const Header = () => {
                 <div className={cl('header-operation')}>
                     {
                         isAuthenticated ?
-                            <PersonalAccountButton keycloak={keycloak}/> :
-                            <AuthorizationButton keycloak={keycloak}/>
+                            <PersonalAccountButton/> :
+                            <AuthorizationButton/>
                     }
                 </div>
             </div>
