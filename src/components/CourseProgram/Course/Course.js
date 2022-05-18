@@ -95,10 +95,10 @@ function Course(
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="course-speciality">
                     <Form.Select
-                        value={speciality}
+                        value={speciality||""}
                         onChange={(e) => setSpeciality(e.target.value)}
                     >
-                        <option>Выберите специальность</option>
+                        <option value="">Выберите специальность</option>
                         <option value="графика">графика</option>
                         <option value="дизайн">дизайн</option>
                         <option value="сети">сети</option>

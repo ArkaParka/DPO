@@ -142,7 +142,11 @@ function Test(
     useEffect(async () => {
         let respQuestions = await getQuestions(test.id);
         console.log(respQuestions);
-        setQuestions(respQuestions);
+        if (Array.isArray(respQuestions)) {
+            setQuestions(respQuestions);
+        } else {
+            setQuestions([]);
+        }
     }, [])
 
     return (
