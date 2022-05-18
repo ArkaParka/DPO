@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { useAuth } from "../../context/AuthContext";
 import { FaRegFontAwesomeLogoFull } from "react-icons/fa";
 import AuthorizationButton from "../Buttons/AuthorizationButton/AuthorizationButton";
 import PersonalAccountButton from "../Buttons/PersonalAccountButton/PersonalAccountButton";

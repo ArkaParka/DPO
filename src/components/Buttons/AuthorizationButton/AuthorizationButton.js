@@ -6,6 +6,7 @@ import {BsDoorOpen} from "react-icons/bs";
 function AuthorizationButton() {
 
     function onLogin() {
+        window.location = 'https://web.local.dev/bff/auth/logout';
         window.location = 'https://web.local.dev/bff/auth/login';
     }
 
