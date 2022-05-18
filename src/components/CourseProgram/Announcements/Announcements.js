@@ -1,4 +1,4 @@
-function Announcement() {
+function Announcements() {
     return (
         <div>
             Announcement
@@ -6,4 +6,4 @@ function Announcement() {
     );
 }
 
-export default Announcement;
+export default Announcements;

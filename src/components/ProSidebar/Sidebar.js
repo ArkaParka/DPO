@@ -4,6 +4,8 @@ import {AiFillStar, AiOutlineArrowLeft, AiOutlineMenu} from "react-icons/ai";
 import {taskTypes} from "../CourseProgram/CourseProgram";
 import {useEffect, useState} from "react";
 import {completionStates} from "../CourseCompletion/CourseCompletion";
+import {getTestQuestions} from "../../api/CoursesAPI";
+import {MdOutlineAnnouncement} from "react-icons/md";
 
 function Sidebar({data}) {
     const {
@@ -14,12 +16,52 @@ function Sidebar({data}) {
         modules = [],
         tasks = {},
         tests = {},
-        setModule
+        setModule,
+        announcements = []
     } = data;
     const [isCollapsed, setIsCollapsed] = useState(false);
 
+    async function onTestClick(e, test) {
+        e.stopPropagation();
+        console.log('test!!!', test);
+        let testQuestions = await getTestQuestions(test.id);
+        console.log('testQuestions', testQuestions);
+        let point = 100 / testQuestions.questions.length;
+
+        const questions = testQuestions.questions.map(question => {
+            const answerSelectionType = question.multipleAnswers ? "multiple" : "single";
+            const answers = question.variants.map(item => item.answer);
+            const correctAnswer = question.multipleAnswers ? [1, 2] : 1;
+
+            return {
+                question: question.question,
+                questionType: "text",
+                questionPic: "",
+                answerSelectionType: answerSelectionType,
+                answers: answers,
+                correctAnswer: correctAnswer,
+                messageForCorrectAnswer: "Это правильный ответ!",
+                messageForIncorrectAnswer: "Этот ответ не верен.",
+                explanation: "",
+                point: point
+            }
+        })
+
+        test.quizConfig = {
+            quizTitle: test.name,
+            quizSynopsis: test.description,
+            nrOfQuestions: testQuestions.length,
+            questions: questions
+        };
+        console.log('test2!!!', test);
+
+        setTest(JSON.stringify(test));
+        setTaskType(taskTypes.test);
+        setState(completionStates.task);
+    }
+
     useEffect(() => {
-        // console.log('modules', modules)
+        console.log('announcements', announcements)
     })
 
     return (
@@ -38,6 +80,19 @@ function Sidebar({data}) {
                     title="Закрыть меню"
                 />
                 {
+                    announcements?.length ? (
+                        <MenuItem
+                            icon={<MdOutlineAnnouncement/>}
+                            title="Объявления"
+                            onClick={() => {
+                                setState(completionStates.announcements);
+                            }}
+                        >
+                            Объявления
+                        </MenuItem>
+                    ) : null
+                }
+                {
                     modules?.length ? modules.map((module, i) => (
                             <SubMenu
                                 key={i}
@@ -46,7 +101,7 @@ function Sidebar({data}) {
                                     setState(completionStates.module);
                                     setModule(JSON.stringify(module));
                                 }}
-                                icon={<AiFillStar />}
+                                icon={<AiFillStar/>}
                             >
                                 {
                                     tasks[module.id]?.length ? tasks[module.id].map((task, i) => (
@@ -67,12 +122,7 @@ function Sidebar({data}) {
                                     tests[module.id]?.length ? tests[module.id].map((test, i) => (
                                         <MenuItem
                                             key={i}
-                                            onClick={(e) => {
-                                                e.stopPropagation();
-                                                setTest(JSON.stringify(test));
-                                                setTaskType(taskTypes.test);
-                                                setState(completionStates.task);
-                                            }}
+                                            onClick={(e) => onTestClick(e, test)}
                                         >
                                             {test.name}
                                         </MenuItem>
