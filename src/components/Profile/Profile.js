@@ -1,16 +1,14 @@
 import './Profile.scss';
 import cl from "classnames";
 import React, {useEffect, useState} from "react";
-import {AuthProvider, useAuth} from "../../context/AuthContext";
 import {AiOutlinePlus} from "react-icons/ai";
 import {FiSettings} from "react-icons/fi";
 import {BsFillJournalBookmarkFill} from "react-icons/bs";
 import {ProSidebar, Menu, MenuItem} from 'react-pro-sidebar';
 import userDefaultAvatar from '../../imgs/default-avatar.jpg';
 import AvailableCourses from "./AvailableCourses/AvailableCourses";
-import {Card} from "react-bootstrap";
-import courseImg from "../../imgs/brain.jpg";
 import {Link} from "react-router-dom";
+import {getUserInfo} from "../../api/UserAPI";
 
 const page = {
     availableCourses: "AvailableCourses",
@@ -23,82 +21,83 @@ const user = {
 }
 
 function Profile() {
-    const [userInfo, setUserInfo] = useState({name: 'Антон Антонов', email: 'default@mail.ru'});
-    const {keycloak} = useAuth();
+    const [userInfo, setUserInfo] = useState(
+        {
+            firstName: 'Антон',
+            lastName: 'Антонов',
+            username: 'default@mail.ru'
+        });
     const [pageState, setPageState] = useState(page.availableCourses);
-    const [userState, setUserState] = useState(user.teacher);
+    const [userState, setUserState] = useState(user.student);
 
-    useEffect(() => {
-        if (keycloak) {
-            keycloak.loadUserInfo().then(userInfo => {
-                setUserInfo(userInfo);
-            });
-        }
+    useEffect(async () => {
+        let response = await getUserInfo()
+        console.log(response);
+        setUserInfo(response)
     }, [])
 
     return (
-        // <AuthProvider>
-            <section className={cl('profile-page')}>
-                <ProSidebar>
-                    <Menu iconShape="square">
-                        <div className="profile-page_avatar">
-                            <div className="avatar">
-                                <img src={userDefaultAvatar} alt="user-avatar"/>
-                            </div>
-                            <div className="name">
-                                {userInfo.name}
-                            </div>
-                            <div className="load-photo">
-                                Загрузить фотографию
-                            </div>
+        <section className={cl('profile-page')}>
+            <ProSidebar>
+                <Menu iconShape="square">
+                    <div className="profile-page_avatar">
+                        <div className="avatar">
+                            <img src={userDefaultAvatar} alt="user-avatar"/>
                         </div>
-                        <MenuItem
-                            className={cl('available-courses')}
-                            icon={<BsFillJournalBookmarkFill/>}
-                            onClick={() => setPageState(page.availableCourses)}
-                            title="Мои курсы"
-                        >
-                            Мои курсы
-                        </MenuItem>
-                        {
-                            userState === user.teacher &&
-                            <>
-                                <MenuItem
-                                    className={cl('create-course')}
-                                    icon={<AiOutlinePlus/>}
-                                    title="Создать новый курс"
+                        <div className="name">
+                            {userInfo.firstName} {userInfo.lastName}
+                        </div>
+                        <div className="load-photo">
+                            Загрузить фотографию
+                        </div>
+                    </div>
+                    <MenuItem
+                        className={cl('available-courses')}
+                        icon={<BsFillJournalBookmarkFill/>}
+                        onClick={() => setPageState(page.availableCourses)}
+                        title="Мои курсы"
+                    >
+                        Мои курсы
+                    </MenuItem>
+                    {
+                        userState === user.teacher &&
+                        <>
+                            <MenuItem
+                                className={cl('create-course')}
+                                icon={<AiOutlinePlus/>}
+                                title="Создать новый курс"
+                                onClick={() => localStorage.removeItem('courseIdRedact')}
+                            >
+                                <Link
+                                    id='new-course'
+                                    to='/create-course-program'
                                 >
-                                    <Link
-                                        id='new-course'
-                                        to='/create-course-program'
-                                    >
-                                        Создать новый курс
-                                    </Link>
-                                </MenuItem>
-                            </>
-                        }
-                        <MenuItem
-                            className={cl('profile-settings')}
-                            icon={<FiSettings/>}
-                            onClick={() => setPageState(page.profileSettings)}
-                            title="Настойки пользователя"
-                        >
-                            Настойки пользователя
-                        </MenuItem>
-                    </Menu>
-                </ProSidebar>
-                <div className="profile-content">
-                    {
-                        pageState === page.availableCourses &&
-                        <AvailableCourses isTeacher={userState === user.teacher}/>
+                                    Создать новый курс
+                                </Link>
+                            </MenuItem>
+                        </>
                     }
-                    {
-                        pageState === page.profileSettings &&
-                        "settings"
-                    }
-                </div>
-            </section>
-        // </AuthProvider>
+                    <MenuItem
+                        className={cl('profile-settings')}
+                        icon={<FiSettings/>}
+                        onClick={() => setPageState(page.profileSettings)}
+                        title="Настойки пользователя"
+                    >
+                        Настойки пользователя
+                    </MenuItem>
+                </Menu>
+            </ProSidebar>
+            <div className="profile-content">
+                {
+                    pageState === page.availableCourses &&
+                    <AvailableCourses isTeacher={userState === user.teacher}/>
+                }
+                {
+                    pageState === page.profileSettings &&
+                    "settings"
+                }
+            </div>
+        </section>
     );
 }
 
