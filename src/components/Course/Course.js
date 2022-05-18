@@ -2,7 +2,7 @@ import React, {useEffect, useState} from "react";
 import cl from "classnames";
 import './Course.scss';
 import {getCourse} from "../../api/CoursesAPI";
-import ModulePreview from "../ModulePreview/ModulePreview";
+import AlertPreview from "../AlertPreview/AlertPreview";
 import courseImg from './../../imgs/brain.jpg';
 import {GiDiploma} from "react-icons/gi";
 import {BiTimeFive} from "react-icons/bi";
@@ -67,9 +67,10 @@ function Course({location}) {
                                         {
                                             course.modules
                                                 .map(module => (
-                                                    <ModulePreview
+                                                    <AlertPreview
                                                         key={module.id}
-                                                        module={module}
+                                                        name={module.name}
+                                                        description={module.description}
                                                     />
                                                 ))
                                         }

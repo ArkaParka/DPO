@@ -7,11 +7,19 @@ import {useEffect, useState} from "react";
 import {BiTask} from "react-icons/bi";
 import {BsFillJournalBookmarkFill, BsPencilFill} from "react-icons/bs";
 import Module from "./Module/Module";
-import {createCourse, deleteModule, getCourse, getCourseModules, getModuleTasks} from "../../api/CoursesAPI";
+import {
+    createCourse,
+    deleteModule,
+    getCourse,
+    getCourseModules,
+    getCourseAnnouncements,
+    getModuleTasks
+} from "../../api/CoursesAPI";
 import Course from "./Course/Course";
 import Task from "./Task/Task";
 import {RadioButton, RadioGroup} from "react-radio-buttons";
 import Test from "./Test/Test";
+import Announcements from "./Announcements/Announcements";
 
 export const createStates = {
     courseCreate: 'course-create',
@@ -30,6 +38,7 @@ function CourseProgram({}) {
     const [isCollapsed, setIsCollapsed] = useState(false);
     const [state, setState] = useState(createStates.courseCreate);
     const [modules, setModules] = useState([]);
+    const [announcements, setAnnouncements] = useState([]);
     const [tasks, setTasks] = useState([]);
     const [tests, setTests] = useState([]);
     const [test, setTest] = useState([]);
@@ -72,6 +81,10 @@ function CourseProgram({}) {
         let testsResponse = await getModuleTasks(module.id);
         console.log('testsResponse', testsResponse)
         setTests(testsResponse);
+
+        let announcementsResponse = await getCourseAnnouncements(module.id);
+        console.log('announcementsResponse', announcementsResponse)
+        setAnnouncements(announcementsResponse);
         // setTasks([
         //     {
         //         "moduleId": "62220eb828160b846e6f313b",
@@ -139,9 +152,14 @@ function CourseProgram({}) {
                                         key={i}
                                         title={module.name}
                                         onClick={() => {
-                                            handleModuleClick(module)
+                                            handleModuleClick(module).then(r => r);
                                         }}
                                     >
+                                        {
+                                            announcements.length ? announcements.map((announcement, i) => (
+                                                <Announcements announcement={announcement}/>
+                                            )) : null
+                                        }
                                         {
                                             tasks.length ? tasks.map((task, i) => (
                                                 <MenuItem

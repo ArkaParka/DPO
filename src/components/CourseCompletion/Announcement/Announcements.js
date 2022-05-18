@@ -1,9 +1,21 @@
-function Announcement({announcement}) {
+import AlertPreview from "../../AlertPreview/AlertPreview";
+import React from "react";
+
+function Announcements({announcements}) {
     return (
-        <div>
-            {announcement.name} {announcement.description}
-        </div>
+        <>
+            {
+                announcements?.length ? announcements
+                    .map((announcement, i) => (
+                        <AlertPreview
+                            key={module.id}
+                            name={announcement.name}
+                            description={announcement.description}
+                        />
+                )) : null
+            }
+        </>
     );
 }
 
-export default Announcement;
+export default Announcements;

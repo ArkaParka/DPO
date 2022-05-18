@@ -1,19 +1,25 @@
 import cl from "classnames";
-import {useState} from "react";
 import Quiz from 'react-quiz-component';
-import { quiz } from '../../CourseProgram/Test/quiz';
-
 
 function Test({test}) {
-    const [answer, setAnswer] = useState('');
 
-    function sendAnswer() {
-        console.log('answer', answer);
+    const sendQuizResult = (obj) => {
+        console.log(obj.toString());
+        // TODO: create Quiz then finish Quiz
+        // YOUR LOGIC GOES HERE
     }
 
     return (
         <section className={cl('test')}>
-            <Quiz quiz={quiz} shuffle={true}/>
+            {
+                test.quizConfig ?
+                    <Quiz
+                        quiz={test.quizConfig}
+                        onComplete={sendQuizResult}
+                        shuffle={true}
+                    /> :
+                    'Test is loading...'
+            }
         </section>
     );
 }

@@ -2,18 +2,23 @@ import './CourseCompletion.scss';
 import Sidebar from "../ProSidebar/Sidebar";
 import cl from "classnames";
 import React, {useEffect, useState} from "react";
-import {getCourse, getCourseModules, getModuleTasks} from "../../api/CoursesAPI";
+import {
+    getCourse,
+    getCourseModules,
+    getCourseAnnouncements,
+    getModuleTasks,
+    getModuleTests
+} from "../../api/CoursesAPI";
 import {taskTypes} from "../CourseProgram/CourseProgram";
 import Module from "./Module/Module";
 import Task from "./Task/Task";
 import Test from "./Test/Test";
-import Button from "@mui/material/Button";
-import {focusOnNextMenuItem} from "react-burger-menu/lib/helpers/dom";
-import {getNextActiveElement} from "bootstrap/js/src/util";
+import Announcements from "./Announcement/Announcements";
 
 export const completionStates = {
     module: 'module-completion',
     task: 'task-completion',
+    announcements: 'announcement-completion',
 }
 
 function CourseCompletion({}) {
@@ -26,6 +31,7 @@ function CourseCompletion({}) {
     const [task, setTask] = useState(null);
 
     const [modules, setModules] = useState([]);
+    const [announcements, setAnnouncements] = useState([]);
     const [tasks, setTasks] = useState({});
     const [tests, setTests] = useState({});
 
@@ -51,68 +57,23 @@ function CourseCompletion({}) {
         }
 
         let allTasks = {};
+        let allTests = {};
+
         modulesResponse.forEach((async (module) => {
             let tasksResponse = await getModuleTasks(module.id);
+            let testsResponse = await getModuleTests(module.id);
+
             allTasks[module.id] = tasksResponse;
-        }).then(() => {
-            setTasks(allTasks);
+            allTests[module.id] = testsResponse;
         }))
+
+        setTasks(allTasks);
+        setTests(allTests);
+
+        let announcementsResponse = await getCourseAnnouncements(localStorageCourseID);
+        setAnnouncements(announcementsResponse);
+
     }, [taskType, courseId]);
-
-    function goToTheNextPage() {
-        const moduleID = JSON.parse(module).id;
-        const nextTaskOrder = JSON.parse(task)?.order + 1 || 0;
-        const nextTestOrder = JSON.parse(test)?.order + 1 || 0;
-        const nextModuleOrder = JSON.parse(module)?.order + 1 || 0;
-
-        const firstTask = tasks[moduleID][0];
-        const lastTask = JSON.stringify(tasks[moduleID][tasks[moduleID].length - 1]);
-        const firstTest = tests[moduleID][0];
-        const lastTest = JSON.stringify(tests[moduleID][tests[moduleID].length - 1]);
-
-
-        const nextTask = tasks[moduleID][nextTaskOrder];
-        const nextTest = tests[moduleID][nextTestOrder];
-        const nextModule = modules[nextModuleOrder];
-
-        // console.log('task', task, firstTask, nextTask)
-        const isModuleOpen = state === completionStates.module;
-        const isTaskOpen = state === completionStates.task && taskTypes.task;
-        const isTestOpen = state === completionStates.task && taskTypes.test;
-
-        console.log('go to module', test, ' ', lastTest, isTestOpen)
-        // console.log('task === lastTask', task === lastTask, task, lastTask)
-        if (((isModuleOpen && task !== lastTask) || isTaskOpen) && nextTask) {
-            setTask(JSON.stringify(nextTask));
-            setState(completionStates.task);
-            setTaskType(taskTypes.task);
-        } else if (task === lastTask && isTaskOpen) {
-            setTest(JSON.stringify(firstTest));
-            setState(completionStates.task);
-            setTaskType(taskTypes.test);
-        } else if (isTestOpen && nextTest) {
-            console.log('next test')
-            setTest(JSON.stringify(nextTest));
-            setState(completionStates.task);
-            setTaskType(taskTypes.test);
-        } else if (test === lastTest && isTestOpen) {
-            console.log('go to module', test, lastTest, isTestOpen)
-            setOpenModule(JSON.stringify(nextModule));
-            setState(completionStates.module);
-        } else if (((isModuleOpen && task === lastTask) || isTaskOpen) && !nextTask) {
-            setTask(JSON.stringify(firstTask));
-            setState(completionStates.task);
-            setTaskType(taskTypes.task);
-        }
-
-        // if (nextTask) {
-        //     setTask(JSON.stringify(nextTask));
-        // }  else if (nextTest) {
-        //     setTest(JSON.stringify(nextTest));
-        // } else if (nextModule) {
-        //     setModule(JSON.stringify(nextModule));
-        // }
-    }
 
     function setDefaultData() {
         setModules([
@@ -208,7 +169,8 @@ function CourseCompletion({}) {
                         setTask,
                         modules,
                         tasks,
-                        tests
+                        tests,
+                        announcements
                     }
                 }
             />
@@ -226,16 +188,8 @@ function CourseCompletion({}) {
                     <Test test={JSON.parse(test) || undefined}/>
                 }
                 {
-                    modules?.length > 1 &&
-                    <div className="course-program-content_footer">
-                        <Button
-                            className={cl('next-btn', 'btn')}
-                            onClick={goToTheNextPage}
-                            variant="contained"
-                        >
-                            Дальше
-                        </Button>
-                    </div>
+                    state === completionStates.announcements &&
+                    <Announcements announcements={announcements}/>
                 }
             </div>
         </section>
