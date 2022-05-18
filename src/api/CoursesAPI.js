@@ -234,13 +234,13 @@ export async function deleteTest(id) {
     return response;
 }
 
-export async function setQuestionsTest(obj) {
+export async function setTestQuestions(obj) {
     let response = (await sendRequest(APIs.test.setQuestions, 'PUT', obj)).response;
     return response;
 }
 
-export async function getQuestions(id) {
-    let response = (await sendRequest(APIs.test.getQuestions + id, 'POST')).response;
+export async function getTestQuestions(id) {
+    let response = (await sendRequest(APIs.test.getQuestions + id, 'GET')).response;
     return response;
 }
 
@@ -258,6 +258,12 @@ export async function getModuleTasks(moduleId = '622204a228160b846e6f3132') {
 export async function getModuleTests(moduleId = '622204a228160b846e6f3132') {
     let response = await getModule(moduleId);
     return response?.tests ? response.tests : [];
+}
+
+export async function getCourseAnnouncements(moduleId = '622204a228160b846e6f3132') {
+    let response = await getCourse(moduleId);
+    console.log('resp', response);
+    return response?.announcements ? response.announcements : [];
 }
 
 class APIResponse extends Component {
@@ -432,7 +438,7 @@ class CoursesAPI extends Component {
     }
 
     async handleTestSetQuestions() {
-        let response = await setQuestionsTest(testQuestions);
+        let response = await setTestQuestions(testQuestions);
         this.setState({
             response: JSON.stringify(response)
         });
