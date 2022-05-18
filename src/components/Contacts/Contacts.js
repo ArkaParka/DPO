@@ -24,7 +24,7 @@ function Contacts() {
                     </div>
                     <div className="address item">
                         <FiMapPin/>
-                        ул. Вишневая, д.2
+                        просп. Академика Вернадского, 4, Симферополь
                     </div>
                     <div className="description">
                         <div className="description_title">
@@ -42,7 +42,7 @@ function Contacts() {
                         <Map
                             width={'100%'}
                             height={'100%'}
-                            defaultState={{ center: [55.75, 37.57], zoom: 9 }}
+                            defaultState={{ center: [44.936625091174285, 34.134192184707395], zoom: 13 }}
                         />
                     </YMaps>
                 </Card>
