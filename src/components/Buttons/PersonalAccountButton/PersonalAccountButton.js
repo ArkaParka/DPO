@@ -4,7 +4,12 @@ import {Link} from 'react-router-dom';
 import Button from "@mui/material/Button";
 import {DropdownButton, Dropdown} from "react-bootstrap";
 
-function PersonalAccountButton({keycloak}) {
+function PersonalAccountButton() {
+
+    function onLogout() {
+        window.location = 'https://web.local.dev/bff/auth/logout';
+    }
+
     return (
         <DropdownButton
             className={cl('personal-account-btn', 'btn')}
@@ -17,7 +22,7 @@ function PersonalAccountButton({keycloak}) {
             <Dropdown.Divider />
             <Link to='/'>
                 <Dropdown.Item
-                    onClick={() => {keycloak.logout()}}
+                    onClick={() => onLogout()}
                     href="#/action-2"
                 >
                     Выйти

@@ -2,13 +2,11 @@ import './AuthorizationButton.scss';
 import cl from "classnames";
 import {IconButton} from "@mui/material";
 import {BsDoorOpen} from "react-icons/bs";
-import Keycloak from "keycloak-js";
-import {useState} from "react";
 
-function AuthorizationButton({}) {
-    // const {isAuthenticated, keycloak} = useAuth();
+function AuthorizationButton() {
 
     function onLogin() {
+        window.location = 'https://web.local.dev/bff/auth/login';
     }
 
     return (
