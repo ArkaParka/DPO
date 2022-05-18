@@ -12,6 +12,7 @@ import CourseCompletion from "./components/CourseCompletion/CourseCompletion";
 import Contacts from "./components/Contacts/Contacts";
 
 // web.local.dev/bff/auth/getuser
+// web.local.dev/bff/auth/login
 
 function App() {
 
