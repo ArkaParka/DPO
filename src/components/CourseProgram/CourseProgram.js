@@ -4,12 +4,9 @@ import 'react-pro-sidebar/dist/css/styles.css';
 import './CourseProgram.scss';
 import {AiOutlineArrowLeft, AiOutlineMenu, AiOutlinePlus} from "react-icons/ai";
 import {useEffect, useState} from "react";
-import {BiTask} from "react-icons/bi";
 import {BsFillJournalBookmarkFill, BsPencilFill} from "react-icons/bs";
 import Module from "./Module/Module";
 import {
-    createCourse,
-    deleteModule,
     getCourse,
     getCourseModules,
     getCourseAnnouncements,
@@ -19,10 +16,11 @@ import Course from "./Course/Course";
 import Task from "./Task/Task";
 import {RadioButton, RadioGroup} from "react-radio-buttons";
 import Test from "./Test/Test";
-import Announcements from "./Announcements/Announcements";
+import Announcement from "./Announcement/Announcement";
 
 export const createStates = {
     courseCreate: 'course-create',
+    announcementCreate: 'announcement-create',
     moduleCreate: 'module-create',
     taskCreate: 'task-create',
     moduleRedact: 'module-redact',
@@ -44,7 +42,8 @@ function CourseProgram({}) {
     const [test, setTest] = useState([]);
     const [task, setTask] = useState(null);
     const [module, setModule] = useState(null);
-    const [course, setCourse] = useState(null);
+    const [course, setAnnouncement] = useState(null);
+    const [announcement, setCourse] = useState(null);
     const [taskType, setTaskType] = useState(null);
     const [courseId, setCourseId] = useState(localStorage.getItem('courseIdRedact') || '');
     const [moduleId, setModuleId] = useState('');
@@ -119,7 +118,6 @@ function CourseProgram({}) {
     }
 
 
-
     return (
         <section className={cl('course-program')}>
             <ProSidebar collapsed={isCollapsed}>
@@ -157,7 +155,17 @@ function CourseProgram({}) {
                                     >
                                         {
                                             announcements.length ? announcements.map((announcement, i) => (
-                                                <Announcements announcement={announcement}/>
+                                                <MenuItem
+                                                    key={i}
+                                                    onClick={(e) => {
+                                                        e.stopPropagation();
+                                                        setAnnouncement(JSON.stringify(announcement));
+                                                        setState(createStates.announcementCreate);
+                                                        console.log('announcement', announcement)
+                                                    }}
+                                                >
+                                                    {announcement.name}
+                                                </MenuItem>
                                             )) : null
                                         }
                                         {
@@ -237,6 +245,16 @@ function CourseProgram({}) {
                         isNewCourse={!courseId}
                         course={JSON.parse(course) || undefined}
                         setCourse={setCourse}
+                    />
+                }
+                {
+                    state === createStates.announcementCreate &&
+                    <Announcement
+                        isNewAnnouncement
+                        order={announcements.length}
+                        courseId={courseId}
+                        setAnnouncements={setAnnouncements}
+                        announcements={announcements}
                     />
                 }
                 {
