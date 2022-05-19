@@ -66,11 +66,11 @@ export const APIs = {
         create: '/api/Course/Create',
         get: '/api/Course/Get/',
         update: '/api/Course/Update',
-        delete: '/api/Course/Delete/'
+        delete: '/api/Course/Delete/',
+        signUser: '/api/Course/SignUser/'
     },
     сourseCatalog: {
-        get: 'api/Catalog/Get',
-        // get: 'api/CourseCatalog/Get?id='
+        get: 'api/Catalog/Get'
     },
     module: {
         create: '/api/Module/Create',
@@ -146,6 +146,16 @@ export function sendRequest(url, method, data) {
 
 export async function createCourse(course) {
     let response = (await sendRequest(APIs.course.create, 'POST', course)).response;
+    return response;
+}
+
+export async function signUserOnCourse(id = '6220a96e28160b846e6f3108') {
+    let response = (await sendRequest(APIs.course.signUser + id, 'POST')).response;
+    if (response.status == "Success") {
+        alert("Вы успешно зарегистрировались на курсе.")
+    } else {
+        alert("Не удалось записаться на курс.")
+    }
     return response;
 }
 
@@ -260,8 +270,8 @@ export async function getModuleTests(moduleId = '622204a228160b846e6f3132') {
     return response?.tests ? response.tests : [];
 }
 
-export async function getCourseAnnouncements(moduleId = '622204a228160b846e6f3132') {
-    let response = await getCourse(moduleId);
+export async function getCourseAnnouncements(courseId = '622204a228160b846e6f3132') {
+    let response = await getCourse(courseId);
     console.log('resp', response);
     return response?.announcements ? response.announcements : [];
 }

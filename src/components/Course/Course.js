@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import cl from "classnames";
 import './Course.scss';
-import {getCourse} from "../../api/CoursesAPI";
+import {getCourse, signUserOnCourse} from "../../api/CoursesAPI";
 import AlertPreview from "../AlertPreview/AlertPreview";
 import courseImg from './../../imgs/brain.jpg';
 import {GiDiploma} from "react-icons/gi";
@@ -44,6 +44,7 @@ function Course({location}) {
                     <Button
                         className={cl('course-sign-up-btn', 'btn')}
                         variant="contained"
+                        onClick={() => signUserOnCourse(course.id)}
                     >
                         Записаться на курс
                     </Button>

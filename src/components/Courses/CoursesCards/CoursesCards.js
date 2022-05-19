@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 import Button from '@mui/material/Button';
 import courseImg from '../../../imgs/brain.jpg';
 import './CoursesCards.scss';
-import {getCourseCatalog} from "../../../api/CoursesAPI";
+import {getCourseCatalog, signUserOnCourse} from "../../../api/CoursesAPI";
 import NoCourses from "../../Stubs/NoCourses";
 
 function CoursesCards({filters}) {
@@ -58,6 +58,7 @@ function CoursesCards({filters}) {
                                         <Button
                                             className={cl('course-sign-up-btn', 'btn')}
                                             variant="contained"
+                                            onClick={() => signUserOnCourse(course.id)}
                                         >
                                             Записаться на курс
                                         </Button>
